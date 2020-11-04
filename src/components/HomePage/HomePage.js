@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import  BasicModal  from "../BasicModalComponent/BasicModal";
 import {Jumbotron, Button, Col, Row} from 'reactstrap';
 import "./HomePage.scss";
 
@@ -29,7 +30,7 @@ class HomePage extends Component {
     constructor(props){
         super(props);
         this.state = {
-            showModalSignUp : false,
+            showModalSignUp : true,
             showModalSignIn : false,
         }
         this.toggleModalSignIn = this.toggleModalSignIn.bind(this)
@@ -45,7 +46,15 @@ class HomePage extends Component {
 
     render() {
         return (
-            <Header toggleModalSignIn={this.toggleModalSignIn} toggleModalSignUp={this.toggleModalSignUp}/>
+            <>
+                <Header toggleModalSignIn={this.toggleModalSignIn} toggleModalSignUp={this.toggleModalSignUp}/>
+                <BasicModal showModal={this.state.showModalSignUp} toggleModal={this.toggleModalSignUp} headerString = "SignUp">
+                    SighUpModal
+                </BasicModal>
+                <BasicModal showModal={this.state.showModalSignIn} toggleModal={this.toggleModalSignIn} headerString = "SignIn">
+                    SignInModal
+                </BasicModal>
+            </>
         );
     }
 }
