@@ -6,6 +6,7 @@
     height: 80vh;
     max-height: 80vh;
     color: $color-logo;
+    
 
     .slogan{
         margin-top: 40px;
@@ -20,13 +21,6 @@
         color: $color-logo;
     }
 
-    button{
-        color: $color-text;
-        background-color: $color-accent;
-        padding: 10px 60px;
-        font-size: 20px;
-        border-radius: 50px;
-    }
 }
 
 @media only screen and (max-width: 800px) {
