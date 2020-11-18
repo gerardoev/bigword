@@ -3,7 +3,7 @@ import  BasicModal  from "../BasicModalComponent/BasicModal";
 import {Jumbotron, Button, Col, Row, Form, FormGroup, Label, Input} from 'reactstrap';
 import "./HomePage.scss";
 import {toast} from "react-toastify";
-import { signInApi } from "../../api/auth";
+import { signInApi, setTokenApi } from "../../api/auth";
 
 
 const Header = ({toggleModalSignIn, toggleModalSignUp}) => {
@@ -179,8 +179,8 @@ class HomePage extends Component {
 
                 toast.warning(response.message);
             }else{
-                toast.done("Inicio de sesión exitoso");
-                console.log(response.token);
+                toast.success("Inicio de sesión exitoso");
+                setTokenApi(response.token);
             }
         })
         event.preventDefault();
