@@ -172,8 +172,6 @@ class HomePage extends Component {
         });
     }
     logInHandleSubmit(event){
-        console.log('Estado actual: '+JSON.stringify(this.state.login));
-        alert('Estado actual: '+JSON.stringify(this.state.login));
         signInApi(this.state.login).then(response =>{
             if (response.message){
 

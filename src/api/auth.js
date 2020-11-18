@@ -1,4 +1,5 @@
 import {API_HOST, TOKEN} from "../utils/constants";
+import jwtDecode from "jwt-decode";
 
 export function signInApi(user){
     const url = `${API_HOST}/login`;
@@ -35,4 +36,41 @@ export function signInApi(user){
 
 export function setTokenApi(token){
     localStorage.setItem(TOKEN,token);
+}
+
+//obtiene el token del local storage (si existe, ni no, devuelve none)
+export function getTokenApi(){
+    return localStorage.getItem(TOKEN);
+}
+
+//elimina el token del local storage
+export function logoutApi(){
+    localStorage.removeItem(TOKEN)
+}
+
+
+export function isUserLoggedApi(){
+    const token = getTokenApi();
+
+    if(!token){ //Si no existe el token
+        logoutApi(); //por si acaso está dañado
+        return null;
+    }
+    //comprobar si el token ha caducado
+    if(isExpired(token)){
+        logoutApi();
+    }
+    return jwtDecode(token);
+}
+
+function isExpired(token){
+    //Decodificamos el token (verlo en un navegador y obtener las variables que se desean, en este caso exp)
+    const {exp}  = jwtDecode(token);
+    const expire = exp * 1000;
+    const timeout = expire - Date.now();
+
+    if(timeout < 0){
+        return true;
+    }
+    return false;
 }
