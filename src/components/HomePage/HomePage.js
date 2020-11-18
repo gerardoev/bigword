@@ -127,6 +127,7 @@ class HomePage extends Component {
                 email: "",
                 password: ""
             },
+            setRefreshCheckLogin: props.setRefreshCheckLogin,
         };
         this.toggleModalSignIn = this.toggleModalSignIn.bind(this);
         this.toggleModalSignUp = this.toggleModalSignUp.bind(this);
@@ -179,9 +180,13 @@ class HomePage extends Component {
             }else{
                 toast.success("Inicio de sesión exitoso");
                 setTokenApi(response.token);
+                this.state.setRefreshCheckLogin(true);
             }
-        })
+        }).catch(() => {
+            toast.error("Error del servidor, intentelo más tarde");
+        });
         event.preventDefault();
+        this.toggleModalSignIn();
     }
 
     render() {
@@ -192,7 +197,7 @@ class HomePage extends Component {
                     <FormularioSignUp signUpHandleInputChange={this.signUpHandleInputChange} signUpHandleSubmit={this.signUpHandleSubmit} state={this.state.registro}/>
                 </BasicModal>
                 <BasicModal showModal={this.state.showModalSignIn} toggleModal={this.toggleModalSignIn} headerString = "SignIn">
-                    <FormularioLogin logInHandleInputChange={this.logInHandleInputChange} logInHandleSubmit={this.logInHandleSubmit} state={this.state.login}/>
+                    <FormularioLogin logInHandleInputChange={this.logInHandleInputChange} logInHandleSubmit={this.logInHandleSubmit} state={this.state.login} />
                 </BasicModal>
             </div>
         );
