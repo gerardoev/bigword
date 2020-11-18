@@ -1,6 +1,38 @@
 import {API_HOST, TOKEN} from "../utils/constants";
 import jwtDecode from "jwt-decode";
 
+export function signUpApi(user){
+    const url = `${API_HOST}/registro`;
+    var userTemp = user;
+    delete user.repetirContraseña;
+    console.log("signUpapi......");
+    userTemp = {
+        ...user,
+        email:user.email.toLowerCase()
+    };
+    console.log("user:"+userTemp);
+    const params = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(userTemp)
+    };
+
+    return fetch(url, params).then( response =>{
+        if(response.status >= 200 && response.status < 300){
+            return response.json();
+        }
+        return {cose: 404, message: "Email no disponible"};
+    })
+    .then(result =>{
+        return result;
+    })
+    .catch(err => {
+        return err;
+    })
+}
+
 export function signInApi(user){
     const url = `${API_HOST}/login`;
 

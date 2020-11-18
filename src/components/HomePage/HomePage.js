@@ -3,7 +3,7 @@ import  BasicModal  from "../BasicModalComponent/BasicModal";
 import {Jumbotron, Button, Col, Row, Form, FormGroup, Label, Input} from 'reactstrap';
 import "./HomePage.scss";
 import {toast} from "react-toastify";
-import { signInApi, setTokenApi } from "../../api/auth";
+import { signInApi, signUpApi, setTokenApi } from "../../api/auth";
 
 
 const Header = ({toggleModalSignIn, toggleModalSignUp}) => {
@@ -80,7 +80,7 @@ const FormularioSignUp = ({signUpHandleInputChange, signUpHandleSubmit, state}) 
                         <Label htmlFor="nombre">Correo</Label>
                     </Col>
                     <Col xs={12} md={10}>
-                        <Input type="email" placeholder="Correo" name="correo" id="correo" value={state.correo} onChange={signUpHandleInputChange}/>
+                        <Input type="email" placeholder="Correo" name="email" id="email" value={state.email} onChange={signUpHandleInputChange}/>
                     </Col>
                 </Row>
                 <Row>
@@ -88,7 +88,7 @@ const FormularioSignUp = ({signUpHandleInputChange, signUpHandleSubmit, state}) 
                         <Label htmlFor="contraseña">Contraseña</Label>
                     </Col>
                     <Col xs={12} md={4}>
-                        <Input type="password" placeholder="Contraseña" name="contraseña" id="contraseña" value={state.contraseña} onChange={signUpHandleInputChange}/>
+                        <Input type="password" placeholder="Contraseña" name="password" id="password" value={state.password} onChange={signUpHandleInputChange}/>
                     </Col>
                     <Col xs={12} md={2}>
                         <Label htmlFor="repeat_contraseña">Repetir Contraseña</Label>
@@ -119,8 +119,8 @@ class HomePage extends Component {
             registro: {
                 nombre: "",
                 apellidos: "",
-                correo: "",
-                contraseña: "",
+                email: "",
+                password: "",
                 repetirContraseña: ""
             },
             login: {
@@ -132,7 +132,7 @@ class HomePage extends Component {
         this.toggleModalSignIn = this.toggleModalSignIn.bind(this);
         this.toggleModalSignUp = this.toggleModalSignUp.bind(this);
         this.signUpHandleInputChange = this.signUpHandleInputChange.bind(this);
-        this.signUpHandleSubmit = this.logInHandleSubmit.bind(this);
+        this.signUpHandleSubmit = this.signUpHandleSubmit.bind(this);
         this.logInHandleInputChange = this.logInHandleInputChange.bind(this);
         this.logInHandleSubmit = this.logInHandleSubmit.bind(this);
     }
@@ -156,8 +156,28 @@ class HomePage extends Component {
         });
     }
     signUpHandleSubmit(event){
-        console.log('Estado actual: '+JSON.stringify(this.state.registro));
-        alert('Estado actual: '+JSON.stringify(this.state.registro));
+        console.log("ginUp submit.....");
+        signUpApi(this.state.registro).then(response =>{
+            if(response.code){
+                toast.warning(response.message);
+            } else {
+                toast.success("Registro exitoso");
+                this.toggleModalSignUp();
+                this.setState({
+                    ...this.state,
+                    registro: {
+                        nombre: "",
+                        apellidos: "",
+                        email: "",
+                        password: "",
+                        repetirContraseña: ""
+                    }
+                });
+            }
+        })
+        .catch(() => {
+            toast.error("Error del servidor, inténtelo más tarde");
+        });
         event.preventDefault();
     }
     logInHandleInputChange(event) {
