@@ -1,2 +1,25 @@
 @import "./colors.scss";
-@import "./fonts.scss"
+@import "./fonts.scss";
+
+
+
+//Botón general
+.btn:hover{
+    background-color: $color-accent-dark;
+}
+
+.btn-secondary{
+    color: white;
+    background-color: $color-accent;
+    padding: 10px 60px;
+    font-size: 20px;
+    font-weight: 900;
+    border-radius: 50px;
+}
+.btn-seconady:hover{
+    background-color: $color-accent-dark;
+}
+.btn-secondary:focus{
+    background-color: $color-accent-dark;
+}
+  
