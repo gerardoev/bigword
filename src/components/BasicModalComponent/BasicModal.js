@@ -4,16 +4,14 @@ import "./BasicModal.scss";
 
 const BasicModal = ({children,showModal,toggleModal, headerString}) => {
     return (
-        <div className="basic-modal">
-            <Modal isOpen={showModal} toggle={toggleModal} centered={true} className="modal-custom">
-                <ModalHeader>
-                    {headerString}
-                </ModalHeader>
-                <ModalBody>
-                    {children}
-                </ModalBody>
-            </Modal>
-        </div>
+        <Modal isOpen={showModal} toggle={toggleModal} centered={true} className="modal-custom">
+            <ModalHeader>
+                {headerString}
+            </ModalHeader>
+            <ModalBody>
+                {children}
+            </ModalBody>
+        </Modal>
     );
 };
 

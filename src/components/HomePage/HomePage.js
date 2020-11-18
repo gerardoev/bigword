@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import  BasicModal  from "../BasicModalComponent/BasicModal";
-import {Jumbotron, Button, Col, Row} from 'reactstrap';
+import {Jumbotron, Button, Col, Row, Form, FormGroup, Label, Input} from 'reactstrap';
 import "./HomePage.scss";
 
 
@@ -25,13 +25,29 @@ const Header = ({toggleModalSignIn, toggleModalSignUp}) => {
     );
 };
 
+const FormularioLogin = () =>{
+    return(
+        <Form>
+            <FormGroup>
+                <Row>
+                    <Col xs={12} md={2}>
+                        <Label htmlFor="nombre">Nombre</Label>
+                    </Col>
+                    <Col xs={12} md={10}>
+                        <Input type="text" placeholder="Nombre"/>
+                    </Col>
+                </Row>
+            </FormGroup>
+        </Form>
+    );
+}
 
 class HomePage extends Component {
     constructor(props){
         super(props);
         this.state = {
-            showModalSignUp : true,
-            showModalSignIn : false,
+            showModalSignUp : false,
+            showModalSignIn : true,
         }
         this.toggleModalSignIn = this.toggleModalSignIn.bind(this)
         this.toggleModalSignUp = this.toggleModalSignUp.bind(this)
@@ -52,7 +68,7 @@ class HomePage extends Component {
                     SighUpModal
                 </BasicModal>
                 <BasicModal showModal={this.state.showModalSignIn} toggleModal={this.toggleModalSignIn} headerString = "SignIn">
-                    SignInModal
+                    <FormularioLogin/>
                 </BasicModal>
             </>
         );

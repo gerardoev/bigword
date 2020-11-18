@@ -1,8 +1,6 @@
 @import "../../scss/index.scss";
 
-.basic-modal{
 
-}
 .modal-custom{
     .modal-content{
         background-color: $color-primary-dark;
@@ -13,5 +11,13 @@
         .modal-header{
             border-bottom: 1px solid $color-divider;
         }
+    }
+}
+
+@media (min-width: 800px){
+    
+    .modal-dialog {
+        max-width: 800px !important;
+        margin: 1.75rem auto;
     }
 }
