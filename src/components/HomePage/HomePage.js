@@ -3,6 +3,7 @@ import  BasicModal  from "../BasicModalComponent/BasicModal";
 import {Jumbotron, Button, Col, Row, Form, FormGroup, Label, Input} from 'reactstrap';
 import "./HomePage.scss";
 import {toast} from "react-toastify";
+import { signInApi } from "../../api/auth";
 
 
 const Header = ({toggleModalSignIn, toggleModalSignUp}) => {
@@ -35,7 +36,7 @@ const FormularioLogin = ({logInHandleInputChange, logInHandleSubmit, state}) =>{
                         <Label htmlFor="nombre">Correo</Label>
                     </Col>
                     <Col xs={12} md={10}>
-                        <Input type="email" placeholder="Correo" name="correo" id="correo" value={state.correo} onChange={logInHandleInputChange}/>
+                        <Input type="email" placeholder="Correo" name="email" id="email" value={state.email} onChange={logInHandleInputChange}/>
                     </Col>
                 </Row>
                 <Row>
@@ -43,7 +44,7 @@ const FormularioLogin = ({logInHandleInputChange, logInHandleSubmit, state}) =>{
                         <Label htmlFor="nombre">Contraseña</Label>
                     </Col>
                     <Col xs={12} md={10}>
-                        <Input type="password" placeholder="Contraseña" name="contraseña" id="constraseña" value={state.contraseña} onChange={logInHandleInputChange}/>
+                        <Input type="password" placeholder="Contraseña" name="password" id="password" value={state.password} onChange={logInHandleInputChange}/>
                     </Col>
                 </Row>
                 <Row>
@@ -123,8 +124,8 @@ class HomePage extends Component {
                 repetirContraseña: ""
             },
             login: {
-                correo: "",
-                contraseña: ""
+                email: "",
+                password: ""
             },
         };
         this.toggleModalSignIn = this.toggleModalSignIn.bind(this);
@@ -173,6 +174,15 @@ class HomePage extends Component {
     logInHandleSubmit(event){
         console.log('Estado actual: '+JSON.stringify(this.state.login));
         alert('Estado actual: '+JSON.stringify(this.state.login));
+        signInApi(this.state.login).then(response =>{
+            if (response.message){
+
+                toast.warning(response.message);
+            }else{
+                toast.done("Inicio de sesión exitoso");
+                console.log(response.token);
+            }
+        })
         event.preventDefault();
     }
 
