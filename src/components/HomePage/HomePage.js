@@ -26,16 +26,16 @@ const Header = ({toggleModalSignIn, toggleModalSignUp}) => {
     );
 };
 
-const FormularioLogin = () =>{
+const FormularioLogin = ({logInHandleInputChange, logInHandleSubmit, state}) =>{
     return(
-        <Form>
+        <Form onSubmit={logInHandleSubmit}>
             <FormGroup>
                 <Row>
                     <Col xs={12} md={2}>
                         <Label htmlFor="nombre">Correo</Label>
                     </Col>
                     <Col xs={12} md={10}>
-                        <Input type="email" placeholder="Correo" name="correo" id="correo"/>
+                        <Input type="email" placeholder="Correo" name="correo" id="correo" value={state.correo} onChange={logInHandleInputChange}/>
                     </Col>
                 </Row>
                 <Row>
@@ -43,7 +43,7 @@ const FormularioLogin = () =>{
                         <Label htmlFor="nombre">Contraseña</Label>
                     </Col>
                     <Col xs={12} md={10}>
-                        <Input type="password" placeholder="Contraseña" name="password" id="password"/>
+                        <Input type="password" placeholder="Contraseña" name="contraseña" id="constraseña" value={state.contraseña} onChange={logInHandleInputChange}/>
                     </Col>
                 </Row>
                 <Row>
@@ -56,22 +56,22 @@ const FormularioLogin = () =>{
     );
 };
 
-const FormularioSignUp = () =>{
+const FormularioSignUp = ({signUpHandleInputChange, signUpHandleSubmit, state}) =>{
     return(
-        <Form>
+        <Form onSubmit={signUpHandleSubmit}>
             <FormGroup>
                 <Row>
                     <Col xs={12} md={2}>
                         <Label htmlFor="nombre">Nombre</Label>
                     </Col>
                     <Col xs={12} md={4}>
-                        <Input type="text" placeholder="Nombre" name="nombre" id="nombre"/>
+                        <Input type="text" placeholder="Nombre" name="nombre" id="nombre" value={state.nombre} onChange={signUpHandleInputChange}/>
                     </Col>
                     <Col xs={12} md={2}>
                         <Label htmlFor="nombre">Apellidos</Label>
                     </Col>
                     <Col xs={12} md={4}>
-                        <Input type="text" placeholder="Apellidos" name="apellidos" id="apellidos"/>
+                        <Input type="text" placeholder="Apellidos" name="apellidos" id="apellidos" value={state.apellidos} onChange={signUpHandleInputChange}/>
                     </Col>
                 </Row>
                 <Row>
@@ -79,7 +79,7 @@ const FormularioSignUp = () =>{
                         <Label htmlFor="nombre">Correo</Label>
                     </Col>
                     <Col xs={12} md={10}>
-                        <Input type="email" placeholder="Correo" name="correo" id="correo"/>
+                        <Input type="email" placeholder="Correo" name="correo" id="correo" value={state.correo} onChange={signUpHandleInputChange}/>
                     </Col>
                 </Row>
                 <Row>
@@ -87,13 +87,13 @@ const FormularioSignUp = () =>{
                         <Label htmlFor="contraseña">Contraseña</Label>
                     </Col>
                     <Col xs={12} md={4}>
-                        <Input type="password" placeholder="Contraseña" name="contraseña" id="contraseña"/>
+                        <Input type="password" placeholder="Contraseña" name="contraseña" id="contraseña" value={state.contraseña} onChange={signUpHandleInputChange}/>
                     </Col>
                     <Col xs={12} md={2}>
                         <Label htmlFor="repeat_contraseña">Repetir Contraseña</Label>
                     </Col>
                     <Col xs={12} md={4}>
-                        <Input type="password" placeholder="Repetir contraseña" name="repeat_contraseña" id="repeat_contraseña"/>
+                        <Input type="password" placeholder="Repetir contraseña" name="repetirContraseña" id="repetirConstraseña" value={state.repetirContraseña} onChange={signUpHandleInputChange}/>
                     </Col>
                 </Row>
                 <Row>
@@ -113,11 +113,26 @@ class HomePage extends Component {
     constructor(props){
         super(props);
         this.state = {
-            showModalSignUp : true,
+            showModalSignUp : false,
             showModalSignIn : false,
-        }
-        this.toggleModalSignIn = this.toggleModalSignIn.bind(this)
-        this.toggleModalSignUp = this.toggleModalSignUp.bind(this)
+            registro: {
+                nombre: "",
+                apellidos: "",
+                correo: "",
+                contraseña: "",
+                repetirContraseña: ""
+            },
+            login: {
+                correo: "",
+                contraseña: ""
+            },
+        };
+        this.toggleModalSignIn = this.toggleModalSignIn.bind(this);
+        this.toggleModalSignUp = this.toggleModalSignUp.bind(this);
+        this.signUpHandleInputChange = this.signUpHandleInputChange.bind(this);
+        this.signUpHandleSubmit = this.logInHandleSubmit.bind(this);
+        this.logInHandleInputChange = this.logInHandleInputChange.bind(this);
+        this.logInHandleSubmit = this.logInHandleSubmit.bind(this);
     }
 
     toggleModalSignUp(){
@@ -126,16 +141,50 @@ class HomePage extends Component {
     toggleModalSignIn(){
         this.setState({showModalSignIn: !this.state.showModalSignIn})
     }
+    signUpHandleInputChange(event) {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+
+        this.setState({
+            registro: {
+                ...this.state.registro,
+                [name]: value
+            }
+        });
+    }
+    signUpHandleSubmit(event){
+        console.log('Estado actual: '+JSON.stringify(this.state.registro));
+        alert('Estado actual: '+JSON.stringify(this.state.registro));
+        event.preventDefault();
+    }
+    logInHandleInputChange(event) {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+
+        this.setState({
+            login: {
+                ...this.state.login,
+                [name]: value
+            }
+        });
+    }
+    logInHandleSubmit(event){
+        console.log('Estado actual: '+JSON.stringify(this.state.login));
+        alert('Estado actual: '+JSON.stringify(this.state.login));
+        event.preventDefault();
+    }
 
     render() {
         return (
             <div className="home-page">
                 <Header toggleModalSignIn={this.toggleModalSignIn} toggleModalSignUp={this.toggleModalSignUp}/>
                 <BasicModal showModal={this.state.showModalSignUp} toggleModal={this.toggleModalSignUp} headerString = "SignUp">
-                    <FormularioSignUp/>
+                    <FormularioSignUp signUpHandleInputChange={this.signUpHandleInputChange} signUpHandleSubmit={this.signUpHandleSubmit} state={this.state.registro}/>
                 </BasicModal>
                 <BasicModal showModal={this.state.showModalSignIn} toggleModal={this.toggleModalSignIn} headerString = "SignIn">
-                    <FormularioLogin/>
+                    <FormularioLogin logInHandleInputChange={this.logInHandleInputChange} logInHandleSubmit={this.logInHandleSubmit} state={this.state.login}/>
                 </BasicModal>
             </div>
         );
