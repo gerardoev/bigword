@@ -4,7 +4,7 @@ class MainComponent extends Component {
     render() {
         return (
             <div>
-                
+                Logeado
             </div>
         );
     }
