@@ -1,28 +1,41 @@
 import React, { Component } from 'react';
 import  BasicModal  from "../BasicModalComponent/BasicModal";
-import {Jumbotron, Button, Col, Row, Form, FormGroup, Label, Input} from 'reactstrap';
+import {Jumbotron, Button, Col, Row, Form, FormGroup, Label, Input, Container} from 'reactstrap';
 import "./HomePage.scss";
 import {toast} from "react-toastify";
 import { signInApi, signUpApi, setTokenApi } from "../../api/auth";
 
-
+const Banner = () => {
+    return(
+        <div className="banner">
+            <iframe src="https://my.visme.co/_embed/g78k3gz8-bw" width="851" height="315" allowFullScreen={false}>
+            </iframe>
+            <p>
+                Made with 
+                <a href="https://www.visme.co/?vc=Made-With-Visme&amp;utm_medium=Embed" target="_blank">
+                    Visme
+                </a>
+            </p>
+        </div>
+    );
+};
 const Header = ({toggleModalSignIn, toggleModalSignUp}) => {
     return (
         <Jumbotron>
-                <h1 className="logo">bigword</h1>
-                <h4 class="slogan">Menten un registro de tu vocabulario</h4>
-                <Row>
-                    <Col xs="12" md="6">
-                        <Button id="btnIngresar" onClick={toggleModalSignIn}>
-                            Ingresar
-                        </Button>
-                    </Col>
-                    <Col xs="12" md="6">
-                        <Button onClick={toggleModalSignUp}>
-                            Registro
-                        </Button>
-                    </Col>
-                </Row>
+            <h1 className="logo">bigword</h1>
+            <h4 class="slogan">Menten un registro de tu vocabulario</h4>
+            <Row>
+                <Col xs="12" md="6">
+                    <Button id="btnIngresar" onClick={toggleModalSignIn}>
+                        Ingresar
+                    </Button>
+                </Col>
+                <Col xs="12" md="6">
+                    <Button onClick={toggleModalSignUp}>
+                        Registro
+                    </Button>
+                </Col>
+            </Row>
         </Jumbotron>
     );
 };
@@ -213,6 +226,9 @@ class HomePage extends Component {
         return (
             <div className="home-page">
                 <Header toggleModalSignIn={this.toggleModalSignIn} toggleModalSignUp={this.toggleModalSignUp}/>
+                <Container>
+                    <Banner/>
+                </Container>
                 <BasicModal showModal={this.state.showModalSignUp} toggleModal={this.toggleModalSignUp} headerString = "SignUp">
                     <FormularioSignUp signUpHandleInputChange={this.signUpHandleInputChange} signUpHandleSubmit={this.signUpHandleSubmit} state={this.state.registro}/>
                 </BasicModal>
@@ -225,3 +241,20 @@ class HomePage extends Component {
 }
 
 export default HomePage;
+
+/*
+    <h1 className="logo">bigword</h1>
+                <h4 class="slogan">Menten un registro de tu vocabulario</h4>
+                <Row>
+                    <Col xs="12" md="6">
+                        <Button id="btnIngresar" onClick={toggleModalSignIn}>
+                            Ingresar
+                        </Button>
+                    </Col>
+                    <Col xs="12" md="6">
+                        <Button onClick={toggleModalSignUp}>
+                            Registro
+                        </Button>
+                    </Col>
+                </Row>
+*/
