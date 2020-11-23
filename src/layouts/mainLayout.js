@@ -1,9 +1,14 @@
 import React from 'react';
 import { Button, Container, Row, Col } from "reactstrap";
-import { Link } from "react-router-dom";
+import { logoutApi } from "../api/auth";
 import "./mainLayout.scss";
 
 const MenuLateral = () => {
+    const cerrarSes = () =>{
+        logoutApi();
+        window.location.reload();
+    }
+
     return(
         <div className="menu-lateral">
             <Container>
@@ -12,7 +17,7 @@ const MenuLateral = () => {
                         <Button className="boton-menu">Nueva Categoría</Button>
                     </Col>
                     <Col className="d-flex align-items-end">
-                        <p>Cerrar sesion</p>
+                        <p onClick={() => cerrarSes()}>Cerrar sesion</p>
                     </Col>
                 </Row>
             </Container>
