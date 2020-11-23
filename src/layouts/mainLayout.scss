@@ -1,0 +1,39 @@
+@import "../../src/scss/index.scss";
+
+.main-layout{
+    .container{
+        max-width: 100vw;
+        padding: 0px;
+        margin: 0px;
+        .col-2{
+            max-width: 160px;
+        }
+    }
+    .menu-lateral{
+        background-color: $color-primary-dark;
+        width: 150px;
+        height: 100vh;
+        padding: 10px;
+        .container{
+            height: 100%;
+            .row{
+                height: 100%;
+                .boton-menu{
+                    font-size: 15px;
+                    width: 100%;
+                    padding: 10px 25px;
+                }
+                p{
+                    color:white;
+                    font-size: 15px;
+                    font-weight: 900;
+                    margin-bottom: 50px;
+                    &:hover{
+                        color: $color-text-secondary;
+                        cursor: pointer;
+                    }
+                }   
+            }
+        }
+    }
+}

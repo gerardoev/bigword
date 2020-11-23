@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import  MainLayout  from "../../layouts/mainLayout";
 
 class MainComponent extends Component {
     render() {
         return (
             <div>
-                Logeado
+                <MainLayout>
+                    Logeado
+                </MainLayout>
             </div>
         );
     }
