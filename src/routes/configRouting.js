@@ -1,7 +1,9 @@
 import React from 'react';
 import MainComponent from "../components/MainComponent/MainComponent";
 import Error404 from "../components/Error404/Error404";
-import CompletarJuego from "../components/CompletarJuego/completarJuego";
+import {toast} from "react-toastify";
+import CompletarJuego from '../components/CompletarJuego/completarJuego';
+import MainLayout from '../layouts/mainLayout';
 
 export default [
     {
@@ -9,10 +11,11 @@ export default [
         exact: true,
         component: <MainComponent/>
     },
+    //debe ser llamado por el menú
     {
         route: "/completar",
         exact: true,
-        component: <CompletarJuego/>
+        component: <MainLayout><CompletarJuego/></MainLayout>
     },
     {
         route: "*",

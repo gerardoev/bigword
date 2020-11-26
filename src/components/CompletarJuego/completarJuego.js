@@ -1,10 +1,14 @@
 import React, {useEffect, useState } from 'react';
 import {Input, Button, Row, Col} from "reactstrap";
+import {toast} from "react-toastify";
 import "./completarJuego.scss";
 
-function CompletarJuego() {
-    const [palabras, setPalabras] = useState(estadoTemporal());
-    const [palabraActual, setPalabraActual] = useState(palabras[1]);  
+function CompletarJuego({palabras}) {
+    if (!palabras){
+        toast.warning("Debe seleccionar una categoria desde el menú");
+    }
+
+    const [palabraActual, setPalabraActual] = useState();  
     console.log(palabras);
 
     useEffect(() =>{
@@ -12,7 +16,7 @@ function CompletarJuego() {
     },[palabraActual]);
 
     const [ejemploRecortado, setEjemploRecortado] = useState("Descubrimos que la _______ es una de los síntomas del coronavirus");
-    const [estadoJuego, setEstadoJuego] = useState(estadoJuegoInicial(palabras.length));
+    const [estadoJuego, setEstadoJuego] = useState(estadoJuegoInicial(palabras?.length));
 
     return(
         <div className="completar-juego">
