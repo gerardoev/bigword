@@ -3,6 +3,7 @@ import MainComponent from "../components/MainComponent/MainComponent";
 import Error404 from "../components/Error404/Error404";
 import {toast} from "react-toastify";
 import CompletarJuego from '../components/CompletarJuego/completarJuego';
+import CategoriaPage from '../components/CategoriaPage/CategoriaPage';
 import MainLayout from '../layouts/mainLayout';
 
 export default [
@@ -16,6 +17,11 @@ export default [
         route: "/completar",
         exact: true,
         component: <MainLayout><CompletarJuego/></MainLayout>
+    },
+    {
+        route: "/categoria",
+        exact: true,
+        component: <MainLayout><CategoriaPage/></MainLayout>
     },
     {
         route: "*",

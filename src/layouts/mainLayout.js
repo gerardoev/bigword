@@ -16,14 +16,15 @@ const MenuLateral = () => {
     const MenuCategoria= ()  =>{
         return(
             <Col>
-                 <NavLink to="/" className="btn-secondary">Categorias</NavLink>
+                <Button className="boton-menu">Nueva Palabra</Button>
+                 <NavLink to="/"><p>Categorias</p></NavLink>
             </Col>
         );
     }
     const MenuJuego= ()  =>{
         return(
             <Col>
-                <NavLink to="/categoria" className="btn-secondary boton-menu">Palabras</NavLink>
+                <NavLink to="/categoria"><p>Palabras</p></NavLink>
             </Col>
         );
     }
