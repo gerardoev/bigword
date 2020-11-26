@@ -14,7 +14,7 @@ export default [
     },
     //debe ser llamado por el menú
     {
-        route: "/completar",
+        route: "/completar/:idCategoria",
         exact: true,
         component: <MainLayout><CompletarJuego/></MainLayout>
     },

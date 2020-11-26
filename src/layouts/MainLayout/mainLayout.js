@@ -6,6 +6,7 @@ import {NavLink} from "react-router-dom";
 import GridLayout from '../GridLayout/GridLayout';
 
 const MenuLateral = () => {
+    const idCategoria = 1;
     console.log(window.location.pathname);
     const MenuPrincipal= ()  =>{
         return(
@@ -18,14 +19,15 @@ const MenuLateral = () => {
         return(
             <Col>
                 <Button className="boton-menu">Nueva Palabra</Button>
-                 <NavLink to="/"><p>Categorias</p></NavLink>
+                <NavLink to={`/completar/${idCategoria}`}><p>Jugar</p></NavLink>
+                <NavLink to="/"><p>Categorias</p></NavLink>
             </Col>
         );
     }
     const MenuJuego= ()  =>{
         return(
             <Col>
-                <NavLink to="/categoria"><p>Palabras</p></NavLink>
+                <NavLink to={`/categoria/${idCategoria}`}><p>Palabras</p></NavLink>
             </Col>
         );
     }
@@ -35,7 +37,7 @@ const MenuLateral = () => {
     }
 
     const renderMenu = (path) =>{
-        if (path === "/completar"){
+        if (path.includes("/completar")){
             return <MenuJuego/>
         }
         if (path === "/"){
