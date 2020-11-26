@@ -4,7 +4,7 @@ import Error404 from "../components/Error404/Error404";
 import {toast} from "react-toastify";
 import CompletarJuego from '../components/CompletarJuego/completarJuego';
 import CategoriaPage from '../components/CategoriaPage/CategoriaPage';
-import MainLayout from '../layouts/mainLayout';
+import MainLayout from '../layouts/MainLayout/mainLayout';
 
 export default [
     {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Container, Row, Col } from "reactstrap";
-import { logoutApi } from "../api/auth";
+import { logoutApi } from "../../api/auth";
 import "./mainLayout.scss";
 import {NavLink} from "react-router-dom";
 
