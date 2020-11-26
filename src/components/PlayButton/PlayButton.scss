@@ -1,0 +1,11 @@
+@import "../../scss/index.scss";
+
+.play-button{
+    svg{
+        fill: white;
+        width: 50px;
+    }
+    &:hover{
+        cursor: pointer;
+    }
+}
