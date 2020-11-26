@@ -1,6 +1,11 @@
 @import "../../src/scss/index.scss";
 
 .main-layout{
+    .btn-secondary{
+        &:hover{
+            text-decoration: none;
+        }
+    }
     .container{
         max-width: 100vw;
         padding: 0px;

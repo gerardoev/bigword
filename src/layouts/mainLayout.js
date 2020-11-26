@@ -2,20 +2,53 @@ import React from 'react';
 import { Button, Container, Row, Col } from "reactstrap";
 import { logoutApi } from "../api/auth";
 import "./mainLayout.scss";
+import {NavLink} from "react-router-dom";
 
 const MenuLateral = () => {
+    console.log(window.location.pathname);
+    const MenuPrincipal= ()  =>{
+        return(
+            <Col>
+                <Button className="boton-menu">Nueva Categoria</Button>
+            </Col>
+        );
+    }
+    const MenuCategoria= ()  =>{
+        return(
+            <Col>
+                 <NavLink to="/" className="btn-secondary">Categorias</NavLink>
+            </Col>
+        );
+    }
+    const MenuJuego= ()  =>{
+        return(
+            <Col>
+                <NavLink to="/categoria" className="btn-secondary boton-menu">Palabras</NavLink>
+            </Col>
+        );
+    }
     const cerrarSes = () =>{
         logoutApi();
         window.location.reload();
     }
 
+    const renderMenu = (path) =>{
+        if (path === "/completar"){
+            return <MenuJuego/>
+        }
+        if (path === "/"){
+            return <MenuPrincipal/>
+        }
+        if (path === "/categoria"){
+            return <MenuCategoria/>
+        }
+    }
+    const path = window.location.pathname;
     return(
         <div className="menu-lateral">
             <Container>
                 <Row>
-                    <Col>
-                        <Button className="boton-menu">Nueva Categoría</Button>
-                    </Col>
+                    {renderMenu(path)}
                     <Col className="d-flex align-items-end">
                         <p onClick={() => cerrarSes()}>Cerrar sesion</p>
                     </Col>
