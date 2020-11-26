@@ -19,7 +19,7 @@ export default [
         component: <MainLayout><CompletarJuego/></MainLayout>
     },
     {
-        route: "/categoria",
+        route: "/categoria/:idCategoria",
         exact: true,
         component: <MainLayout><CategoriaPage/></MainLayout>
     },

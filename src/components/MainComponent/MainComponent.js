@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import  MainLayout  from "../../layouts/MainLayout/mainLayout";
 import CategoriaComponent from "../CategoriaComponent/CategoriaComponent";
+import GridLayout from "../../layouts/GridLayout/GridLayout";
 
 class MainComponent extends Component {
     constructor(props){
@@ -21,7 +22,7 @@ class MainComponent extends Component {
             {
                 id: 2,
                 nombreCategoria: "Inglés",
-                color: "#311b92"
+                color: "#FFC107"
             }
             ,
             {
@@ -33,7 +34,7 @@ class MainComponent extends Component {
             {
                 id: 4,
                 nombreCategoria: "Chino",
-                color: "#311b92"
+                color: "#FFC107"
             }
             ,
             {
@@ -60,7 +61,9 @@ class MainComponent extends Component {
         return (
             <div>
                 <MainLayout>
-                    {renderCategorias()}
+                    <GridLayout>
+                        {renderCategorias()}
+                    </GridLayout>
                 </MainLayout>
             </div>
         );

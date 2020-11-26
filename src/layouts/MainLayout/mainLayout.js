@@ -41,7 +41,7 @@ const MenuLateral = () => {
         if (path === "/"){
             return <MenuPrincipal/>
         }
-        if (path === "/categoria"){
+        if (path.includes("/categoria")){
             return <MenuCategoria/>
         }
     }
@@ -70,9 +70,7 @@ const MainLayout = ({children}) => {
                         <MenuLateral/>
                     </Col>
                     <Col xs={10}>
-                        <GridLayout>
-                            {children}
-                        </GridLayout>
+                        {children}
                     </Col>
                 </Row>
             </Container>
