@@ -3,6 +3,7 @@ import { Button, Container, Row, Col } from "reactstrap";
 import { logoutApi } from "../../api/auth";
 import "./mainLayout.scss";
 import {NavLink} from "react-router-dom";
+import GridLayout from '../GridLayout/GridLayout';
 
 const MenuLateral = () => {
     console.log(window.location.pathname);
@@ -69,7 +70,9 @@ const MainLayout = ({children}) => {
                         <MenuLateral/>
                     </Col>
                     <Col xs={10}>
-                        {children}
+                        <GridLayout>
+                            {children}
+                        </GridLayout>
                     </Col>
                 </Row>
             </Container>

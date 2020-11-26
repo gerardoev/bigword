@@ -1,15 +1,16 @@
 import React from 'react';
 import "./CategoriaComponent.scss";
-import {DeleteIcon} from "../../utils/icons"
+import {DeleteIcon} from "../../utils/icons";
+import {Col} from "reactstrap";
 
-const CategoriaComponent = () => {
-    const color = "#d84315";
-    const nombre = "Francés";
+const CategoriaComponent = ({color, nombre}) => {
     return (
-        <div className="categoria-component" style={{backgroundColor: color}}>
-            <DeleteIcon/>
-            <p>{nombre}</p>
-        </div>
+        <Col>
+            <div className="categoria-component" style={{backgroundColor: color}}>
+                <DeleteIcon/>
+                <p>{nombre}</p>
+            </div>
+        </Col>
     );
 };
 

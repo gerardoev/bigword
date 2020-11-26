@@ -1,0 +1,11 @@
+@import "../../scss/index.scss";
+
+.grid-layout{
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+    .col{
+        margin-top: 10px;
+        margin-bottom: 20px
+    }
+}
