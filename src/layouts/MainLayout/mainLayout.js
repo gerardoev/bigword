@@ -23,7 +23,8 @@ function MenuLateral({agregarCategoria, agregarPalabra, openModal}) {
                     significado: "Fácil",
                     ejemplos: ["The way was too easy, I got boared"],
                     imagen: ""
-                })}>Nueva Palabra</Button>
+                })}
+                onClick={() => openModal()}>Nueva Palabra</Button>
                 <NavLink to={`/completar/${idCategoria}`}><p>Jugar</p></NavLink>
                 <NavLink to="/"><p>Categorias</p></NavLink>
             </Col>
