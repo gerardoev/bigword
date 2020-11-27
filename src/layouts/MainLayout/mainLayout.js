@@ -4,17 +4,13 @@ import { logoutApi } from "../../api/auth";
 import "./mainLayout.scss";
 import {NavLink} from "react-router-dom";
 
-function MenuLateral({agregarCategoria, agregarPalabra}) {
+function MenuLateral({agregarCategoria, agregarPalabra, openModal}) {
     const idCategoria = 1;
     console.log(window.location.pathname);
     const MenuPrincipal = ({ agregarCategoria }) => {
         return (
             <Col>
-                <Button className="boton-menu" onClick={() => agregarCategoria({
-                    id: 0,
-                    nombreCategoria: "Francés",
-                    color: "#1b5e20"
-                })}>Nueva Categoria</Button>
+                <Button className="boton-menu" onClick={() => openModal()}>Nueva Categoria</Button>
             </Col>
         );
     };
@@ -71,13 +67,13 @@ function MenuLateral({agregarCategoria, agregarPalabra}) {
     );
 }
 
-const MainLayout = ({children, agregarCategoria, agregarPalabra}) => {
+const MainLayout = ({children, agregarCategoria, agregarPalabra, openModal}) => {
     return (
         <div className="main-layout">
             <Container>
                 <Row>
                     <Col xs={2}>
-                        <MenuLateral agregarCategoria={agregarCategoria} agregarPalabra={agregarPalabra}/>
+                        <MenuLateral agregarCategoria={agregarCategoria} agregarPalabra={agregarPalabra} openModal={openModal}/>
                     </Col>
                     <Col xs={10}>
                         {children}
