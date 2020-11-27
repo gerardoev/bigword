@@ -12,7 +12,7 @@ const getPalabrasApi = () =>{
                 palabra: "want",
                 significado: "querer",
                 ejemplos: [
-                    "I want you"
+                    "I want an apple"
                 ],
                 imagen: ""
             },

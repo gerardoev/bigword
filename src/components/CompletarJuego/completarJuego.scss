@@ -1,6 +1,10 @@
 @import "../../scss/index.scss";
 
 .completar-juego{
+    p{
+        color: white;
+        font-weight: 900;
+    }
     border-radius: 2%;
     background-color: $color-juego;
     width: calc(100vw - 240 px);
