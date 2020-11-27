@@ -4,6 +4,11 @@ import {Jumbotron, Button, Col, Row, Form, FormGroup, Label, Input, Container} f
 import "./HomePage.scss";
 import {toast} from "react-toastify";
 import { signInApi, signUpApi, setTokenApi } from "../../api/auth";
+import { Player } from 'video-react';
+import VideoImagen from "../../assets/images/video-pic.png";
+import GerardoImagen from "../../assets/images/gerardo.jpeg";
+import AlfredoImagen from "../../assets/images/alfredo.jpg";
+import VideoBigWord from "../../assets/videos/BIGWORDVIDEO.mp4";
 
 const Banner = () => {
     return(
@@ -227,7 +232,48 @@ class HomePage extends Component {
             <div className="home-page">
                 <Header toggleModalSignIn={this.toggleModalSignIn} toggleModalSignUp={this.toggleModalSignUp}/>
                 <Container>
-                    <Banner/>
+                    <Row>
+                        <Banner/>
+                    </Row>
+                    <Row>
+                        <Player
+                            playsInline
+                            poster={VideoImagen}
+                            src={VideoBigWord}
+                        />
+                    </Row>
+                    <Row>
+                    <section class="page-section bg-light" id="team">
+                        <div class="container">
+                            <div class="text-center">
+                                <h2 class="section-heading text-uppercase">Desarrolladores</h2>
+                                <h3 class="section-subheading text-muted">Somos estudiantes de la Benemérita Universidad Autónoma de Puebla</h3>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="team-member">
+                                        <img class="mx-auto rounded-circle" src={GerardoImagen} alt="" />
+                                        <h4>Gerardo Erick Villa Aguilar</h4>
+                                        <p class="text-muted">Desarrollador Web</p>
+                                        <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
+                                        <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
+                                        <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-linkedin-in"></i></a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="team-member">
+                                        <img class="mx-auto rounded-circle" src={AlfredoImagen} alt="" />
+                                        <h4>José Alfredo García Hernández</h4>
+                                        <p class="text-muted">Desarrollador Web</p>
+                                        <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
+                                        <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
+                                        <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-linkedin-in"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    </Row>
                 </Container>
                 <BasicModal showModal={this.state.showModalSignUp} toggleModal={this.toggleModalSignUp} headerString = "SignUp">
                     <FormularioSignUp signUpHandleInputChange={this.signUpHandleInputChange} signUpHandleSubmit={this.signUpHandleSubmit} state={this.state.registro}/>
