@@ -3,3 +3,27 @@
 .categoria-page{
     
 }
+
+.modal-content{
+    .palabra-card{
+        &__palabra{
+            h1{
+                text-align: center;
+                font-size: 60px;
+                font-weight: 900;
+            }
+        }
+        &__significado{
+            margin-top: 30px;
+            h3{
+                display: inline;
+                margin-right: 30px;
+                font-size: 30px;
+                font-weight: 100;
+            }
+        }
+        &__ejemplos{
+            margin-top: 60px;
+        }
+    }
+}

@@ -16,4 +16,17 @@ const CategoriaComponent = ({color, nombre}) => {
     );
 };
 
+
+export const PalabraComponent = ({color, nombre, onClick}) => {
+    const idPalabra = 1;
+    return (
+        <Col>
+            <div className="categoria-component" style={{backgroundColor: color}} onClick={onClick}>
+                <DeleteIcon/>
+                <p>{nombre}</p>
+            </div>
+        </Col>
+    );
+};
+
 export default CategoriaComponent;
