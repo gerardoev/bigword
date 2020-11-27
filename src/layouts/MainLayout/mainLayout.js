@@ -3,52 +3,61 @@ import { Button, Container, Row, Col } from "reactstrap";
 import { logoutApi } from "../../api/auth";
 import "./mainLayout.scss";
 import {NavLink} from "react-router-dom";
-import GridLayout from '../GridLayout/GridLayout';
 
-const MenuLateral = () => {
+function MenuLateral({agregarCategoria, agregarPalabra}) {
     const idCategoria = 1;
     console.log(window.location.pathname);
-    const MenuPrincipal= ()  =>{
-        return(
+    const MenuPrincipal = ({ agregarCategoria }) => {
+        return (
             <Col>
-                <Button className="boton-menu">Nueva Categoria</Button>
+                <Button className="boton-menu" onClick={() => agregarCategoria({
+                    id: 0,
+                    nombreCategoria: "Francés",
+                    color: "#1b5e20"
+                })}>Nueva Categoria</Button>
             </Col>
         );
-    }
-    const MenuCategoria= ()  =>{
-        return(
+    };
+    const MenuCategoria = ({agregarP}) => {
+        return (
             <Col>
-                <Button className="boton-menu">Nueva Palabra</Button>
+                <Button className="boton-menu" onClick={() => agregarP({
+                    id: 3,
+                    palabra: "easy",
+                    significado: "Fácil",
+                    ejemplos: ["The way was too easy, I got boared"],
+                    imagen: ""
+                })}>Nueva Palabra</Button>
                 <NavLink to={`/completar/${idCategoria}`}><p>Jugar</p></NavLink>
                 <NavLink to="/"><p>Categorias</p></NavLink>
             </Col>
         );
-    }
-    const MenuJuego= ()  =>{
-        return(
+    };
+    const MenuJuego = () => {
+        return (
             <Col>
                 <NavLink to={`/categoria/${idCategoria}`}><p>Palabras</p></NavLink>
             </Col>
         );
-    }
-    const cerrarSes = () =>{
+    };
+    const cerrarSes = () => {
         logoutApi();
         window.location.reload();
-    }
+    };
 
-    const renderMenu = (path) =>{
-        if (path.includes("/completar")){
-            return <MenuJuego/>
+    const renderMenu = (path) => {
+        if (path.includes("/completar")) {
+            return <MenuJuego />;
         }
-        if (path === "/"){
-            return <MenuPrincipal/>
+        if (path === "/") {
+            return <MenuPrincipal agregarCategoria={agregarCategoria} />;
         }
-        if (path.includes("/categoria")){
-            return <MenuCategoria/>
+        if (path.includes("/categoria")) {
+            return <MenuCategoria agregarP={agregarPalabra} />;
         }
-    }
+    };
     const path = window.location.pathname;
-    return(
+    return (
         <div className="menu-lateral">
             <Container>
                 <Row>
@@ -62,14 +71,13 @@ const MenuLateral = () => {
     );
 }
 
-const MainLayout = ({children}) => {
-
+const MainLayout = ({children, agregarCategoria, agregarPalabra}) => {
     return (
         <div className="main-layout">
             <Container>
                 <Row>
                     <Col xs={2}>
-                        <MenuLateral/>
+                        <MenuLateral agregarCategoria={agregarCategoria} agregarPalabra={agregarPalabra}/>
                     </Col>
                     <Col xs={10}>
                         {children}

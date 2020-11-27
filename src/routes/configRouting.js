@@ -21,7 +21,7 @@ export default [
     {
         route: "/categoria/:idCategoria",
         exact: true,
-        component: <MainLayout><CategoriaPage/></MainLayout>
+        component: <CategoriaPage/>
     },
     {
         route: "*",

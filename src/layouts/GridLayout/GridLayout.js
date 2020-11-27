@@ -8,7 +8,7 @@ const GridLayout = ({children}) => {
         <div className="grid-layout">
             <Container >
                 <Row>
-                    { children.map((child) =>{
+                    { children?.map((child) =>{
                         return (
                             <Col xs={12} sm={5} md={4} lg={3}>
                                 {child}

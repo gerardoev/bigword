@@ -57,9 +57,9 @@ const PalabraCard = ({palabraSeleccionada}) =>{
     );
 }
 
-const CategoriaPage = () => {
+const CategoriaPage = ({}) => {
     const [palabraSeleccionada, setPalabraSeleccionada] = useState(palabraInitialState());
-    const [palabras, setPalabras] = useState();
+    const [palabras, setPalabras] = useState(getPalabrasApi());
     const [cambioPalabra, setCambioPalabra] = useState(false);
     const [showModal, setShowModal] = useState(false);
     
@@ -71,26 +71,37 @@ const CategoriaPage = () => {
         setPalabraSeleccionada(palabra);
         setShowModal(true);
     }
+
+    const agregarPalabra = (palabra) =>{
+        console.log("hola");
+        const palabras_copy = [...palabras];
+        palabras_copy.push(palabra);
+        console.log(palabras_copy);
+        setPalabras(palabras_copy);
+    }
     
     const renderPalabras = (palabras)=>{
         console.log("se renderizan las palabras");
         return(
-            palabras?.map((palabra) =>{
-                return(
-                    <PalabraComponent key={palabra.id} color={"#1b5e20"} nombre={palabra.palabra} onClick={() => onClickPalabra(palabra)}/>
-                );
-            })
+            
+                palabras?.map((palabra) =>{
+                    return(
+                        <PalabraComponent key={palabra.id} color={"#1b5e20"} nombre={palabra.palabra} onClick={() => onClickPalabra(palabra)}/>
+                    );
+                })
         );
     }
     return (
-        <div className="categoria-page">
-                <GridLayout>
-                    {renderPalabras(getPalabrasApi())}
-                </GridLayout>
-                <BasicModal showModal={showModal} toggleModal={toggleModal} >
-                    <PalabraCard palabraSeleccionada={palabraSeleccionada}/>
-                </BasicModal>
-        </div>
+        <MainLayout agregarPalabra={(palabra) => agregarPalabra(palabra)}>
+            <div className="categoria-page">
+                    <GridLayout>
+                        {renderPalabras(palabras)}
+                    </GridLayout>
+                    <BasicModal showModal={showModal} toggleModal={toggleModal} >
+                        <PalabraCard palabraSeleccionada={palabraSeleccionada}/>
+                    </BasicModal>
+            </div>
+        </MainLayout>
     );
 };
 

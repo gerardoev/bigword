@@ -7,7 +7,49 @@ class MainComponent extends Component {
     constructor(props){
         super(props);
         this.state = {
-            estadoTemporal: [
+            estadoTemporal: []
+        };
+    }
+
+    
+
+    render() {
+        const renderCategorias = ()=>{
+            return(
+                this.state.estadoTemporal?.map((categoria) =>{
+                    console.log(categoria.nombreCategoria);
+                    return(
+                        <CategoriaComponent key={categoria.id} color={categoria.color} nombre={categoria.nombreCategoria}/>
+                    );
+                })
+            );
+        }
+
+        const agregarCategoria = (categoria) => {
+            const listaActual = this.state.estadoTemporal;
+            listaActual.push(categoria);
+            this.setState({
+                ...this.state,
+                estadoTemporal: listaActual
+            });
+        };
+
+        return (
+            <div>
+                <MainLayout agregarCategoria={agregarCategoria}>
+                    <GridLayout>
+                        {renderCategorias()}
+                    </GridLayout>
+                </MainLayout>
+            </div>
+        );
+    }
+}
+
+export default MainComponent;
+
+/*
+[
             {
                 id: 0,
                 nombreCategoria: "Francés",
@@ -43,31 +85,4 @@ class MainComponent extends Component {
                 color: "#1b5e20"
             }
         ]
-        };
-    }
-
-
-    render() {
-        const renderCategorias = ()=>{
-            return(
-                this.state.estadoTemporal.map((categoria) =>{
-                    console.log(categoria.nombreCategoria);
-                    return(
-                        <CategoriaComponent key={categoria.id} color={categoria.color} nombre={categoria.nombreCategoria}/>
-                    );
-                })
-            );
-        }
-        return (
-            <div>
-                <MainLayout>
-                    <GridLayout>
-                        {renderCategorias()}
-                    </GridLayout>
-                </MainLayout>
-            </div>
-        );
-    }
-}
-
-export default MainComponent;
+*/
