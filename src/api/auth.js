@@ -1,36 +1,17 @@
 import {API_HOST, TOKEN} from "../utils/constants";
 import jwtDecode from "jwt-decode";
+import {auth} from "../firebase";
 
-export function signUpApi(user){
-    const url = `${API_HOST}/registro`;
-    var userTemp = user;
-    delete user.repetirContraseña;
-    console.log("signUpapi......");
-    userTemp = {
-        ...user,
-        email:user.email.toLowerCase()
-    };
-    console.log("user:"+userTemp);
-    const params = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(userTemp)
-    };
-
-    return fetch(url, params).then( response =>{
-        if(response.status >= 200 && response.status < 300){
-            return response.json();
-        }
-        return {cose: 404, message: "Email no disponible"};
-    })
-    .then(result =>{
-        return result;
-    })
-    .catch(err => {
-        return err;
-    })
+export const signUpFireBase = async (email, password) => {
+    return await auth.createUserWithEmailAndPassword(email,password)
+            .then((user) => {
+                return user;
+            })
+            .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                return `Error ${errorCode}: ${errorMessage}`;
+            });
 }
 
 export function signInApi(user){

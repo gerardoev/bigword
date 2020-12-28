@@ -6,6 +6,7 @@ import './index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import "react-toastify/dist/ReactToastify.css";
+import "./firebase";
 
 ReactDOM.render(
     <App />,

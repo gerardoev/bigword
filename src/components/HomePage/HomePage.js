@@ -3,7 +3,7 @@ import  BasicModal  from "../BasicModalComponent/BasicModal";
 import {Jumbotron, Button, Col, Row, Form, FormGroup, Label, Input, Container} from 'reactstrap';
 import "./HomePage.scss";
 import {toast} from "react-toastify";
-import { signInApi, signUpApi, setTokenApi } from "../../api/auth";
+import { signInApi, signUpFireBase, setTokenApi } from "../../api/auth";
 import { Player } from 'video-react';
 import VideoImagen from "../../assets/images/video-pic.png";
 import GerardoImagen from "../../assets/images/gerardo.jpeg";
@@ -173,29 +173,26 @@ class HomePage extends Component {
             }
         });
     }
-    signUpHandleSubmit(event){
-        console.log("ginUp submit.....");
-        signUpApi(this.state.registro).then(response =>{
-            if(response.code){
-                toast.warning(response.message);
-            } else {
+    signUpHandleSubmit(event) {
+        signUpFireBase(this.state.registro.email,  this.state.registro.password)
+            .then((user) => {
                 toast.success("Registro exitoso");
-                this.toggleModalSignUp();
-                this.setState({
-                    ...this.state,
-                    registro: {
-                        nombre: "",
-                        apellidos: "",
-                        email: "",
-                        password: "",
-                        repetirContraseña: ""
-                    }
-                });
+            })
+            .catch((error) => {
+                toast.warning(error);
+            });
+        console.log("Modal cerrado");
+        this.setState({
+            ...this.state,
+            registro: {
+                nombre: "",
+                apellidos: "",
+                email: "",
+                password: "",
+                repetirContraseña: ""
             }
-        })
-        .catch(() => {
-            toast.error("Error del servidor, inténtelo más tarde");
         });
+        this.toggleModalSignUp();
         event.preventDefault();
     }
     logInHandleInputChange(event) {
