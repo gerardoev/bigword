@@ -5,6 +5,14 @@ import GridLayout from "../../layouts/GridLayout/GridLayout";
 import BasicModal from "../BasicModalComponent/BasicModal";
 import {FormGroup, Input, Button } from "reactstrap";
 import { withRouter } from 'react-router-dom';
+import { connect } from "react-redux";
+
+const mapStateToProps = state => {
+    return {
+        categorias: state.categorias,
+        palabras: state.palabras
+    }
+}
 
 class MainComponent extends Component {
     constructor(props){
@@ -25,7 +33,7 @@ class MainComponent extends Component {
     render() {
         const renderCategorias = ()=>{
             return(
-                this.state.estadoTemporal?.map((categoria) =>{
+                this.props.categorias.map((categoria) =>{
                     console.log(categoria.nombreCategoria);
                     return(
                         <CategoriaComponent key={categoria.id} color={categoria.color} nombre={categoria.nombreCategoria}/>
@@ -94,8 +102,9 @@ class MainComponent extends Component {
             cerrarModal();
         };
 
+
         return (
-            <div>
+            <>
                 <MainLayout agregarCategoria={agregarCategoria} openModal={() => openModal()}>
                     <GridLayout>
                         {renderCategorias()}
@@ -109,12 +118,12 @@ class MainComponent extends Component {
                         </FormGroup>
                     </BasicModal>
                 </MainLayout>
-            </div>
+            </>
         );
     }
 }
 
-export default MainComponent;
+export default withRouter(connect(mapStateToProps)(MainComponent));
 
 /*
 [
