@@ -6,6 +6,11 @@ import BasicModal from "../BasicModalComponent/BasicModal";
 import {FormGroup, Input, Button } from "reactstrap";
 import { withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
+import { addCategory } from "../../redux/actionCreators";
+
+const mapDispatchToProps = dispatch => ({
+    addCategory: (nombreCategoria, color) => dispatch(addCategory(nombreCategoria,color))
+});
 
 const mapStateToProps = state => {
     return {
@@ -75,12 +80,7 @@ class MainComponent extends Component {
         }
 
         const agregarCategoria = (categoria) => {
-            const listaActual = this.state.estadoTemporal;
-            listaActual.push(categoria);
-            this.setState({
-                ...this.state,
-                estadoTemporal: listaActual
-            });
+            this.props.addCategory(categoria.nombreCategoria, "#b71c1c");
         };
 
         const onCrearCategoria = () => {
@@ -123,7 +123,7 @@ class MainComponent extends Component {
     }
 }
 
-export default withRouter(connect(mapStateToProps)(MainComponent));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MainComponent));
 
 /*
 [
