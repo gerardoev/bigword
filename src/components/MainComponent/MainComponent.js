@@ -14,8 +14,7 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = state => {
     return {
-        categorias: state.categorias,
-        palabras: state.palabras
+        categorias: state.categorias
     }
 }
 
@@ -41,7 +40,7 @@ class MainComponent extends Component {
                 this.props.categorias.map((categoria) =>{
                     console.log(categoria.nombreCategoria);
                     return(
-                        <CategoriaComponent key={categoria.id} color={categoria.color} nombre={categoria.nombreCategoria}/>
+                        <CategoriaComponent key={categoria.id} color={categoria.color} nombre={categoria.nombreCategoria} idCategoria={categoria.id}/>
                     );
                 })
             );

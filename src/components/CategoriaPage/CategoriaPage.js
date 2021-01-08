@@ -4,7 +4,10 @@ import {PalabraComponent} from "../CategoriaComponent/CategoriaComponent";
 import  MainLayout  from "../../layouts/MainLayout/mainLayout";
 import  GridLayout  from "../../layouts/GridLayout/GridLayout";
 import  BasicModal from "../BasicModalComponent/BasicModal";
+import { withRouter } from "react-router-dom";
 import {FormGroup, Input, Button} from "reactstrap";
+import { connect } from "react-redux";
+import { addWord } from "../../redux/actionCreators";
 
 const getPalabrasApi = () =>{
     return(
@@ -58,12 +61,21 @@ const PalabraCard = ({palabraSeleccionada}) =>{
     );
 }
 
+const mapDispatchToProps = dispatch => ({
+    addWord: (palabra, significado, ejemplos, idCategoria ) => dispatch(addWord(palabra, significado, ejemplos, idCategoria))
+});
+
+const mapStateToProps = state => {
+    return {
+        palabras: state.palabras
+    }
+}
 
 
-const CategoriaPage = ({}) => {
+
+const CategoriaPage = (props) => {
+    const {idCategoria} = props.match.params;
     const [palabraSeleccionada, setPalabraSeleccionada] = useState(palabraInitialState());
-    const [palabras, setPalabras] = useState(getPalabrasApi());
-    const [cambioPalabra, setCambioPalabra] = useState(false);
     const [showModalPalabra, setShowModalPalabra] = useState(false);
     const [showModalNuevaP, setShowModalNuevaP] = useState(false);
     const [nuevaPSTate, setNuevaPState] = useState({
@@ -72,6 +84,11 @@ const CategoriaPage = ({}) => {
         significado: "",
         color: "#b71c1c"
     });
+
+    useEffect(() => {
+        console.log(idCategoria);
+    });
+
     const openModal = () =>{
         setShowModalNuevaP(
             true
@@ -97,13 +114,10 @@ const CategoriaPage = ({}) => {
     }
 
     const agregarPalabra = (palabra) =>{
-        const palabras_copy = [...palabras];
         const palabra_copy = palabra;
         palabra_copy["ejemplos"] = [palabra_copy.ejemplo];
         delete palabra_copy.ejemplo;
-        palabras_copy.push(palabra_copy);
-        console.log(palabras_copy);
-        setPalabras(palabras_copy);
+        props.addWord(palabra.palabra,palabra.significado, palabra.ejemplo,idCategoria);
     }
 
     const onChangeHandler = (event) =>{
@@ -130,7 +144,6 @@ const CategoriaPage = ({}) => {
         cerrarModal();
     };
     const renderPalabras = (palabras)=>{
-        console.log("se renderizan las palabras");
         return(
             
                 palabras?.map((palabra) =>{
@@ -144,7 +157,7 @@ const CategoriaPage = ({}) => {
         <MainLayout agregarPalabra={(palabra) => agregarPalabra(palabra)} openModal={() => openModal()}>
             <div className="categoria-page">
                     <GridLayout>
-                        {renderPalabras(palabras)}
+                        {renderPalabras(props.palabras)}
                     </GridLayout>
                     <BasicModal showModal={showModalPalabra} toggleModal={toggleModalPalabra}>
                         <PalabraCard palabraSeleccionada={palabraSeleccionada}/>
@@ -177,4 +190,4 @@ const palabraInitialState = () =>{
     }
 }
 
-export default CategoriaPage;
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(CategoriaPage));

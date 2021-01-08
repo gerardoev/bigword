@@ -4,11 +4,10 @@ import {DeleteIcon} from "../../utils/icons";
 import {Col} from "reactstrap";
 import { Link } from "react-router-dom";
 
-const CategoriaComponent = ({color, nombre}) => {
-    const idPalabra = 1;
+const CategoriaComponent = ({color, nombre, idCategoria}) => {
     return (
         <Col>
-            <Link to={`/categoria/${idPalabra}`} className="categoria-component" style={{backgroundColor: color}}>
+            <Link to={`/categoria/${idCategoria}`} className="categoria-component" style={{backgroundColor: color}}>
                 <DeleteIcon/>
                 <p>{nombre}</p>
             </Link>
