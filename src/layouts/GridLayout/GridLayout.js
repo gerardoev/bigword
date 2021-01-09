@@ -8,9 +8,9 @@ const GridLayout = ({children}) => {
         <div className="grid-layout">
             <Container >
                 <Row>
-                    { children?.map((child) =>{
+                    { children?.map((child, index) =>{
                         return (
-                            <Col xs={12} sm={5} md={4} lg={3}>
+                            <Col xs={12} sm={5} md={4} lg={3} key={index}>
                                 {child}
                             </Col>
                         );
