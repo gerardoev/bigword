@@ -117,7 +117,7 @@ const CategoriaPage = (props) => {
         const palabra_copy = palabra;
         palabra_copy["ejemplos"] = [palabra_copy.ejemplo];
         delete palabra_copy.ejemplo;
-        props.addWord(palabra.palabra,palabra.significado, palabra.ejemplo,idCategoria);
+        props.addWord(palabra_copy.palabra,palabra_copy.significado, palabra_copy.ejemplos,idCategoria);
     }
 
     const onChangeHandler = (event) =>{
