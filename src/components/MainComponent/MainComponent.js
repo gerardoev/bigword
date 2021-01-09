@@ -7,9 +7,10 @@ import {FormGroup, Input, Button } from "reactstrap";
 import { withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
 import { addCategory } from "../../redux/actionCreators";
+import { db } from "../../firebase";
 
 const mapDispatchToProps = dispatch => ({
-    addCategory: (nombreCategoria, color) => dispatch(addCategory(nombreCategoria,color))
+    addCategory: (nombreCategoria, color, id) => dispatch(addCategory(nombreCategoria,color, id))
 });
 
 const mapStateToProps = state => {
@@ -25,7 +26,6 @@ class MainComponent extends Component {
             estadoTemporal: [],
             showModal: false,
             modalState: {
-                id: 0,
                 nombreCategoria: "",
                 color: "#b71c1c"
             }
@@ -78,8 +78,15 @@ class MainComponent extends Component {
             });
         }
 
-        const agregarCategoria = (categoria) => {
-            this.props.addCategory(categoria.nombreCategoria, "#b71c1c");
+        const agregarCategoria =  (categoria) => {
+            db.collection("categorias").add(categoria)
+            .then((docRef) =>{
+                this.props.addCategory(categoria.nombreCategoria, "#b71c1c", docRef.id);
+                console.log("Categoria añadida correctamente");
+            })
+            .catch((error) =>{
+                console.log("Error al añadir la categoria:", error);
+            });
         };
 
         const onCrearCategoria = () => {
@@ -87,7 +94,6 @@ class MainComponent extends Component {
                 ...this.state,
                 modalState: {
                     ...this.state.modalState,
-                    id: this.state.modalState.id +1
                 }
             });
             agregarCategoria(this.state.modalState);

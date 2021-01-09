@@ -1,8 +1,9 @@
 import * as ActionTypes from "./actionTypes";
 
-export const addCategory = (nombreCategoria, color) => ({
+export const addCategory = (nombreCategoria, color, id) => ({
     type: ActionTypes.ADD_CATEGORY,
     payload: {
+        id,
         nombreCategoria,
         color
     }
