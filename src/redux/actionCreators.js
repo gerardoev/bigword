@@ -18,3 +18,7 @@ export const addWord = (palabra, significado, ejemplos, idCategoria) => ({
         idCategoria
     }
 })
+
+export const categoriasLoaded = () => ({
+    type: ActionTypes.CATEGORY_LOADED
+})

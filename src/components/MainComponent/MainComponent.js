@@ -6,11 +6,12 @@ import BasicModal from "../BasicModalComponent/BasicModal";
 import {FormGroup, Input, Button } from "reactstrap";
 import { withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
-import { addCategory } from "../../redux/actionCreators";
+import { addCategory, categoriasLoaded } from "../../redux/actionCreators";
 import { db } from "../../firebase";
 
 const mapDispatchToProps = dispatch => ({
-    addCategory: (nombreCategoria, color, id) => dispatch(addCategory(nombreCategoria,color, id))
+    addCategory: (nombreCategoria, color, id) => dispatch(addCategory(nombreCategoria,color, id)),
+    categoriasLoaded: () => dispatch(categoriasLoaded())
 });
 
 const mapStateToProps = state => {
@@ -18,6 +19,8 @@ const mapStateToProps = state => {
         categorias: state.categorias
     }
 }
+
+
 
 class MainComponent extends Component {
     constructor(props){
@@ -28,16 +31,34 @@ class MainComponent extends Component {
             modalState: {
                 nombreCategoria: "",
                 color: "#b71c1c"
-            }
+            },
         };
     }
 
+    obtenerCategorias(){
+        db.collection("categorias").where("idUsuario","==",0)
+        .get()
+        .then((querySnapshot)=>{
+            querySnapshot.forEach((doc) =>{
+                this.props.addCategory(doc.data().nombreCategoria, doc.data().color, doc.id);
+                this.props.categoriasLoaded();
+            });
+        })
+        .catch((error) => {
+            console.log("error al hacer la consulta:", error);
+        });
+    }
 
+    componentDidMount(){
+        if(this.props.categorias.categoriasLoaded === false){
+            this.obtenerCategorias();
+        }
+    }
 
     render() {
         const renderCategorias = ()=>{
             return(
-                this.props.categorias.map((categoria) =>{
+                this.props.categorias.categorias?.map((categoria) =>{
                     console.log(categoria.nombreCategoria);
                     return(
                         <CategoriaComponent key={categoria.id} color={categoria.color} nombre={categoria.nombreCategoria} idCategoria={categoria.id}/>
