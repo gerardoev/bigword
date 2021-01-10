@@ -146,7 +146,7 @@ const CategoriaPage = (props) => {
     const renderPalabras = (palabras)=>{
         return(
             
-                palabras?.map((palabra) =>{
+                palabras[idCategoria]?.map((palabra) =>{
                     return(
                         <PalabraComponent key={palabra.id} color={"#1b5e20"} nombre={palabra.palabra} onClick={() => onClickPalabra(palabra)}/>
                     );
