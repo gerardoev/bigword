@@ -8,6 +8,7 @@ import { withRouter } from "react-router-dom";
 import {FormGroup, Input, Button} from "reactstrap";
 import { connect } from "react-redux";
 import { addWord } from "../../redux/actionCreators";
+import {db} from "../../firebase";
 
 const getPalabrasApi = () =>{
     return(
@@ -116,8 +117,16 @@ const CategoriaPage = (props) => {
     const agregarPalabra = (palabra) =>{
         const palabra_copy = palabra;
         palabra_copy["ejemplos"] = [palabra_copy.ejemplo];
+        palabra_copy["idCategoria"] = idCategoria;
         delete palabra_copy.ejemplo;
-        props.addWord(palabra_copy.palabra,palabra_copy.significado, palabra_copy.ejemplos,idCategoria);
+        db.collection("palabras").add(palabra_copy)
+        .then((docRef) =>{
+            props.addWord(palabra_copy.palabra,palabra_copy.significado, palabra_copy.ejemplos,idCategoria);
+            console.log("Palabra añadida correctamente");
+        })
+        .catch((error) =>{
+            console.log("Error al añadir la palabra:", error);
+        });
     }
 
     const onChangeHandler = (event) =>{
