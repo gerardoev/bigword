@@ -87,7 +87,20 @@ const CategoriaPage = (props) => {
     });
 
     useEffect(() => {
-        console.log(idCategoria);
+        if (!props.palabras.hasOwnProperty(idCategoria)){
+            db.collection("palabras").where("idUsuario","==",0).where("idCategoria","==",idCategoria)
+            .get()
+            .then((querySS) => {
+                querySS.forEach((doc) =>{
+                    const palabra = doc.data();
+                    console.log(palabra);
+                    props.addWord(palabra.palabra, palabra.significado, palabra.ejemplos, idCategoria);
+                });
+            })
+            .catch((error) => {
+                console.log("error al hacer la consulta:", error);
+            });
+        }
     });
 
     const openModal = () =>{

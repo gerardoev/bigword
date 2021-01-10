@@ -9,7 +9,7 @@ export const Palabras = (state = {}, action) => {
             var word = payload;
             var arr = [];
             if (state.hasOwnProperty(idCategoria)){
-                arr = state.idCategoria;
+                arr = state[idCategoria];
                 arr.push(word);
             }else {
                 arr.push(word);
