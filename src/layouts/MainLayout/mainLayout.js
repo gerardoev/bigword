@@ -3,6 +3,7 @@ import { Button, Container, Row, Col } from "reactstrap";
 import { logoutApi } from "../../api/auth";
 import "./mainLayout.scss";
 import {NavLink} from "react-router-dom";
+import {withRouter} from "react-router";
 
 function MenuLateral({agregarCategoria, agregarPalabra, openModal, idCategoria}) {
     console.log(window.location.pathname);
@@ -67,7 +68,8 @@ function MenuLateral({agregarCategoria, agregarPalabra, openModal, idCategoria})
     );
 }
 
-const MainLayout = ({children, agregarCategoria, agregarPalabra, openModal, idCategoria}) => {
+const MainLayout = ({children, agregarCategoria, agregarPalabra, openModal, match}) => {
+    const idCategoria = match.params.idCategoria;
     return (
         <div className="main-layout">
             <Container>
@@ -84,4 +86,4 @@ const MainLayout = ({children, agregarCategoria, agregarPalabra, openModal, idCa
     );
 };
 
-export default MainLayout;
+export default withRouter(MainLayout);
