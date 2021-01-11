@@ -4,8 +4,7 @@ import { logoutApi } from "../../api/auth";
 import "./mainLayout.scss";
 import {NavLink} from "react-router-dom";
 
-function MenuLateral({agregarCategoria, agregarPalabra, openModal}) {
-    const idCategoria = 1;
+function MenuLateral({agregarCategoria, agregarPalabra, openModal, idCategoria}) {
     console.log(window.location.pathname);
     const MenuPrincipal = ({ agregarCategoria }) => {
         return (
@@ -68,13 +67,13 @@ function MenuLateral({agregarCategoria, agregarPalabra, openModal}) {
     );
 }
 
-const MainLayout = ({children, agregarCategoria, agregarPalabra, openModal}) => {
+const MainLayout = ({children, agregarCategoria, agregarPalabra, openModal, idCategoria}) => {
     return (
         <div className="main-layout">
             <Container>
                 <Row>
                     <Col xs={2}>
-                        <MenuLateral agregarCategoria={agregarCategoria} agregarPalabra={agregarPalabra} openModal={openModal}/>
+                        <MenuLateral agregarCategoria={agregarCategoria} agregarPalabra={agregarPalabra} openModal={openModal} idCategoria={idCategoria}/>
                     </Col>
                     <Col xs={10}>
                         {children}

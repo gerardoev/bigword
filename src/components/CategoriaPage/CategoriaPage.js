@@ -131,6 +131,7 @@ const CategoriaPage = (props) => {
         const palabra_copy = palabra;
         palabra_copy["ejemplos"] = [palabra_copy.ejemplo];
         palabra_copy["idCategoria"] = idCategoria;
+        palabra_copy["idUsuario"] = 0;
         delete palabra_copy.ejemplo;
         db.collection("palabras").add(palabra_copy)
         .then((docRef) =>{
@@ -176,7 +177,7 @@ const CategoriaPage = (props) => {
         );
     }
     return (
-        <MainLayout agregarPalabra={(palabra) => agregarPalabra(palabra)} openModal={() => openModal()}>
+        <MainLayout agregarPalabra={(palabra) => agregarPalabra(palabra)} openModal={() => openModal()} idCategoria={idCategoria}>
             <div className="categoria-page">
                     <GridLayout>
                         {renderPalabras(props.palabras)}

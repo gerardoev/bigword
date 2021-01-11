@@ -1,46 +1,23 @@
 import React, {useEffect, useState } from 'react';
 import {Input, Button, Row, Col} from "reactstrap";
-import {toast} from "react-toastify";
 import "./completarJuego.scss";
 import PlayButton from "../PlayButton/PlayButton";
 import BotonMP3 from "../../assets/sounds/boton.mp3";
 import SuccessMP3 from "../../assets/sounds/success.mp3";
 import IncorrectoMP3 from "../../assets/sounds/incorrecto.mp3";
 import useSound from 'use-sound';
+import { connect } from "react-redux";
+import { withRouter } from "react-router";
+import { db } from "../../firebase";
+import { addWord } from "../../redux/actionCreators";
 
-const getPalabrasApi = () =>{
-    return(
-        [
-            {
-                id: 0,
-                palabra: "want",
-                significado: "querer",
-                ejemplos: [
-                    "I want an apple"
-                ],
-                imagen: ""
-            },
-            {
-                id: 1,
-                palabra: "jeans",
-                significado: "pantalones de mezclilla",
-                ejemplos: [
-                    "I love those jeans!"
-                ],
-                imagen: ""
-            },
-            {
-                id: 2,
-                palabra: "hope",
-                significado: "espero",
-                ejemplos: [
-                    "I hope you are ok"
-                ],
-                imagen: ""
-            }
-        ]
-    );
-}
+const mapStateToProps = state => ({
+    palabras: state.palabras
+})
+
+const mapDispatchToProps = dispatch => ({
+    addWord: (palabra,significado,ejemplos,idCategoria) => dispatch(addWord(palabra, significado, ejemplos, idCategoria))
+});
 
 const estaEnArray = (el,arr) =>{
 
@@ -68,25 +45,66 @@ const generaAleatorio = (tamanio) =>{
 
 
 const recortarPalabra = (palabra, ejemplo) =>{
+    if (palabra === undefined || ejemplo === undefined){
+        return "";
+    }
     return ejemplo.replace(palabra, "_______");
 }
 
 
-function CompletarJuego() {
+function CompletarJuego(props) {
+    const idCategoria = props.match.params.idCategoria;
     const [play] = useSound(BotonMP3);
     const [success] = useSound(SuccessMP3);
     const [incorrecto] = useSound(IncorrectoMP3);
     const [respuesta, setRespuesta] = useState();
-    const [palabras, setPalabras] = useState(getPalabrasApi());
-    const [indices, setIndices] = useState(generaAleatorio(palabras?.length))  ;
-    const [posArr, setPosArr] = useState(0)
-    const [palabraActual, setPalabraActual] = useState(indices[0]);  
+    const [palabras, setPalabras] = useState([]);
+    const [indices, setIndices] = useState([]);
+    const [posArr, setPosArr] = useState();
+    const [palabraActual, setPalabraActual] = useState();  //la  palabra correcta
     const [estadoJuego, setEstadoJuego] = useState(estadoJuegoInicial(palabras?.length));
     const [finalizado, setFinalizado] = useState(false);
+    const [palabraRecortada, setPalabraRecortada] = useState("");
 
-    const [isHoveringEnviar, setIsHovering] = useState(
-        false
-    );
+    useEffect(() => {
+        if(props.palabras.hasOwnProperty(idCategoria)){
+            setPalabras(props.palabras[idCategoria]);
+        }else{
+            db.collection("palabras").where("idUsuario", "==", 0).where("idCategoria","==",idCategoria)
+            .get()
+            .then((querySS) => {
+                const palabs = [];
+                querySS.forEach((doc) =>{
+                    const palabra = doc.data();
+                    props.addWord(palabra.palabra, palabra.significado, palabra.ejemplos, idCategoria);
+                    palabs.push(palabra);
+                });
+                setPalabras(palabs);
+            })
+            .catch((error) => {
+                console.log("error al hacer la consulta:", error);
+            });
+        }
+    },[]);
+
+    //Esto se ejecuta cada vez que se cambia el conjunto de palabras, es decir cada vez que se entra al juego
+    useEffect(() =>{
+        setIndices(generaAleatorio(palabras?.length));
+    }, [palabras])
+    //En este punto ya se tiene palabras
+    useEffect(() => {
+        setEstadoJuego(estadoJuegoInicial(palabras.length));
+        setPosArr(0);
+    },[indices])
+    useEffect(() => {
+        const palabra = palabras[indices[posArr]];
+        console.log(indices);
+        if(palabra){
+            setPalabraRecortada(recortarPalabra(palabra.palabra.toLowerCase(),palabra["ejemplos"][0].toLowerCase()));
+            setPalabraActual(palabra.palabra);
+        }
+    },[posArr, indices]);
+
 
     const SiguientePregunta = () =>{
         setPosArr(posArr + 1);
@@ -103,8 +121,8 @@ function CompletarJuego() {
             aciertos: estadoJuego.aciertos + 1
         });
     }
-    const comprobarResp = (resp, i) => {
-        if (resp?.toLowerCase() === palabras[i]?.palabra){
+    const comprobarResp = (resp) => {
+        if (resp?.toLowerCase() === palabraActual.toLowerCase()){
             return true;
         }
         return false;
@@ -136,12 +154,7 @@ function CompletarJuego() {
                 {
                     finalizado ? <p>Finalizado</p> :
                     <h1>
-                        {
-                            palabras[palabraActual] ?
-                                recortarPalabra(palabras[palabraActual].palabra,palabras[palabraActual].ejemplos[0])
-                            :
-                                <p>Finalizado</p>
-                        }
+                        {palabraRecortada}
                     </h1>
                 }
             </div>
@@ -156,40 +169,31 @@ function CompletarJuego() {
                         />
                     </Col>
                     <Col xs={3}>
-                        <Button 
-                            onMouseEnter={() => play()}
-                            onClick={() => verificar()} 
-                        >
-                            Enviar
-                        </Button>
+                        {   
+                            posArr+1 <= (palabras.length -1) ?
+                                <Button 
+                                    onMouseEnter={() => play()}
+                                    onClick={() => verificar()} 
+                                >
+                                    Enviar
+                                </Button>
+                            :
+                            finalizado ?
+                                <></>
+                            :
+                                <Button
+                                    onClick={() => {
+                                        verificar();
+                                        setFinalizado(true);
+                                    }} 
+                                >
+                                    Terminar
+                                </Button>
+                        }
                     </Col>
                 </Row>
             </div>
         </div>
-    );
-}
-
-const estadoTemporal = () =>{
-    //Lista de palabras que serán recuperadas del servidor
-    return (
-        [
-            {
-                id: 1,
-                palabra: "Canido",
-                significado: "Dicho especialmente del pan, cubierto de moho",
-                ejemplos: [
-                    "Como nadie se comió la hogaza que compré, ahora está canida."
-                ]
-            },
-            {
-                id: 2,
-                palabra: "Anosmia",
-                significado: "Pérdida completa del olfato.",
-                ejemplos: [
-                    "Descubrimos que la anosmia es una de los síntomas del coronavirus"
-                ]
-            }
-        ]
     );
 }
 
@@ -202,7 +206,7 @@ const estadoJuegoInicial = (tamArr) =>{
     );
 }
 
-export default CompletarJuego;
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CompletarJuego));
 
 /*
     
