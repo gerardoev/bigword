@@ -1,30 +1,30 @@
 import React from 'react';
 import "./CategoriaComponent.scss";
 import {DeleteIcon} from "../../utils/icons";
-import {Col} from "reactstrap";
 import { Link } from "react-router-dom";
 
 const CategoriaComponent = ({color, nombre, idCategoria}) => {
     return (
-        <Col>
+        <div className="categoria-main-component">
+            <DeleteIcon/>
             <Link to={`/categoria/${idCategoria}`} className="categoria-component" style={{backgroundColor: color}}>
-                <DeleteIcon/>
                 <p>{nombre}</p>
             </Link>
-        </Col>
+        </div>
     );
 };
 
 
-export const PalabraComponent = ({color, nombre, onClick}) => {
+
+export const PalabraComponent = ({color, nombre, onClick, onClickDelete}) => {
     const idPalabra = 1;
     return (
-        <Col>
-            <div className="categoria-component" style={{backgroundColor: color}} onClick={onClick}>
-                <DeleteIcon/>
+        <div className="categoria-main-component">
+            <DeleteIcon onClick={onClickDelete}/>
+            <div onClick={onClick} className="categoria-component" style={{backgroundColor: color}}>
                 <p>{nombre}</p>
             </div>
-        </Col>
+        </div>
     );
 };
 

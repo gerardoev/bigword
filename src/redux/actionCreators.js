@@ -9,16 +9,25 @@ export const addCategory = (nombreCategoria, color, id) => ({
     }
 })
 
-export const addWord = (palabra, significado, ejemplos, idCategoria) => ({
+export const addWord = (palabra, significado, ejemplos, idCategoria, idPalabra) => ({
     type: ActionTypes.ADD_WORD,
     payload: {
         palabra,
         significado,
         ejemplos,
-        idCategoria
+        idCategoria,
+        idPalabra
     }
 })
 
 export const categoriasLoaded = () => ({
     type: ActionTypes.CATEGORY_LOADED
+})
+
+export const deleteWord = (idCategoria, idPalabra) => ({
+    type: ActionTypes.DELETE_WORD,
+    payload: {
+        idPalabra,
+        idCategoria
+    }
 })

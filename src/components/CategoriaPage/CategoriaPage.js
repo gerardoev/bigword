@@ -7,7 +7,7 @@ import  BasicModal from "../BasicModalComponent/BasicModal";
 import { withRouter } from "react-router-dom";
 import {FormGroup, Input, Button} from "reactstrap";
 import { connect } from "react-redux";
-import { addWord } from "../../redux/actionCreators";
+import { addWord, deleteWord } from "../../redux/actionCreators";
 import {db} from "../../firebase";
 
 const getPalabrasApi = () =>{
@@ -63,7 +63,8 @@ const PalabraCard = ({palabraSeleccionada}) =>{
 }
 
 const mapDispatchToProps = dispatch => ({
-    addWord: (palabra, significado, ejemplos, idCategoria ) => dispatch(addWord(palabra, significado, ejemplos, idCategoria))
+    addWord: (palabra, significado, ejemplos, idCategoria, idPalabra ) => dispatch(addWord(palabra, significado, ejemplos, idCategoria, idPalabra)),
+    deleteWord: (idCategoria, idPalabra) => dispatch(deleteWord(idCategoria, idPalabra))
 });
 
 const mapStateToProps = state => {
@@ -93,8 +94,8 @@ const CategoriaPage = (props) => {
             .then((querySS) => {
                 querySS.forEach((doc) =>{
                     const palabra = doc.data();
-                    console.log(palabra);
-                    props.addWord(palabra.palabra, palabra.significado, palabra.ejemplos, idCategoria);
+                    console.log(doc);
+                    props.addWord(palabra.palabra, palabra.significado, palabra.ejemplos, idCategoria, doc.id);
                 });
             })
             .catch((error) => {
@@ -127,6 +128,19 @@ const CategoriaPage = (props) => {
         setShowModalPalabra(true);
     }
 
+    const onClickDelete = (idPalabra) => {
+        var confirmado = true;
+        if (confirmado){
+            db.collection("palabras").doc(idPalabra).delete()
+            .then(() =>{
+                props.deleteWord(idCategoria, idPalabra);
+                console.log("Palabra eliminada");
+            })
+            .catch(error => {
+                console.log("No se ha eliminado la palabra:"+error);
+            });
+        }
+    }
     const agregarPalabra = (palabra) =>{
         const palabra_copy = palabra;
         palabra_copy["ejemplos"] = [palabra_copy.ejemplo];
@@ -135,8 +149,7 @@ const CategoriaPage = (props) => {
         delete palabra_copy.ejemplo;
         db.collection("palabras").add(palabra_copy)
         .then((docRef) =>{
-            props.addWord(palabra_copy.palabra,palabra_copy.significado, palabra_copy.ejemplos,idCategoria);
-            console.log("Palabra añadida correctamente");
+            props.addWord(palabra_copy.palabra,palabra_copy.significado, palabra_copy.ejemplos,idCategoria, docRef.id);
         })
         .catch((error) =>{
             console.log("Error al añadir la palabra:", error);
@@ -171,7 +184,7 @@ const CategoriaPage = (props) => {
             
                 palabras[idCategoria]?.map((palabra) =>{
                     return(
-                        <PalabraComponent key={palabra.id} color={"#1b5e20"} nombre={palabra.palabra} onClick={() => onClickPalabra(palabra)}/>
+                        <PalabraComponent key={palabra.idPalabra} color={"#1b5e20"} nombre={palabra.palabra} onClick={() => onClickPalabra(palabra)} onClickDelete={() => onClickDelete(palabra.idPalabra)}/>
                     );
                 })
         );

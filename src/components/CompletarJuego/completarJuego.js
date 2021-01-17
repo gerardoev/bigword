@@ -48,6 +48,7 @@ const recortarPalabra = (palabra, ejemplo) =>{
     if (palabra === undefined || ejemplo === undefined){
         return "";
     }
+
     return ejemplo.replace(palabra, "_______");
 }
 
@@ -62,6 +63,7 @@ function CompletarJuego(props) {
     const [indices, setIndices] = useState([]);
     const [posArr, setPosArr] = useState();
     const [palabraActual, setPalabraActual] = useState();  //la  palabra correcta
+    const [significadoActual, setSignificado] = useState();
     const [estadoJuego, setEstadoJuego] = useState(estadoJuegoInicial(palabras?.length));
     const [finalizado, setFinalizado] = useState(false);
     const [palabraRecortada, setPalabraRecortada] = useState("");
@@ -98,10 +100,10 @@ function CompletarJuego(props) {
     },[indices])
     useEffect(() => {
         const palabra = palabras[indices[posArr]];
-        console.log(indices);
         if(palabra){
             setPalabraRecortada(recortarPalabra(palabra.palabra.toLowerCase(),palabra["ejemplos"][0].toLowerCase()));
             setPalabraActual(palabra.palabra);
+            setSignificado(palabra.significado);
         }
     },[posArr, indices]);
 
@@ -153,9 +155,16 @@ function CompletarJuego(props) {
             <div className="completar-juego__body">
                 {
                     finalizado ? <p>Finalizado</p> :
-                    <h1>
-                        {palabraRecortada}
-                    </h1>
+                    <>
+                        <h1>
+                            "{significadoActual}"
+                        </h1>
+                        <br></br>
+                        <br></br>
+                        <h1>
+                            Ejemplo: {palabraRecortada}
+                        </h1>
+                    </>
                 }
             </div>
             <div className="completar-juego__footer">

@@ -6,7 +6,6 @@ import {NavLink} from "react-router-dom";
 import {withRouter} from "react-router";
 
 function MenuLateral({agregarCategoria, agregarPalabra, openModal, idCategoria}) {
-    console.log(window.location.pathname);
     const MenuPrincipal = ({ agregarCategoria }) => {
         return (
             <Col>

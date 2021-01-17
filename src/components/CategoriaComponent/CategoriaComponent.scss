@@ -1,34 +1,35 @@
 @import "../../scss/index.scss";
-
-.categoria-component{
-    position: relative;
-    display: inline-block;
-    width: 250px;
-    height: 150px;
-    border-radius: 10%;
-
-    p{
-        position: relative;
-        top:20px;
-        color: white;
-        font-weight: 900;
-    }
-
+.categoria-main-component{
     svg{
         position: relative;
+        z-index: 1;
         top: 10px;
-        left: 90px;
+        left: 230px;
         fill: white;
         width: 25px;
         height: 25px;
         &:hover{
-            box-shadow: 0px 0px 5px 0px rgba(255, 255, 255, 0.75);
+            cursor: pointer;
         }
     }
+    .categoria-component{
+        position: relative;
+        display: inline-block;
+        width: 250px;
+        height: 150px;
+        border-radius: 10%;
 
-    &:hover{
-        cursor: pointer;
-        box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-        text-decoration: none;
+        p{
+            position: relative;
+            top:50px;
+            color: white;
+            font-weight: 900;
+        }
+
+        &:hover{
+            cursor: pointer;
+            box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+            text-decoration: none;
+        }
     }
 }

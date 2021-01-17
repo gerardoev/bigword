@@ -15,6 +15,17 @@ export const Palabras = (state = {}, action) => {
                 arr.push(word);
             }
             return {...state, [idCategoria]: arr};
+        case ActionTypes.DELETE_WORD:
+            var indice;
+            state[action.payload.idCategoria].forEach((element, index) => {
+                if (element.idPalabra === action.payload.idPalabra){
+                    indice = index;
+                }
+            });
+            //copiamos a un nuev arreglo para mantener el estado previo el nuevo estado (el modificado)
+            var nuevoArr = state[action.payload.idCategoria].slice();
+            nuevoArr.splice(indice,1);
+            return {...state, [action.payload.idCategoria]: nuevoArr}
         default:
             return state;
     }
