@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import "./CategoriaPage.scss";
 import {PalabraComponent} from "../CategoriaComponent/CategoriaComponent";
 import  MainLayout  from "../../layouts/MainLayout/mainLayout";
-import  GridLayout  from "../../layouts/GridLayout/GridLayout";
 import  BasicModal from "../BasicModalComponent/BasicModal";
 import { withRouter } from "react-router-dom";
 import {FormGroup, Input, Button} from "reactstrap";
@@ -10,39 +9,7 @@ import { connect } from "react-redux";
 import { addWord, deleteWord } from "../../redux/actionCreators";
 import {db} from "../../firebase";
 
-const getPalabrasApi = () =>{
-    return(
-        [
-            {
-                id: 0,
-                palabra: "want",
-                significado: "querer",
-                ejemplos: [
-                    "I want an apple"
-                ],
-                imagen: ""
-            },
-            {
-                id: 1,
-                palabra: "jeans",
-                significado: "pantalones de mezclilla",
-                ejemplos: [
-                    "I love those jeans!"
-                ],
-                imagen: ""
-            },
-            {
-                id: 2,
-                palabra: "hope",
-                significado: "espero",
-                ejemplos: [
-                    "I hope you are ok"
-                ],
-                imagen: ""
-            }
-        ]
-    );
-}
+
 
 const PalabraCard = ({palabraSeleccionada}) =>{
     return(
@@ -123,9 +90,20 @@ const CategoriaPage = (props) => {
         setShowModalNuevaP(!showModalNuevaP);
     }
 
-    const onClickPalabra = (palabra) =>{
-        setPalabraSeleccionada(palabra);
-        setShowModalPalabra(true);
+    const onClickPalabra = (event,palabra) =>{
+        console.log(event);
+        if(typeof(event.target.className) == "string"){
+            if(event.target.className.includes("abrir-modal")){
+                setPalabraSeleccionada(palabra);
+                setShowModalPalabra(true);
+            }
+        }else{
+            if(event.target.className.animVal.includes("abrir-modal")){
+                setPalabraSeleccionada(palabra);
+                setShowModalPalabra(true);
+            }
+        }
+        
     }
 
     const onClickDelete = (idPalabra) => {
@@ -184,7 +162,7 @@ const CategoriaPage = (props) => {
             
                 palabras[idCategoria]?.map((palabra) =>{
                     return(
-                        <PalabraComponent key={palabra.idPalabra} color={"#1b5e20"} nombre={palabra.palabra} onClick={() => onClickPalabra(palabra)} onClickDelete={() => onClickDelete(palabra.idPalabra)}/>
+                        <PalabraComponent key={palabra.idPalabra} color={"#1b5e20"} nombre={palabra.palabra} onClick={(event) => onClickPalabra(event,palabra)} onClickDelete={() => onClickDelete(palabra.idPalabra)}/>
                     );
                 })
         );
@@ -192,9 +170,9 @@ const CategoriaPage = (props) => {
     return (
         <MainLayout agregarPalabra={(palabra) => agregarPalabra(palabra)} openModal={() => openModal()} idCategoria={idCategoria}>
             <div className="categoria-page">
-                    <GridLayout>
+                    <div className="grid-layout">
                         {renderPalabras(props.palabras)}
-                    </GridLayout>
+                    </div>
                     <BasicModal showModal={showModalPalabra} toggleModal={toggleModalPalabra}>
                         <PalabraCard palabraSeleccionada={palabraSeleccionada}/>
                     </BasicModal>

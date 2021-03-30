@@ -1,7 +1,12 @@
 @import "../../scss/index.scss";
 
 .categoria-page{
-    
+    .grid-layout{
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 230px));
+        grid-gap: 15px 15px;
+        justify-content: space-evenly;
+    }
 }
 
 .modal-content{
@@ -26,4 +31,6 @@
             margin-top: 60px;
         }
     }
+
+
 }

@@ -1,7 +1,7 @@
+import "./MainComponent.scss";
 import React, { Component } from 'react';
 import  MainLayout  from "../../layouts/MainLayout/mainLayout";
 import CategoriaComponent from "../CategoriaComponent/CategoriaComponent";
-import GridLayout from "../../layouts/GridLayout/GridLayout";
 import BasicModal from "../BasicModalComponent/BasicModal";
 import {FormGroup, Input, Button } from "reactstrap";
 import { withRouter } from 'react-router-dom';
@@ -130,11 +130,11 @@ class MainComponent extends Component {
 
 
         return (
-            <>
+            <div className="main-component">
                 <MainLayout agregarCategoria={agregarCategoria} openModal={() => openModal()}>
-                    <GridLayout>
+                    <div className="grid-layout">
                         {renderCategorias()}
-                    </GridLayout>
+                    </div>
                     <BasicModal showModal={this.state.showModal} toggleModal={toggleModal}>
                         <FormGroup>
                             <Input  type="text" placeholder="Ingresa el nombre" value={this.state.modalState.nombreCategoria} onChange={onChangeHandler}/>
@@ -144,7 +144,7 @@ class MainComponent extends Component {
                         </FormGroup>
                     </BasicModal>
                 </MainLayout>
-            </>
+            </div>
         );
     }
 }
