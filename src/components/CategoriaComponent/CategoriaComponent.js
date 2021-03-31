@@ -38,7 +38,7 @@ export const PalabraComponent = ({color, nombre, onClick, onClickDelete}) => {
                     <i class="fas fa-camera icons abrir-modal"></i>
                 </div>
                 <div className="nombre abrir-modal">
-                    <h1>{nombre}</h1>
+                    <h1 className="abrir-modal">{nombre}</h1>
                 </div>
             </div>
         </div>

@@ -91,7 +91,6 @@ const CategoriaPage = (props) => {
     }
 
     const onClickPalabra = (event,palabra) =>{
-        console.log(event);
         if(typeof(event.target.className) == "string"){
             if(event.target.className.includes("abrir-modal")){
                 setPalabraSeleccionada(palabra);
