@@ -53,6 +53,7 @@ const CategoriaPage = (props) => {
         id: 0,
         palabra: "",
         significado: "",
+        ejemplo: "",
         color: "#b71c1c"
     });
 
@@ -64,6 +65,7 @@ const CategoriaPage = (props) => {
                 querySS.forEach((doc) =>{
                     const palabra = doc.data();
                     console.log(doc);
+                    console.log("se ha ejecutado addword de useefect");
                     props.addWord(palabra.palabra, palabra.significado, palabra.ejemplos, idCategoria, doc.id);
                 });
             })
@@ -71,7 +73,7 @@ const CategoriaPage = (props) => {
                 console.log("error al hacer la consulta:", error);
             });
         }
-    });
+    }, []);
 
     const openModal = () =>{
         setShowModalNuevaP(
@@ -145,6 +147,7 @@ const CategoriaPage = (props) => {
         delete palabra_copy.ejemplo;
         db.collection("palabras").add(palabra_copy)
         .then((docRef) =>{
+            console.log("se ha ejecutado agregar palabra");
             props.addWord(palabra_copy.palabra,palabra_copy.significado, palabra_copy.ejemplos,idCategoria, docRef.id);
         })
         .catch((error) =>{
