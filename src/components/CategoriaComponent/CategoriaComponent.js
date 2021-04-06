@@ -19,23 +19,23 @@ const CategoriaComponent = ({color, nombre, idCategoria}) => {
 export const PalabraComponent = ({color, nombre, onClick, onClickDelete}) => {
     const idPalabra = 1;
     return (
-        <div class="palabra-component abrir-modal" onClick={onClick}>
-            <div class="elementos abrir-modal">
+        <div className="palabra-component abrir-modal" onClick={onClick}>
+            <div className="elementos abrir-modal">
                 <nav id="menu" >
                     <ul>
                         <li>
                             <button>
-                                <i class="fas fa-ellipsis-v icons"></i>
+                                <i className="fas fa-ellipsis-v icons"></i>
                                 <ul>
                                     <li onClick={onClickDelete}>Eliminar</li>
-                                    <li >Editar</li>
+                                    <li>Editar</li>
                                 </ul>
                             </button>
                         </li>
                     </ul>
                 </nav>
-                <div class="imagen abrir-modal">
-                    <i class="fas fa-camera icons abrir-modal"></i>
+                <div className="imagen abrir-modal">
+                    <i className="fas fa-camera icons abrir-modal"></i>
                 </div>
                 <div className="nombre abrir-modal">
                     <h1 className="abrir-modal">{nombre}</h1>

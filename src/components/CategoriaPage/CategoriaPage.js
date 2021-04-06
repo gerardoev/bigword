@@ -3,8 +3,9 @@ import "./CategoriaPage.scss";
 import {PalabraComponent} from "../CategoriaComponent/CategoriaComponent";
 import  MainLayout  from "../../layouts/MainLayout/mainLayout";
 import  BasicModal from "../BasicModalComponent/BasicModal";
+import ConfirmarComponent from "../ConfirmarComponent/ConfirmarComponent";
 import { withRouter } from "react-router-dom";
-import {FormGroup, Input, Button} from "reactstrap";
+import {FormGroup, Input, Button, Modal, ModalBody} from "reactstrap";
 import { connect } from "react-redux";
 import { addWord, deleteWord } from "../../redux/actionCreators";
 import {db} from "../../firebase";
@@ -47,6 +48,7 @@ const CategoriaPage = (props) => {
     const [palabraSeleccionada, setPalabraSeleccionada] = useState(palabraInitialState());
     const [showModalPalabra, setShowModalPalabra] = useState(false);
     const [showModalNuevaP, setShowModalNuevaP] = useState(false);
+    const [showModalConfirmar, setShowModalConfirmar] = useState(false);
     const [nuevaPSTate, setNuevaPState] = useState({
         id: 0,
         palabra: "",
@@ -81,6 +83,14 @@ const CategoriaPage = (props) => {
             false
         );
     }
+
+    const openModalConfirmar = () => {
+        setShowModalConfirmar(true);
+    }
+
+    const cerrarModalConfirmar = () => {
+        setShowModalConfirmar(false);
+    }
     
     const toggleModalPalabra = () =>{
         setShowModalPalabra(!showModalPalabra);
@@ -88,6 +98,10 @@ const CategoriaPage = (props) => {
 
     const toggleModalNuevaP = () =>{
         setShowModalNuevaP(!showModalNuevaP);
+    }
+
+    const toggleModalConfirmar = () => {
+        setShowModalConfirmar(!showModalConfirmar);
     }
 
     const onClickPalabra = (event,palabra) =>{
@@ -106,17 +120,22 @@ const CategoriaPage = (props) => {
     }
 
     const onClickDelete = (idPalabra) => {
-        var confirmado = true;
-        if (confirmado){
-            db.collection("palabras").doc(idPalabra).delete()
-            .then(() =>{
-                props.deleteWord(idCategoria, idPalabra);
-                console.log("Palabra eliminada");
-            })
-            .catch(error => {
-                console.log("No se ha eliminado la palabra:"+error);
-            });
-        }
+        setPalabraSeleccionada(idPalabra);
+        openModalConfirmar();
+    }
+
+    const deleteWord = () =>{
+        db.collection("palabras").doc(palabraSeleccionada).delete()
+        .then(() =>{
+            props.deleteWord(idCategoria, palabraSeleccionada);
+            console.log("Palabra eliminada");
+        })
+        .catch(error => {
+            console.log("No se ha eliminado la palabra:"+error);
+        })
+        .finally(() => {
+            cerrarModalConfirmar();
+        });
     }
     const agregarPalabra = (palabra) =>{
         const palabra_copy = palabra;
@@ -189,6 +208,11 @@ const CategoriaPage = (props) => {
                             <Button onClick={onNuevaP}>Crear</Button>
                         </FormGroup>
                     </BasicModal>
+                    <Modal isOpen={showModalConfirmar} toggle={toggleModalConfirmar} centered={true}>
+                        <ModalBody>
+                            <ConfirmarComponent deleteWord={() => deleteWord()} cerrarModal={() => cerrarModalConfirmar()}/>
+                        </ModalBody>
+                    </Modal>
             </div>
         </MainLayout>
     );

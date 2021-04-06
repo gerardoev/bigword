@@ -1,0 +1,15 @@
+@import "../../index.scss";
+
+.Confirmar-Component {
+    padding: 30px;
+    
+    .botones-section {
+        display: flex;
+        justify-content: flex-end;
+        padding: 10px;
+
+        button {
+            margin-right: 15px;
+        }
+    }
+}
