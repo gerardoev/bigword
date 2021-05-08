@@ -1,10 +1,10 @@
 import React from 'react';
 import MainComponent from "../components/MainComponent/MainComponent";
 import Error404 from "../components/Error404/Error404";
-import {toast} from "react-toastify";
 import CompletarJuego from '../components/CompletarJuego/completarJuego';
 import CategoriaPage from '../components/CategoriaPage/CategoriaPage';
 import MainLayout from '../layouts/MainLayout/mainLayout';
+import FormularioPalabraComponent from "../components/FormularioPalabraComponent/FormularioPalabraComponent";
 
 export default [
     {
@@ -22,6 +22,11 @@ export default [
         route: "/categoria/:idCategoria",
         exact: true,
         component: <CategoriaPage/>
+    },
+    {
+        route: "/test",
+        exact: false,
+        component: <FormularioPalabraComponent/>
     },
     {
         route: "*",
