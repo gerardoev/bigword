@@ -17,20 +17,11 @@ const FormularioPalabraComponent = () => {
                             { urlImagen ? <img className="imagen" src={urlImagen}/> : <div className="imagen"></div>}
                         </Row>
                         <Row>
-                            <Input type="file" id="uploadImageButton"/>
+                            <input type="file" class="form-control" id="customFile" />
                         </Row>
                     </Col>
                     <Col md={6}>
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">
-                            Some quick example text to build on the card title and make up the bulk of the
-                            card's content.
-                            </p>
-                            <button type="button" class="btn btn-primary">Button</button>
-                        </div>
-                    </div>
+                    
                     </Col>
                 </Row>
             </Form>
