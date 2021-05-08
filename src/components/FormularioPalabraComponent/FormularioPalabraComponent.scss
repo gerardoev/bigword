@@ -2,13 +2,19 @@
 
 .Formulario-Palabra {
     background-color: $color-primary-dark;
+    height: 100%;
     .row{
         margin-right: 0px;
         margin-left: 0px;
     }
     .imagen{
+        margin-top: 20px;
         width: 400px;
-        height: 600px;
+        height: 500px;
         background-color: red;
+    }
+    input{
+        margin-bottom: 15px;
+        margin-top: 15px;
     }
 }

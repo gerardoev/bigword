@@ -12,11 +12,11 @@ const FormularioPalabraComponent = () => {
         <div className="Formulario-Palabra">
             <Form>
                 <Row>
-                    <Col md={6}>
-                        <Row>
+                    <Col md={6} >
+                        <Row className="justify-content-center">
                             { urlImagen ? <img className="imagen" src={urlImagen}/> : <div className="imagen"></div>}
                         </Row>
-                        <Row>
+                        <Row className="justify-content-center">
                             <input type="file" class="form-control" id="customFile" />
                         </Row>
                     </Col>
