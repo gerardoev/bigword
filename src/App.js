@@ -6,6 +6,7 @@ import {isUserLoggedApi} from "./api/auth";
 import Routing from "./routes/Routing";
 import { ConfigureStore } from "./redux/configureStore";
 import {Provider} from "react-redux";
+import {auth} from "./firebase";
 
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
   useEffect(() => {
     //isUserLoggedApi devuelve el usuario decodificado si existe token
     //setUsuario(isUserLoggedApi());
-    setUsuario({})
+    setUsuario()
     setRefreshCheckLogin(false); //lo ponemos a default
     setLoadUser(true);
   }, [refreshCheckLogin]);
@@ -25,6 +26,20 @@ function App() {
   //con esto hacemos que esta vista se ejecute solo al inicio
   if (!loadUser) return null;
 
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/firebase.User
+      //var uid = user.uid;
+      setUsuario(user);
+      console.log(user.uid);
+      // ...
+    } else {
+      // User is signed out
+      setUsuario();
+      // ...
+    }
+  });
   return (
     <Provider store={store}>
       <div className="App">
