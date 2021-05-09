@@ -28,7 +28,8 @@ function App() {
       } else {
         // User is signed out
         setUsuario();
-        setLoadUser(false);
+        setLoadUser(true);
+        console.log("sin sesión");
         // ...
       }
     });
