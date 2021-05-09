@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Container, Row, Col } from "reactstrap";
 import { logoutApi } from "../../api/auth";
+import {auth} from "../../firebase";
 import "./mainLayout.scss";
 import {NavLink} from "react-router-dom";
 import {withRouter} from "react-router";
@@ -37,8 +38,13 @@ function MenuLateral({agregarCategoria, agregarPalabra, openModal, idCategoria})
         );
     };
     const cerrarSes = () => {
-        logoutApi();
-        window.location.reload();
+        auth.signOut()
+        .then(() => {
+            window.location.reload();
+        })
+        .catch((error) => {
+            console.log(error);
+        });
     };
 
     const renderMenu = (path) => {
