@@ -7,7 +7,7 @@ import {FormGroup, Input, Button } from "reactstrap";
 import { withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
 import { addCategory, categoriasLoaded } from "../../redux/actionCreators";
-import { db } from "../../firebase";
+import { db, auth } from "../../firebase";
 
 const mapDispatchToProps = dispatch => ({
     addCategory: (nombreCategoria, color, id) => dispatch(addCategory(nombreCategoria,color, id)),
@@ -35,8 +35,8 @@ class MainComponent extends Component {
         };
     }
 
-    obtenerCategorias(){
-        db.collection("categorias").where("idUsuario","==",0)
+    obtenerCategorias(idUsuario){
+        db.collection("categorias").where("idUsuario","==",idUsuario)
         .get()
         .then((querySnapshot)=>{
             querySnapshot.forEach((doc) =>{
@@ -50,9 +50,20 @@ class MainComponent extends Component {
     }
 
     componentDidMount(){
-        if(this.props.categorias.categoriasLoaded === false){
-            this.obtenerCategorias();
-        }
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+              // User is signed in, see docs for a list of available properties
+              // https://firebase.google.com/docs/reference/js/firebase.User
+              var uid = user.uid;
+              if(this.props.categorias.categoriasLoaded === false){
+                this.obtenerCategorias(uid);
+              }
+              // ...
+            } else {
+              // User is signed out
+              // ...
+            }
+        });
     }
 
     render() {
