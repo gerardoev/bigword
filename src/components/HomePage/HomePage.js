@@ -9,6 +9,7 @@ import VideoImagen from "../../assets/images/video-pic.png";
 import GerardoImagen from "../../assets/images/gerardo.jpeg";
 import AlfredoImagen from "../../assets/images/alfredo.jpg";
 import VideoBigWord from "../../assets/videos/BIGWORDVIDEO.mp4";
+import {auth} from "../../firebase";
 
 const Banner = () => {
     return(
@@ -208,17 +209,16 @@ class HomePage extends Component {
         });
     }
     logInHandleSubmit(event){
-        signInApi(this.state.login).then(response =>{
-            if (response.message){
-
-                toast.warning(response.message);
-            }else{
-                toast.success("Inicio de sesión exitoso");
-                setTokenApi(response.token);
-                this.state.setRefreshCheckLogin(true);
-            }
-        }).catch(() => {
-            toast.error("Error del servidor, intentelo más tarde");
+        auth.signInWithEmailAndPassword(this.state.login.email, this.state.login.password)
+        .then((userCredential) => {
+            // Signed in
+            toast.success("Inicio de sesión exitoso");
+            var user = userCredential.user;
+            this.state.setRefreshCheckLogin(true);
+            // ...
+        })
+        .catch((error) => {
+            toast.error(`${error}`);
         });
         event.preventDefault();
         this.toggleModalSignIn();
