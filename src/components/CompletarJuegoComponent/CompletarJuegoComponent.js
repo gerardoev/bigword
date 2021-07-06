@@ -1,6 +1,6 @@
 import React, {useEffect, useState } from 'react';
 import {Input, Button, Row, Col} from "reactstrap";
-import "./completarJuego.scss";
+import "./CompletarJuegoComponent.scss";
 import PlayButton from "../PlayButton/PlayButton";
 import BotonMP3 from "../../assets/sounds/boton.mp3";
 import SuccessMP3 from "../../assets/sounds/success.mp3";
@@ -53,7 +53,7 @@ const recortarPalabra = (palabra, ejemplo) =>{
 }
 
 
-function CompletarJuego(props) {
+function CompletarJuegoComponent(props) {
     const idCategoria = props.match.params.idCategoria;
     const [play] = useSound(BotonMP3);
     const [success] = useSound(SuccessMP3);
@@ -215,7 +215,7 @@ const estadoJuegoInicial = (tamArr) =>{
     );
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CompletarJuego));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CompletarJuegoComponent));
 
 /*
     
