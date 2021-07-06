@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import "./CategoriaPage.scss";
 import {PalabraComponent} from "../CategoriaComponent/CategoriaComponent";
-import  MainLayout  from "../../layouts/MainLayout/mainLayout";
 import  BasicModal from "../BasicModalComponent/BasicModal";
 import ConfirmarComponent from "../ConfirmarComponent/ConfirmarComponent";
 import { withRouter } from "react-router-dom";
