@@ -5,10 +5,12 @@ import  MainLayout  from "../../layouts/MainLayout/mainLayout";
 import  BasicModal from "../BasicModalComponent/BasicModal";
 import ConfirmarComponent from "../ConfirmarComponent/ConfirmarComponent";
 import { withRouter } from "react-router-dom";
-import {FormGroup, Input, Button, Modal, ModalBody} from "reactstrap";
+import {FormGroup, Input, Button, Modal, ModalBody, Col, Row} from "reactstrap";
 import { connect } from "react-redux";
 import { addWord, deleteWord } from "../../redux/actionCreators";
 import {db} from "../../firebase";
+import MenuLateralComponent from "../MenuLateralComponent/MenuLateralComponent"
+import {NavLink} from 'react-router-dom'
 
 
 
@@ -189,35 +191,44 @@ const CategoriaPage = (props) => {
         );
     }
     return (
-        <MainLayout agregarPalabra={(palabra) => agregarPalabra(palabra)} openModal={() => openModal()} idCategoria={idCategoria}>
-            <div className="categoria-page">
-                    <div className="grid-layout">
-                        {renderPalabras(props.palabras)}
-                    </div>
-                    <BasicModal showModal={showModalPalabra} toggleModal={toggleModalPalabra}>
-                        <PalabraCard palabraSeleccionada={palabraSeleccionada}/>
-                    </BasicModal>
-                    <BasicModal showModal={showModalNuevaP} toggleModal={toggleModalNuevaP} >
-                        <FormGroup>
-                            <Input  type="text" placeholder="Palabra" value={nuevaPSTate.palabra} name="palabra" onChange={onChangeHandler}/>
-                        </FormGroup>
-                        <FormGroup>
-                            <Input  type="text" placeholder="Significado" value={nuevaPSTate.significado} name="significado" onChange={onChangeHandler}/>
-                        </FormGroup>
-                        <FormGroup>
-                            <Input  type="text" placeholder="Ejemplo" value={nuevaPSTate.ejemplo} name="ejemplo" onChange={onChangeHandler}/>
-                        </FormGroup>
-                        <FormGroup>
-                            <Button onClick={onNuevaP}>Crear</Button>
-                        </FormGroup>
-                    </BasicModal>
-                    <Modal isOpen={showModalConfirmar} toggle={toggleModalConfirmar} centered={true}>
-                        <ModalBody>
-                            <ConfirmarComponent deleteWord={() => deleteWord()} cerrarModal={() => cerrarModalConfirmar()}/>
-                        </ModalBody>
-                    </Modal>
-            </div>
-        </MainLayout>
+        <div className="categoria-page">
+                <Row>
+                    <Col xs={2}>
+                        <MenuLateralComponent mainButtonName="Nueva Categoria" mainButtonLogic={() => console.log("hola")}>
+                            <NavLink to={`/completar/${idCategoria}`}><p>Jugar</p></NavLink>
+                            <NavLink to="/"><p>Categorias</p></NavLink>
+                        </MenuLateralComponent>
+                    </Col>
+                    <Col xs={10}>
+                        <div className="grid-layout">
+                            {renderPalabras(props.palabras)}
+                        </div>
+                    </Col>
+                </Row>
+                <BasicModal showModal={showModalPalabra} toggleModal={toggleModalPalabra}>
+                    <PalabraCard palabraSeleccionada={palabraSeleccionada}/>
+                </BasicModal>
+                <BasicModal showModal={showModalNuevaP} toggleModal={toggleModalNuevaP} >
+                    <FormGroup>
+                        <Input  type="text" placeholder="Palabra" value={nuevaPSTate.palabra} name="palabra" onChange={onChangeHandler}/>
+                    </FormGroup>
+                    <FormGroup>
+                        <Input  type="text" placeholder="Significado" value={nuevaPSTate.significado} name="significado" onChange={onChangeHandler}/>
+                    </FormGroup>
+                    <FormGroup>
+                        <Input  type="text" placeholder="Ejemplo" value={nuevaPSTate.ejemplo} name="ejemplo" onChange={onChangeHandler}/>
+                    </FormGroup>
+                    <FormGroup>
+                        <Button onClick={onNuevaP}>Crear</Button>
+                    </FormGroup>
+                </BasicModal>
+                <Modal isOpen={showModalConfirmar} toggle={toggleModalConfirmar} centered={true}>
+                    <ModalBody>
+                        <ConfirmarComponent deleteWord={() => deleteWord()} cerrarModal={() => cerrarModalConfirmar()}/>
+                    </ModalBody>
+                </Modal>
+        </div>
+
     );
 };
 

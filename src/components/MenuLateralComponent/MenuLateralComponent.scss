@@ -1,0 +1,44 @@
+@import '../../scss/index.scss';
+
+.Menu-Lateral {
+    position: fixed;
+    background-color: $color-primary-dark;
+    width: 150px;
+    height: 100vh;
+    padding: 10px;
+    #mid-col{
+        position: relative;
+        top: calc(-10%);
+    }
+    .container{
+        height: 100%;
+        padding: 0px;
+        .row{
+            height: 100%;
+        }
+        .col{
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+        height: 100%;
+        .boton-menu{
+            font-size: 15px;
+            width: 100%;
+            padding: 10px 25px;
+        }
+        p{
+            color:white;
+            font-size: 15px;
+            font-weight: 900;
+            margin-bottom: 50px;
+            &:hover{
+                color: $color-text-secondary;
+                cursor: pointer;
+            }
+        }
+        a{
+            text-decoration: none;
+        }
+    }
+}
+

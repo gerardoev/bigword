@@ -1,8 +1,6 @@
 @import "../../scss/index.scss";
 
 .categoria-page{
-    margin-top: 20px;
-    margin-bottom: 20px;
     .grid-layout{
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(230px, 230px));
