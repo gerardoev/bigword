@@ -1,9 +1,9 @@
 import "./MainComponent.scss";
 import React, { Component } from 'react';
-import  MainLayout  from "../../layouts/MainLayout/mainLayout";
+import MenuLateralComponent  from "../../components/MenuLateralComponent/MenuLateralComponent";
 import CategoriaComponent from "../CategoriaComponent/CategoriaComponent";
 import BasicModal from "../BasicModalComponent/BasicModal";
-import {FormGroup, Input, Button } from "reactstrap";
+import {FormGroup, Input, Button, Col, Row } from "reactstrap";
 import { withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
 import { addCategory, categoriasLoaded } from "../../redux/actionCreators";
@@ -142,19 +142,24 @@ class MainComponent extends Component {
 
         return (
             <div className="main-component">
-                <MainLayout agregarCategoria={agregarCategoria} openModal={() => openModal()}>
-                    <div className="grid-layout">
-                        {renderCategorias()}
-                    </div>
-                    <BasicModal showModal={this.state.showModal} toggleModal={toggleModal}>
-                        <FormGroup>
-                            <Input  type="text" placeholder="Ingresa el nombre" value={this.state.modalState.nombreCategoria} onChange={onChangeHandler}/>
-                        </FormGroup>
-                        <FormGroup>
-                            <Button onClick={onCrearCategoria}>Crear</Button>
-                        </FormGroup>
-                    </BasicModal>
-                </MainLayout>
+                <Row>
+                    <Col xs={2}>
+                        <MenuLateralComponent mainButtonName="Nueva Categoria" mainButtonLogic={openModal}/>
+                    </Col>
+                    <Col xs={10}>
+                        <div className="grid-layout">
+                            {renderCategorias()}
+                        </div>
+                    </Col>
+                </Row>
+                <BasicModal showModal={this.state.showModal} toggleModal={toggleModal}>
+                    <FormGroup>
+                        <Input  type="text" placeholder="Ingresa el nombre" value={this.state.modalState.nombreCategoria} onChange={onChangeHandler}/>
+                    </FormGroup>
+                    <FormGroup>
+                        <Button onClick={onCrearCategoria}>Crear</Button>
+                    </FormGroup>
+                </BasicModal>
             </div>
         );
     }
