@@ -19,15 +19,19 @@ const MenuLateralComponent = ({mainButtonLogic, mainButtonName, children}) => {
             <Container>
                 <Row>
                     {mainButtonLogic ?
-                        <Col xs={12}>
-                            <Button className="boton-menu" onClick={() => mainButtonLogic()}>{mainButtonName}</Button>
-                        </Col> 
+                        <>
+                            <Col xs={12}>
+                                <Button className="boton-menu" onClick={() => mainButtonLogic()}>{mainButtonName}</Button>
+                            </Col> 
+                            <Col xs={12} id="mid-col-up">
+                                {children}
+                            </Col>
+                        </>
                         :
-                        <></>
+                        <Col xs={12}>
+                            {children}
+                        </Col>
                     }
-                    <Col xs={12} id="mid-col">
-                        {children}
-                    </Col>
                     <Col xs={12} className="d-flex justify-content-center align-self-end">
                         <p onClick={() => cerrarSes()}>Cerrar sesion</p>
                     </Col>
