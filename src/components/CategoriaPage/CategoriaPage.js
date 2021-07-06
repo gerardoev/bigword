@@ -194,7 +194,7 @@ const CategoriaPage = (props) => {
         <div className="categoria-page">
                 <Row>
                     <Col xs={2}>
-                        <MenuLateralComponent mainButtonName="Nueva Categoria" mainButtonLogic={() => console.log("hola")}>
+                        <MenuLateralComponent mainButtonName="Nueva Palabra" mainButtonLogic={openModal}>
                             <NavLink to={`/completar/${idCategoria}`}><p>Jugar</p></NavLink>
                             <NavLink to="/"><p>Categorias</p></NavLink>
                         </MenuLateralComponent>
