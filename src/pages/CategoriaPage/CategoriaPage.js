@@ -1,14 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import "./CategoriaPage.scss";
-import {PalabraComponent} from "../CategoriaComponent/CategoriaComponent";
-import  BasicModal from "../BasicModalComponent/BasicModal";
-import ConfirmarComponent from "../ConfirmarComponent/ConfirmarComponent";
+import {PalabraComponent} from "../../components/CategoriaComponent/CategoriaComponent";
+import  BasicModal from "../../components/BasicModalComponent/BasicModal";
+import ConfirmarComponent from "../../components/ConfirmarComponent/ConfirmarComponent";
 import { withRouter } from "react-router-dom";
 import {FormGroup, Input, Button, Modal, ModalBody, Col, Row} from "reactstrap";
 import { connect } from "react-redux";
 import { addWord, deleteWord } from "../../redux/actionCreators";
 import {db} from "../../firebase";
-import MenuLateralComponent from "../MenuLateralComponent/MenuLateralComponent"
+import MenuLateralComponent from "../../components/MenuLateralComponent/MenuLateralComponent"
 import {NavLink} from 'react-router-dom'
 
 

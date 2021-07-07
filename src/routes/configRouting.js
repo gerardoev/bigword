@@ -1,8 +1,8 @@
 import React from 'react';
-import MainComponent from "../components/MainComponent/MainComponent";
-import Error404 from "../components/Error404/Error404";
+import MainComponent from "../pages/MainComponent/MainComponent";
+import Error404 from "../pages/Error404/Error404";
 import CompletarJuego from '../pages/CompletarJuego/CompletarJuego';
-import CategoriaPage from '../components/CategoriaPage/CategoriaPage';
+import CategoriaPage from '../pages/CategoriaPage/CategoriaPage';
 import FormularioPalabraComponent from "../components/FormularioPalabraComponent/FormularioPalabraComponent";
 
 export default [

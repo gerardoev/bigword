@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import './App.scss';
-import HomePage from "./components/HomePage/HomePage";
+import HomePage from "./pages/HomePage/HomePage";
 import {ToastContainer} from "react-toastify";
 import {isUserLoggedApi} from "./api/auth";
 import Routing from "./routes/Routing";

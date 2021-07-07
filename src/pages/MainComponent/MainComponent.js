@@ -1,8 +1,8 @@
 import "./MainComponent.scss";
 import React, { Component } from 'react';
 import MenuLateralComponent  from "../../components/MenuLateralComponent/MenuLateralComponent";
-import CategoriaComponent from "../CategoriaComponent/CategoriaComponent";
-import BasicModal from "../BasicModalComponent/BasicModal";
+import CategoriaComponent from "../../components/CategoriaComponent/CategoriaComponent";
+import BasicModal from "../../components/BasicModalComponent/BasicModal";
 import {FormGroup, Input, Button, Col, Row } from "reactstrap";
 import { withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
