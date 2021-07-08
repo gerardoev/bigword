@@ -3,7 +3,7 @@ import MainComponent from "../pages/MainComponent/MainComponent";
 import Error404 from "../pages/Error404/Error404";
 import CompletarJuego from '../pages/CompletarJuego/CompletarJuego';
 import CategoriaPage from '../pages/CategoriaPage/CategoriaPage';
-import FormularioPalabraComponent from "../pages/FormularioPalabraPage/FormularioPalabraPage";
+import FormularioPalabraPage from "../pages/FormularioPalabraPage/FormularioPalabraPage";
 
 export default [
     {
@@ -23,9 +23,9 @@ export default [
         component: <CategoriaPage/>
     },
     {
-        route: "/test",
+        route: "/edit_word/:idWord",
         exact: false,
-        component: <FormularioPalabraComponent/>
+        component: <FormularioPalabraPage/>
     },
     {
         route: "*",
