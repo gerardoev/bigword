@@ -3,7 +3,7 @@ import MainComponent from "../pages/MainComponent/MainComponent";
 import Error404 from "../pages/Error404/Error404";
 import CompletarJuego from '../pages/CompletarJuego/CompletarJuego';
 import CategoriaPage from '../pages/CategoriaPage/CategoriaPage';
-import FormularioPalabraComponent from "../components/FormularioPalabraComponent/FormularioPalabraComponent";
+import FormularioPalabraComponent from "../pages/FormularioPalabraPage/FormularioPalabraPage";
 
 export default [
     {

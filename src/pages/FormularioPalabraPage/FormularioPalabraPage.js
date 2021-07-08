@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {Form, Row, Col, Input} from "reactstrap";
-import "./FormularioPalabraComponent.scss";
+import "./FormularioPalabraPage.scss";
 
-const FormularioPalabraComponent = () => {
+const FormularioPalabraPage = () => {
     //comprobamos si hay una imagen subida al backend y la ponemos como default. -> si estado de app dice que hau url: `http://geturldeservidor/`
     const [urlImagen, setUrlImagen] = useState( 
         false ? `` : null
@@ -29,4 +29,4 @@ const FormularioPalabraComponent = () => {
     );
 };
 
-export default FormularioPalabraComponent;
+export default FormularioPalabraPage;
