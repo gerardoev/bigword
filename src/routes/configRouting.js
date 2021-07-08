@@ -1,9 +1,8 @@
 import React from 'react';
-import MainComponent from "../components/MainComponent/MainComponent";
-import Error404 from "../components/Error404/Error404";
-import CompletarJuego from '../components/CompletarJuego/completarJuego';
-import CategoriaPage from '../components/CategoriaPage/CategoriaPage';
-import MainLayout from '../layouts/MainLayout/mainLayout';
+import MainComponent from "../pages/MainComponent/MainComponent";
+import Error404 from "../pages/Error404/Error404";
+import CompletarJuego from '../pages/CompletarJuego/CompletarJuego';
+import CategoriaPage from '../pages/CategoriaPage/CategoriaPage';
 import FormularioPalabraComponent from "../components/FormularioPalabraComponent/FormularioPalabraComponent";
 
 export default [
@@ -16,7 +15,7 @@ export default [
     {
         route: "/completar/:idCategoria",
         exact: true,
-        component: <MainLayout><CompletarJuego/></MainLayout>
+        component: <CompletarJuego/>
     },
     {
         route: "/categoria/:idCategoria",

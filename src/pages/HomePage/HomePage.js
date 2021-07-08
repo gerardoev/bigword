@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import  BasicModal  from "../BasicModalComponent/BasicModal";
+import  BasicModal  from "../../components/BasicModalComponent/BasicModal";
 import {Jumbotron, Button, Col, Row, Form, FormGroup, Label, Input, Container} from 'reactstrap';
 import "./HomePage.scss";
 import {toast} from "react-toastify";

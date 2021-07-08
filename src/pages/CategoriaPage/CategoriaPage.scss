@@ -1,13 +1,15 @@
 @import "../../scss/index.scss";
 
 .categoria-page{
-    margin-top: 20px;
-    margin-bottom: 20px;
     .grid-layout{
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(230px, 230px));
         grid-gap: 15px 15px;
         justify-content: space-evenly;
+    }
+    .col-10{
+        position: relative;
+        left: -60px;
     }
 }
 
