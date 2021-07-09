@@ -184,7 +184,14 @@ const CategoriaPage = (props) => {
             
                 palabras[idCategoria]?.map((palabra) =>{
                     return(
-                        <PalabraComponent key={palabra.idPalabra} color={"#1b5e20"} nombre={palabra.palabra} onClick={(event) => onClickPalabra(event,palabra)} onClickDelete={() => onClickDelete(palabra.idPalabra)}/>
+                        <PalabraComponent
+                            key={palabra.idPalabra} 
+                            color={"#1b5e20"}
+                            nombre={palabra.palabra}
+                            idPalabra={palabra.idPalabra}
+                            onClick={(event) => onClickPalabra(event,palabra)}
+                            onClickDelete={onClickDelete}
+                        />
                     );
                 })
         );

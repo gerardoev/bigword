@@ -1,7 +1,7 @@
 import React from 'react';
 import "./CategoriaComponent.scss";
 import {DeleteIcon} from "../../utils/icons";
-import { Link } from "react-router-dom";
+import { Link, NavLink, useHistory } from "react-router-dom";
 
 const CategoriaComponent = ({color, nombre, idCategoria}) => {
     return (
@@ -16,8 +16,9 @@ const CategoriaComponent = ({color, nombre, idCategoria}) => {
 
 
 
-export const PalabraComponent = ({color, nombre, onClick, onClickDelete}) => {
-    const idPalabra = 1;
+export const PalabraComponent = ({color, nombre, idPalabra, onClick, onClickDelete}) => {
+    const history = useHistory();
+    const handleOnClickEdit = () => history.push(`/edit_word/${idPalabra}`)
     return (
         <div className="palabra-component abrir-modal" onClick={onClick}>
             <div className="elementos abrir-modal">
@@ -27,8 +28,8 @@ export const PalabraComponent = ({color, nombre, onClick, onClickDelete}) => {
                             <button>
                                 <i className="fas fa-ellipsis-v icons"></i>
                                 <ul>
-                                    <li onClick={onClickDelete}>Eliminar</li>
-                                    <li>Editar</li>
+                                    <li onClick={() => onClickDelete(idPalabra)}>Eliminar</li>
+                                    <li onClick={handleOnClickEdit}>Editar</li>
                                 </ul>
                             </button>
                         </li>
