@@ -1,5 +1,14 @@
 @import "../../scss/index.scss";
 
 .Formulario-Palabra {
-    
+    form{
+        height: 100vh;
+        position: relative;
+        left: -60px;
+    }
+    .imagen{
+        height: 600px;
+        width: 500px;
+        background-color: rgba(200,200,200,.8);
+    }
 }
