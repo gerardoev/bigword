@@ -70,7 +70,6 @@ class MainComponent extends Component {
         const renderCategorias = ()=>{
             return(
                 this.props.categorias.categorias?.map((categoria) =>{
-                    console.log(categoria.nombreCategoria);
                     return(
                         <CategoriaComponent key={categoria.id} color={categoria.color} nombre={categoria.nombreCategoria} idCategoria={categoria.id}/>
                     );

@@ -65,8 +65,6 @@ const CategoriaPage = (props) => {
             .then((querySS) => {
                 querySS.forEach((doc) =>{
                     const palabra = doc.data();
-                    console.log(doc);
-                    console.log("se ha ejecutado addword de useefect");
                     props.addWord(palabra.palabra, palabra.significado, palabra.ejemplos, idCategoria, doc.id);
                 });
             })

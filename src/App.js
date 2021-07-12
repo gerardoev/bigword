@@ -23,7 +23,6 @@ function App() {
         //var uid = user.uid;
         setUsuario(user);
         setLoadUser(true);
-        console.log(user.uid);
         // ...
       } else {
         // User is signed out
