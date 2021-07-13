@@ -187,6 +187,7 @@ const CategoriaPage = (props) => {
                             color={"#1b5e20"}
                             nombre={palabra.palabra}
                             idPalabra={palabra.idPalabra}
+                            idCategoria={idCategoria}
                             onClick={(event) => onClickPalabra(event,palabra)}
                             onClickDelete={onClickDelete}
                         />

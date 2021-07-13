@@ -11,14 +11,37 @@ function mapStateToProps(state){
     }
 }
 
+function getPalabra(palabras, idPalabra){
+    return palabras.filter(palabra => palabra.idPalabra === idPalabra)
+}
+
 const FormularioPalabraPage = (props) => {
     //comprobamos si hay una imagen subida al backend y la ponemos como default. -> si estado de app dice que hau url: `http://geturldeservidor/`
     const [urlImagen, setUrlImagen] = useState( 
         false ? `` : null
      );
+    const [palabra, setPalabra] = useState({
+        palabra: '',
+        significado: '',
+        ejemplos: ['','','']
+    })
 
      useEffect(() =>{
-        console.log(props.palabras)
+        const idCategoria = props.match.params.idCategory
+        const palabrasUsuario = props.palabras[idCategoria]
+        const idPalabra = props.match.params.idWord
+        let palabra = ''
+        if(typeof(palabrasUsuario) === 'undefined'){
+            console.log('Recuperar de la bd')
+            palabra = {
+                palabra: 'dbword',
+                significado: 'example',
+                ejemplos: ['','','']
+            }
+        } else {
+            palabra = getPalabra(palabrasUsuario, idPalabra)[0]
+        }
+        setPalabra(palabra)
      },[])
 
     return (
@@ -34,20 +57,20 @@ const FormularioPalabraPage = (props) => {
                         <Row>
                             <Col md={6} className='d-flex flex-column align-items-center'>
                                 { urlImagen ? <img className="imagen my-5" src={urlImagen}/> : <div className="imagen my-5"></div>}
-                                <input type="file" className="d-flex form-control" id="customFile" />
+                                <input type="file" className="d-flex form-control" id="customFile"/>
                             </Col>
                             <Col md={6} className='d-flex flex-column'>
                                 <FormGroup className='my-5'>
                                     <Label for="palabraForm">Palabra</Label>
-                                    <Input type='text' name="salabra" id="palabraForm" placeholder="Ingresa la palabra"/>
+                                    <Input type='text' name="salabra" id="palabraForm" placeholder="Ingresa la palabra" value={palabra.palabra}/>
                                 </FormGroup>
                                 <FormGroup className='my-5'>
                                     <Label for="sifnificadoForm">Significado</Label>
-                                    <Input type='text' name="significado" id="significadoForm" placeholder="Ingresa el significado"/>
+                                    <Input type='text' name="significado" id="significadoForm" placeholder="Ingresa el significado" value={palabra.significado}/>
                                 </FormGroup>
                                 <FormGroup>
                                     <Label>Ejemplos</Label>
-                                    <Input type='text' name="ejemplo1" id="ejemplo1" placeholder="Ingresa un ejemplo" className="my-2"/>
+                                    <Input type='text' name="ejemplo1" id="ejemplo1" placeholder="Ingresa un ejemplo" className="my-2" value={palabra.ejemplos[0]}/>
                                     <Input type='text' name="ejemplo2" id="ejemplo2" placeholder="Ingresa un ejemplo" className="my-2"/>
                                     <Input type='text' name="ejemplo3" id="ejemplo3" placeholder="Ingresa un ejemplo" className="my-2"/>
                                 </FormGroup>

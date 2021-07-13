@@ -23,7 +23,7 @@ export default [
         component: <CategoriaPage/>
     },
     {
-        route: "/edit_word/:idWord",
+        route: "/edit_word/:idWord/:idCategory",
         exact: false,
         component: <FormularioPalabraPage/>
     },

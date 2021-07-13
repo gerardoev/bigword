@@ -16,9 +16,9 @@ const CategoriaComponent = ({color, nombre, idCategoria}) => {
 
 
 
-export const PalabraComponent = ({color, nombre, idPalabra, onClick, onClickDelete}) => {
+export const PalabraComponent = ({color, nombre, idPalabra, idCategoria, onClick, onClickDelete}) => {
     const history = useHistory();
-    const handleOnClickEdit = () => history.push(`/edit_word/${idPalabra}`)
+    const handleOnClickEdit = () => history.push(`/edit_word/${idPalabra}/${idCategoria}`)
     return (
         <div className="palabra-component abrir-modal" onClick={onClick}>
             <div className="elementos abrir-modal">
