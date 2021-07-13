@@ -1,14 +1,25 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Form, Row, Col, Input, Label, FormGroup, Button} from "reactstrap";
 import {NavLink, withRouter} from 'react-router-dom'
+import {connect} from 'react-redux'
 import "./FormularioPalabraPage.scss";
 import MenuLateralComponent from '../../components/MenuLateralComponent/MenuLateralComponent'
 
-const FormularioPalabraPage = () => {
+function mapStateToProps(state){
+    return{
+        palabras: state.palabras
+    }
+}
+
+const FormularioPalabraPage = (props) => {
     //comprobamos si hay una imagen subida al backend y la ponemos como default. -> si estado de app dice que hau url: `http://geturldeservidor/`
     const [urlImagen, setUrlImagen] = useState( 
         false ? `` : null
      );
+
+     useEffect(() =>{
+        console.log(props.palabras)
+     },[])
 
     return (
         <div className="Formulario-Palabra">
@@ -50,4 +61,4 @@ const FormularioPalabraPage = () => {
     );
 };
 
-export default withRouter(FormularioPalabraPage);
+export default withRouter(connect(mapStateToProps)(FormularioPalabraPage));
