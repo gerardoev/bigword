@@ -6,6 +6,7 @@ import {toast} from 'react-toastify'
 import "./FormularioPalabraPage.scss";
 import MenuLateralComponent from '../../components/MenuLateralComponent/MenuLateralComponent'
 import {db} from '../../firebase'
+import {editWord} from '../../redux/actionCreators'
 
 function mapStateToProps(state){
     return{
@@ -13,14 +14,21 @@ function mapStateToProps(state){
     }
 }
 
+function mapDispatchToProps(dispatch){
+    return{
+        editWord: (idCategoria, idWord, newValues) => dispatch(editWord(idCategoria, idWord, newValues))
+    }
+}
+
 function getPalabra(palabras, idPalabra){
     return palabras.filter(palabra => palabra.idPalabra === idPalabra)
 }
 
-function onClickAceptar(idPalabra, palabra, regresar){
+function onClickAceptar(idPalabra, idCategoria, palabra, regresar, editWord){
     db.collection('palabras').doc(idPalabra).set(palabra, {merge: true})
     .then(() => {
         toast.success('Se ha actualizado correctamente')
+        editWord(idCategoria, idPalabra, palabra)
         regresar()
     })
     .catch((error) => {
@@ -130,7 +138,7 @@ const FormularioPalabraPage = (props) => {
                                     <Input type='text' name="ejemplo2" id="ejemplo2" placeholder="Ingresa un ejemplo" className="my-2" value={palabra.ejemplos[1] ? palabra.ejemplos[1]: null} onChange={onChangeHandler}/>
                                     <Input type='text' name="ejemplo3" id="ejemplo3" placeholder="Ingresa un ejemplo" className="my-2" value={palabra.ejemplos[2] ? palabra.ejemplos[2]: null} onChange={onChangeHandler}/>
                                 </FormGroup>
-                                <Button className='align-self-end' onClick={() => onClickAceptar(idPalabra, palabra, regresar)}>Aceptar</Button>
+                                <Button className='align-self-end' onClick={() => onClickAceptar(idPalabra, idCategoria, palabra, regresar, props.editWord)}>Aceptar</Button>
                          </Col>
                      </Row>
                     </Form>
@@ -140,4 +148,4 @@ const FormularioPalabraPage = (props) => {
     );
 };
 
-export default withRouter(connect(mapStateToProps)(FormularioPalabraPage));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(FormularioPalabraPage));

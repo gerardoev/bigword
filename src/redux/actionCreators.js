@@ -31,3 +31,14 @@ export const deleteWord = (idCategoria, idPalabra) => ({
         idCategoria
     }
 })
+
+export function editWord(idCategoria, idWord, newValues){
+    return {
+        type: ActionTypes.EDIT_WORD,
+        payload: {
+            idCategoria,
+            idWord,
+            newValues
+        }
+    }
+}
