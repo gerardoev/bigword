@@ -4,6 +4,7 @@ import {NavLink, withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import "./FormularioPalabraPage.scss";
 import MenuLateralComponent from '../../components/MenuLateralComponent/MenuLateralComponent'
+import {db} from '../../firebase'
 
 function mapStateToProps(state){
     return{
@@ -13,6 +14,16 @@ function mapStateToProps(state){
 
 function getPalabra(palabras, idPalabra){
     return palabras.filter(palabra => palabra.idPalabra === idPalabra)
+}
+
+function onClickAceptar(idPalabra, palabra){
+    db.collection('palabras').doc(idPalabra).set(palabra, {merge: true})
+    .then(() => {
+        console.log("Document successfully written!");
+    })
+    .catch((error) => {
+        console.error("Error writing document: ", error);
+    });
 }
 
 const FormularioPalabraPage = (props) => {
@@ -25,6 +36,7 @@ const FormularioPalabraPage = (props) => {
         significado: '',
         ejemplos: ['','','']
     })
+    const [idPalabra, setIdPalabra] = useState(props.match.params.idWord)
 
     const onChangeHandler = (e) =>{
         console.log('onChangeHandler')
@@ -66,7 +78,6 @@ const FormularioPalabraPage = (props) => {
     useEffect(() =>{
         const idCategoria = props.match.params.idCategory
         const palabrasUsuario = props.palabras[idCategoria]
-        const idPalabra = props.match.params.idWord
         let palabra = ''
         if(typeof(palabrasUsuario) === 'undefined'){
             console.log('Recuperar de la bd')
@@ -111,7 +122,7 @@ const FormularioPalabraPage = (props) => {
                                     <Input type='text' name="ejemplo2" id="ejemplo2" placeholder="Ingresa un ejemplo" className="my-2" value={palabra.ejemplos[1] ? palabra.ejemplos[1]: null} onChange={onChangeHandler}/>
                                     <Input type='text' name="ejemplo3" id="ejemplo3" placeholder="Ingresa un ejemplo" className="my-2" value={palabra.ejemplos[2] ? palabra.ejemplos[2]: null} onChange={onChangeHandler}/>
                                 </FormGroup>
-                                <Button className='align-self-end'>Aceptar</Button>
+                                <Button className='align-self-end' onClick={() => onClickAceptar(idPalabra, palabra)}>Aceptar</Button>
                          </Col>
                      </Row>
                     </Form>
