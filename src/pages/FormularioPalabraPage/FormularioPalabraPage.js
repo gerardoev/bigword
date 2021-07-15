@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {Form, Row, Col, Input, Label, FormGroup, Button} from "reactstrap";
-import {NavLink, withRouter} from 'react-router-dom'
+import {NavLink, withRouter, useHistory} from 'react-router-dom'
 import {connect} from 'react-redux'
+import {toast} from 'react-toastify'
 import "./FormularioPalabraPage.scss";
 import MenuLateralComponent from '../../components/MenuLateralComponent/MenuLateralComponent'
 import {db} from '../../firebase'
@@ -16,10 +17,11 @@ function getPalabra(palabras, idPalabra){
     return palabras.filter(palabra => palabra.idPalabra === idPalabra)
 }
 
-function onClickAceptar(idPalabra, palabra){
+function onClickAceptar(idPalabra, palabra, regresar){
     db.collection('palabras').doc(idPalabra).set(palabra, {merge: true})
     .then(() => {
-        console.log("Document successfully written!");
+        toast.success('Se ha actualizado correctamente')
+        regresar()
     })
     .catch((error) => {
         console.error("Error writing document: ", error);
@@ -37,6 +39,13 @@ const FormularioPalabraPage = (props) => {
         ejemplos: ['','','']
     })
     const [idPalabra, setIdPalabra] = useState(props.match.params.idWord)
+    const [idCategoria, setIdCategoria] = useState(props.match.params.idCategory)
+    
+    const history = useHistory()
+    
+    const regresar = () =>{
+        history.push(`/categoria/${idCategoria}`)
+    }
 
     const onChangeHandler = (e) =>{
         console.log('onChangeHandler')
@@ -76,7 +85,6 @@ const FormularioPalabraPage = (props) => {
     }
 
     useEffect(() =>{
-        const idCategoria = props.match.params.idCategory
         const palabrasUsuario = props.palabras[idCategoria]
         let palabra = ''
         if(typeof(palabrasUsuario) === 'undefined'){
@@ -122,7 +130,7 @@ const FormularioPalabraPage = (props) => {
                                     <Input type='text' name="ejemplo2" id="ejemplo2" placeholder="Ingresa un ejemplo" className="my-2" value={palabra.ejemplos[1] ? palabra.ejemplos[1]: null} onChange={onChangeHandler}/>
                                     <Input type='text' name="ejemplo3" id="ejemplo3" placeholder="Ingresa un ejemplo" className="my-2" value={palabra.ejemplos[2] ? palabra.ejemplos[2]: null} onChange={onChangeHandler}/>
                                 </FormGroup>
-                                <Button className='align-self-end' onClick={() => onClickAceptar(idPalabra, palabra)}>Aceptar</Button>
+                                <Button className='align-self-end' onClick={() => onClickAceptar(idPalabra, palabra, regresar)}>Aceptar</Button>
                          </Col>
                      </Row>
                     </Form>
