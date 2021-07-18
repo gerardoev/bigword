@@ -5,8 +5,9 @@ import {connect} from 'react-redux'
 import {toast} from 'react-toastify'
 import "./FormularioPalabraPage.scss";
 import MenuLateralComponent from '../../components/MenuLateralComponent/MenuLateralComponent'
-import {db} from '../../firebase'
+import {db, storage} from '../../firebase'
 import {editWord} from '../../redux/actionCreators'
+import {ulid} from 'ulid'
 
 function mapStateToProps(state){
     return{
@@ -24,7 +25,16 @@ function getPalabra(palabras, idPalabra){
     return palabras.filter(palabra => palabra.idPalabra === idPalabra)
 }
 
-function onClickAceptar(idPalabra, idCategoria, palabra, regresar, editWord){
+function onClickAceptar(idPalabra, idCategoria,idUsuario, palabra, regresar, editWord, setPalabra, selectedFile){
+    if(selectedFile != null){
+        const ruta = `images/${idUsuario}/${ulid()}`
+        palabra.image = ruta
+        const refStorage = storage.ref().child(ruta)
+        refStorage.put(selectedFile)
+        .then((snapshot) =>{
+            
+        })
+    }
     db.collection('palabras').doc(idPalabra).set(palabra, {merge: true})
     .then(() => {
         toast.success('Se ha actualizado correctamente')
@@ -48,7 +58,8 @@ const FormularioPalabraPage = (props) => {
     })
     const [idPalabra, setIdPalabra] = useState(props.match.params.idWord)
     const [idCategoria, setIdCategoria] = useState(props.match.params.idCategory)
-    
+    const [selectedFile, setSelectedFile] = useState(null)
+
     const history = useHistory()
     
     const regresar = () =>{
@@ -56,7 +67,6 @@ const FormularioPalabraPage = (props) => {
     }
 
     const onChangeHandler = (e) =>{
-        console.log('onChangeHandler')
         const target = e.target
         const value = target.value
         const name = target.name
@@ -84,7 +94,11 @@ const FormularioPalabraPage = (props) => {
                 'ejemplos': nuevoEjemplos
             })
         }
-        if(name != 'ejemplo1' && name != 'ejemplo2' && name != 'ejemplo3'){
+        if(name === 'file'){
+            setSelectedFile(target.files[0])
+            setUrlImagen(URL.createObjectURL(target.files[0]))
+        }
+        if(name != 'ejemplo1' && name != 'ejemplo2' && name != 'ejemplo3' && name != 'file'){
             setPalabra({
                 ...palabra,
                 [name]: value
@@ -121,7 +135,7 @@ const FormularioPalabraPage = (props) => {
                         <Row>
                             <Col md={6} className='d-flex flex-column align-items-center'>
                                 { urlImagen ? <img className="imagen my-5" src={urlImagen}/> : <div className="imagen my-5"></div>}
-                                <input type="file" className="d-flex form-control" id="customFile"/>
+                                <input type="file" name='file' className="d-flex form-control" id="customFile" onChange={onChangeHandler}/>
                             </Col>
                             <Col md={6} className='d-flex flex-column'>
                                 <FormGroup className='my-5'>
@@ -138,7 +152,7 @@ const FormularioPalabraPage = (props) => {
                                     <Input type='text' name="ejemplo2" id="ejemplo2" placeholder="Ingresa un ejemplo" className="my-2" value={palabra.ejemplos[1] ? palabra.ejemplos[1]: null} onChange={onChangeHandler}/>
                                     <Input type='text' name="ejemplo3" id="ejemplo3" placeholder="Ingresa un ejemplo" className="my-2" value={palabra.ejemplos[2] ? palabra.ejemplos[2]: null} onChange={onChangeHandler}/>
                                 </FormGroup>
-                                <Button className='align-self-end' onClick={() => onClickAceptar(idPalabra, idCategoria, palabra, regresar, props.editWord)}>Aceptar</Button>
+                                <Button className='align-self-end' onClick={() => onClickAceptar(idPalabra, idCategoria,0, palabra, regresar, props.editWord, setPalabra, selectedFile)}>Aceptar</Button>
                          </Col>
                      </Row>
                     </Form>

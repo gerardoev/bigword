@@ -25,6 +25,7 @@
     "reactstrap": "^8.6.0",
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
+    "ulid": "^2.3.0",
     "use-sound": "^2.0.1",
     "video-react": "^0.14.1"
   },
