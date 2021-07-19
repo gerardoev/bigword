@@ -32,7 +32,7 @@ const PalabraCard = ({palabraSeleccionada}) =>{
 }
 
 const mapDispatchToProps = dispatch => ({
-    addWord: (palabra, significado, ejemplos, idCategoria, idPalabra ) => dispatch(addWord(palabra, significado, ejemplos, idCategoria, idPalabra)),
+    addWord: (palabra, significado, ejemplos, idCategoria, idPalabra, image ) => dispatch(addWord(palabra, significado, ejemplos, idCategoria, idPalabra, image)),
     deleteWord: (idCategoria, idPalabra) => dispatch(deleteWord(idCategoria, idPalabra))
 });
 
@@ -41,7 +41,6 @@ const mapStateToProps = state => {
         palabras: state.palabras
     }
 }
-
 
 
 const CategoriaPage = (props) => {
@@ -55,7 +54,8 @@ const CategoriaPage = (props) => {
         palabra: "",
         significado: "",
         ejemplo: "",
-        color: "#b71c1c"
+        color: "#b71c1c",
+        image: ''
     });
 
     useEffect(() => {
@@ -65,7 +65,7 @@ const CategoriaPage = (props) => {
             .then((querySS) => {
                 querySS.forEach((doc) =>{
                     const palabra = doc.data();
-                    props.addWord(palabra.palabra, palabra.significado, palabra.ejemplos, idCategoria, doc.id);
+                    props.addWord(palabra.palabra, palabra.significado, palabra.ejemplos, idCategoria, doc.id, palabra.image);
                 });
             })
             .catch((error) => {
@@ -190,6 +190,7 @@ const CategoriaPage = (props) => {
                             idCategoria={idCategoria}
                             onClick={(event) => onClickPalabra(event,palabra)}
                             onClickDelete={onClickDelete}
+                            image={palabra.image}
                         />
                     );
                 })

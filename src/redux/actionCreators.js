@@ -9,14 +9,15 @@ export const addCategory = (nombreCategoria, color, id) => ({
     }
 })
 
-export const addWord = (palabra, significado, ejemplos, idCategoria, idPalabra) => ({
+export const addWord = (palabra, significado, ejemplos, idCategoria, idPalabra, image) => ({
     type: ActionTypes.ADD_WORD,
     payload: {
         palabra,
         significado,
         ejemplos,
         idCategoria,
-        idPalabra
+        idPalabra,
+        image
     }
 })
 

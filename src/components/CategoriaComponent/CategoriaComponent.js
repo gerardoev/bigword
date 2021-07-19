@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import "./CategoriaComponent.scss";
 import {DeleteIcon} from "../../utils/icons";
+import {storage} from '../../firebase'
 import { Link, NavLink, useHistory } from "react-router-dom";
 
 const CategoriaComponent = ({color, nombre, idCategoria}) => {
@@ -16,9 +17,24 @@ const CategoriaComponent = ({color, nombre, idCategoria}) => {
 
 
 
-export const PalabraComponent = ({color, nombre, idPalabra, idCategoria, onClick, onClickDelete}) => {
+export const PalabraComponent = ({color, nombre, idPalabra, idCategoria, onClick, onClickDelete, image}) => {
     const history = useHistory();
     const handleOnClickEdit = () => history.push(`/edit_word/${idPalabra}/${idCategoria}`)
+    const [Image, setImage] = useState(null)
+
+    useEffect(() => {
+        if(image != null){
+            if(image.length > 0){
+                let pathReference = storage.ref(image);
+                pathReference.getDownloadURL()
+                .then(function(url) {
+                    setImage(url)
+                }).catch(function(error) {
+    
+                });
+            }
+        }
+    },[])
     return (
         <div className="palabra-component abrir-modal" onClick={onClick}>
             <div className="elementos abrir-modal">
@@ -35,9 +51,13 @@ export const PalabraComponent = ({color, nombre, idPalabra, idCategoria, onClick
                         </li>
                     </ul>
                 </nav>
-                <div className="imagen abrir-modal">
-                    <i className="fas fa-camera icons abrir-modal"></i>
-                </div>
+                    {
+                        Image ? <img className='abrir-modal' src={Image}/> 
+                            :
+                        <div className="imagen abrir-modal"> 
+                            <i className="fas fa-camera icons abrir-modal"></i>
+                        </div>
+                    }
                 <div className="nombre abrir-modal">
                     <h1 className="abrir-modal">{nombre}</h1>
                 </div>
