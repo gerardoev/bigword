@@ -55,9 +55,9 @@ const recortarPalabra = (palabra, ejemplo) =>{
 
 function CompletarJuegoComponent(props) {
     const idCategoria = props.match.params.idCategoria;
-    const [play] = useSound(BotonMP3);
-    const [success] = useSound(SuccessMP3);
-    const [incorrecto] = useSound(IncorrectoMP3);
+    const [play] = useSound(BotonMP3, {volume: 0.1});
+    const [success] = useSound(SuccessMP3, {volume: 0.2});
+    const [incorrecto] = useSound(IncorrectoMP3, {volume: 0.1});
     const [respuesta, setRespuesta] = useState();
     const [palabras, setPalabras] = useState([]);
     const [indices, setIndices] = useState([]);

@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import BackgroundMP3 from "../../assets/sounds/background.mp3";
 
 const PlayButton = ({active}) => {
-    const [play, { stop, isPlaying }] = useSound(BackgroundMP3);
+    const [play, { stop, isPlaying }] = useSound(BackgroundMP3, {volume: 0.1});
 
     const onClickPlay = () =>{
         play();
