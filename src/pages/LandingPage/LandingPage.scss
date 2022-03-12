@@ -4,7 +4,45 @@
     width: 100vw;
     height: 100vh;
     background-color: #303F9F;
-    .landingPageFlexContainer{
+    user-select: none;
+    .menu{
+        background-color: #303F9F;
+        position: fixed;
+        z-index: 5;
+        width: 100vw;
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: flex-end;
+            margin-right: 50px;
+            margin-bottom: 5px;
+        }
+          
+        li {
+            float: left;
+        }
+          
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-weight: bolder;
+            font-size: x-large;
+            border-bottom: 5px solid transparent;
+        }
+          
+          /* Change the link color to #111 (black) on hover */
+        li a:hover {
+            border-bottom-color:  #FFC107;
+            cursor: pointer;
+        }
+    }
+    .presentationFlexContainer{
         display: flex;
         width: 100vw;
         height: 100vh;
@@ -38,37 +76,6 @@
         .rightSide{
             flex-direction: column;
             width: 60vw;
-            ul {
-                list-style-type: none;
-                margin: 0;
-                padding: 0;
-                overflow: hidden;
-                display: flex;
-                justify-content: flex-end;
-                margin-right: 50px;
-                margin-bottom: 5px;
-            }
-              
-            li {
-                float: left;
-            }
-              
-            li a {
-                display: block;
-                color: white;
-                text-align: center;
-                padding: 14px 16px;
-                text-decoration: none;
-                font-weight: bolder;
-                font-size: x-large;
-                border-bottom: 5px solid transparent;
-            }
-              
-              /* Change the link color to #111 (black) on hover */
-            li a:hover {
-                border-bottom-color:  #FFC107;
-                cursor: pointer;
-            }
               
             img{
                 height: 80vh;
@@ -76,4 +83,41 @@
             }
         }
     }
+    .descriptionContainer{
+        width: 100vw;
+        height: 100vh;
+        background-color: #f1f1ee;
+        h1{
+            color: #303F9F;
+            font-family: 'Solway';
+            position: relative;
+            top: 150px;
+        }
+        p{
+            position: relative;
+            top: 200px;
+            margin-right: 300px;
+            margin-left: 300px;
+            color: #757575;
+            font-weight: bold;
+        }
+    }
+    .caracteristicasContainer{
+        width: 100vw;
+        height: 100vh;
+        background-color: #f1f1ee;
+        h1{
+            color: #303F9F;
+            font-family: 'Solway';
+            position: relative;
+            top: 150px;
+        }
+    }
+}
+
+.menu-item-selected {
+    border-bottom-color:  #FFC107;
+}
+.menu-item-unselected {
+    border-bottom: 5px solid transparent;
 }
