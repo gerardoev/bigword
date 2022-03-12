@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import './App.scss';
-import HomePage from "./pages/HomePage/HomePage";
+import LandingPage from "./pages/LandingPage";
 import {ToastContainer} from "react-toastify";
 import {isUserLoggedApi} from "./api/auth";
 import Routing from "./routes/Routing";
@@ -41,7 +41,7 @@ function App() {
   return (
     <Provider store={store}>
       <div className="App">
-        {usuario ? <Routing/>: <HomePage setRefreshCheckLogin={setRefreshCheckLogin}/>}
+        {usuario ? <Routing/>:<LandingPage setRefreshLogin={setRefreshCheckLogin}/>}
         <ToastContainer
           position="top-right" 
           autoClose={5000}
