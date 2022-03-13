@@ -14,7 +14,7 @@ const SignInView = (props: SignInViewProps): React.ReactElement => {
         <div className='signInPage'>
             <div className='leftSide'>
                 <Icon onClick={goBackClick}>arrow_back</Icon>
-                <img src={Logo} />
+                <img src={Logo} alt='Bigword'/>
                 <h1>Registrarse</h1>
             </div>
             <div className='rightSide'>

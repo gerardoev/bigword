@@ -24,7 +24,7 @@ const LandingPageView = (props: LandingPageViewProps): React.ReactElement => {
             </div>
             <div className='presentationFlexContainer' id='inicio'>
                 <div className='leftSide'>
-                    <img src={Logo}/>
+                    <img src={Logo} alt={'Bigword'}/>
                     <p>Registro de vocabulario</p>
                     <button onClick={onSignUpClick}>Registrarse</button>
                 </div>
