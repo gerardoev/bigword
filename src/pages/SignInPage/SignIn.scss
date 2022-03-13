@@ -1,0 +1,44 @@
+@import "../../scss/index.scss";
+
+
+.signInPage{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    user-select: none;
+    .leftSide{
+        width: 50vw;
+        height: 100vh;
+        background-color: #303F9F;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+
+        span{
+            color: white;
+            font-weight: bolder;
+            font-size: 42px;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        img{
+            height: 300px;
+            width: 350px;
+        }
+
+        h1{
+           color: white;
+           font-family: 'Solway';
+           font-size: 72px;
+        }
+    }
+    .rightSide{
+        width: 50vw;
+        height: 100vh;
+        background-color: #f1f1ee;
+    }
+    
+}

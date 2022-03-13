@@ -4,6 +4,7 @@ import LandingPage from "./pages/LandingPage";
 import {ToastContainer} from "react-toastify";
 import {isUserLoggedApi} from "./api/auth";
 import Routing from "./routes/Routing";
+import UnsignedRouting from './routes/UnsignedRouting'
 import { ConfigureStore } from "./redux/configureStore";
 import {Provider} from "react-redux";
 import {auth} from "./firebase";
@@ -41,7 +42,7 @@ function App() {
   return (
     <Provider store={store}>
       <div className="App">
-        {usuario ? <Routing/>:<LandingPage setRefreshLogin={setRefreshCheckLogin}/>}
+        {usuario ? <Routing/>:<UnsignedRouting/>}
         <ToastContainer
           position="top-right" 
           autoClose={5000}

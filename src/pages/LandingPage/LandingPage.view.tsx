@@ -16,7 +16,7 @@ const LandingPageView = (props: LandingPageViewProps): React.ReactElement => {
                     <li><a href='#description'>Descripción</a></li>
                     <li><a href='#caracteristicas'>Características</a></li>
                     <li><a>Contacto</a></li>
-                    <li><a>SignIn</a></li>
+                    <li><a href='/signin'>SignIn</a></li>
                 </ul>
             </div>
             <div className='presentationFlexContainer' id='inicio'>
