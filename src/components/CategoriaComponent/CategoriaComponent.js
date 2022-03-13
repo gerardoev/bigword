@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import "./CategoriaComponent.scss";
 import {DeleteIcon} from "../../utils/icons";
 import {storage} from '../../firebase'
-import { Link, NavLink, useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const CategoriaComponent = ({color, nombre, idCategoria}) => {
     return (

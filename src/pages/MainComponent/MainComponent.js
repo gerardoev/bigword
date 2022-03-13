@@ -4,7 +4,6 @@ import MenuLateralComponent  from "../../components/MenuLateralComponent/MenuLat
 import CategoriaComponent from "../../components/CategoriaComponent/CategoriaComponent";
 import BasicModal from "../../components/BasicModalComponent/BasicModal";
 import {FormGroup, Input, Button, Col, Row } from "reactstrap";
-import { withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
 import { addCategory, categoriasLoaded } from "../../redux/actionCreators";
 import { db, auth } from "../../firebase";
@@ -164,7 +163,7 @@ class MainComponent extends Component {
     }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MainComponent));
+export default connect(mapStateToProps, mapDispatchToProps)(MainComponent);
 
 /*
 [

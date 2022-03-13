@@ -2,6 +2,7 @@ import React from 'react';
 import './LandingPage.scss';
 import Logo from "../../assets/images/logo.png";
 import Foto from "../../assets/images/lp_foto.png";
+import { auth } from '../../firebase';
 
 interface LandingPageViewProps {
 
@@ -16,7 +17,7 @@ const LandingPageView = (props: LandingPageViewProps): React.ReactElement => {
                     <li><a href='#description'>Descripción</a></li>
                     <li><a href='#caracteristicas'>Características</a></li>
                     <li><a>Contacto</a></li>
-                    <li><a href='/signin'>SignIn</a></li>
+                    <li onClick={() => auth.signInWithEmailAndPassword('gerardoerick@outlook.com', 'geva1397')}><a>SignIn</a></li>
                 </ul>
             </div>
             <div className='presentationFlexContainer' id='inicio'>

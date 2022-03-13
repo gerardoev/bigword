@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Form, Row, Col, Input, Label, FormGroup, Button} from "reactstrap";
-import {NavLink, withRouter, useHistory} from 'react-router-dom'
+import {NavLink, useHistory, useParams} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {toast} from 'react-toastify'
 import "./FormularioPalabraPage.scss";
@@ -56,8 +56,8 @@ const FormularioPalabraPage = (props) => {
         significado: '',
         ejemplos: ['','','']
     })
-    const [idPalabra, setIdPalabra] = useState(props.match.params.idWord)
-    const [idCategoria, setIdCategoria] = useState(props.match.params.idCategory)
+    const { idWord: idPalabra } = useParams();
+    const { idCategory: idCategoria } = useParams();
     const [selectedFile, setSelectedFile] = useState(null)
 
     const history = useHistory()
@@ -162,4 +162,4 @@ const FormularioPalabraPage = (props) => {
     );
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(FormularioPalabraPage));
+export default connect(mapStateToProps, mapDispatchToProps)(FormularioPalabraPage);

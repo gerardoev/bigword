@@ -1,12 +1,12 @@
 import React from 'react';
 import "./CompletarJuego.scss"
 import {Row, Col} from 'reactstrap'
-import {withRouter,NavLink} from 'react-router-dom'
+import {NavLink, useParams} from 'react-router-dom'
 import CompletarJuegoComponent from "../../components/CompletarJuegoComponent/CompletarJuegoComponent"
 import MenuLateralComponent from "../../components/MenuLateralComponent/MenuLateralComponent"
 
-const CompletarJuego = ({match}) => {
-    const idCategoria = match.params.idCategoria;
+const CompletarJuego = () => {
+    const { idCategoria } = useParams();
     return (
         <div className="Completar-Juego">
             <Row>
@@ -23,4 +23,4 @@ const CompletarJuego = ({match}) => {
     );
 };
 
-export default withRouter(CompletarJuego);
+export default CompletarJuego;

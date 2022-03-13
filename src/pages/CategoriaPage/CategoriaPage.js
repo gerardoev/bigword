@@ -3,7 +3,7 @@ import "./CategoriaPage.scss";
 import {PalabraComponent} from "../../components/CategoriaComponent/CategoriaComponent";
 import  BasicModal from "../../components/BasicModalComponent/BasicModal";
 import ConfirmarComponent from "../../components/ConfirmarComponent/ConfirmarComponent";
-import { withRouter } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {FormGroup, Input, Button, Modal, ModalBody, Col, Row} from "reactstrap";
 import { connect } from "react-redux";
 import { addWord, deleteWord } from "../../redux/actionCreators";
@@ -44,7 +44,7 @@ const mapStateToProps = state => {
 
 
 const CategoriaPage = (props) => {
-    const {idCategoria} = props.match.params;
+    const {idCategoria} = useParams();
     const [palabraSeleccionada, setPalabraSeleccionada] = useState(palabraInitialState());
     const [showModalPalabra, setShowModalPalabra] = useState(false);
     const [showModalNuevaP, setShowModalNuevaP] = useState(false);
@@ -247,4 +247,4 @@ const palabraInitialState = () =>{
     }
 }
 
-export default withRouter(connect(mapStateToProps,mapDispatchToProps)(CategoriaPage));
+export default connect(mapStateToProps,mapDispatchToProps)(CategoriaPage);

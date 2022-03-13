@@ -7,9 +7,15 @@ const UnsignedRouting = () => {
     return (
         <Router>
             <Switch>¿
-                <Route path={'/'} exact={true} component={LandingPage}/>
-                <Route path={'/signin'} exact={true} component={SignIn}/>
-                <Route path={'*'} exact={true} component={LandingPage}/>
+                <Route path={'/'} exact>
+                    <LandingPage setRefreshLogin={() => console.log()}/>
+                </Route>
+                <Route path={'/signin'} exact>
+                    <SignIn setRefreshLogin={() => console.log()}/>
+                </Route>
+                <Route path={'*'} exact>
+                    <LandingPage setRefreshLogin={() => console.log()}/>
+                </Route>
             </Switch>
         </Router>
     );

@@ -7,7 +7,7 @@ import SuccessMP3 from "../../assets/sounds/success.mp3";
 import IncorrectoMP3 from "../../assets/sounds/incorrecto.mp3";
 import useSound from 'use-sound';
 import { connect } from "react-redux";
-import { withRouter } from "react-router";
+import { useParams } from "react-router";
 import { db } from "../../firebase";
 import { addWord } from "../../redux/actionCreators";
 
@@ -54,7 +54,7 @@ const recortarPalabra = (palabra, ejemplo) =>{
 
 
 function CompletarJuegoComponent(props) {
-    const idCategoria = props.match.params.idCategoria;
+    const { idCategoria } = useParams();
     const [play] = useSound(BotonMP3, {volume: 0.1});
     const [success] = useSound(SuccessMP3, {volume: 0.2});
     const [incorrecto] = useSound(IncorrectoMP3, {volume: 0.1});
@@ -215,7 +215,7 @@ const estadoJuegoInicial = (tamArr) =>{
     );
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CompletarJuegoComponent));
+export default connect(mapStateToProps, mapDispatchToProps)(CompletarJuegoComponent);
 
 /*
     
