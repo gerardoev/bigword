@@ -5,10 +5,12 @@ import Foto from "../../assets/images/lp_foto.png";
 import { auth } from '../../firebase';
 
 interface LandingPageViewProps {
-
+    onSignUpClick: () => void;
 }
 
 const LandingPageView = (props: LandingPageViewProps): React.ReactElement => {
+    const { onSignUpClick } = props;
+
     return (
         <div className='landingPage'>
             <div className='menu'>
@@ -24,7 +26,7 @@ const LandingPageView = (props: LandingPageViewProps): React.ReactElement => {
                 <div className='leftSide'>
                     <img src={Logo}/>
                     <p>Registro de vocabulario</p>
-                    <button>Registrarse</button>
+                    <button onClick={onSignUpClick}>Registrarse</button>
                 </div>
                 <div className='rightSide'>
                     <img src={Foto}/>

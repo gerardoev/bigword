@@ -10,7 +10,7 @@ const UnsignedRouting = () => {
                 <Route path={'/'} exact>
                     <LandingPage setRefreshLogin={() => console.log()}/>
                 </Route>
-                <Route path={'/signin'} exact>
+                <Route path={'/signup'} exact>
                     <SignIn setRefreshLogin={() => console.log()}/>
                 </Route>
                 <Route path={'*'} exact>

@@ -1,16 +1,16 @@
 import React from 'react';
 import SignInView from './SignIn.view'
-//import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 interface SignInContainerProps {
     setRefreshLogin: () => void;
 }
 
 const SignIn = (props: SignInContainerProps): React.ReactElement => {
-    //const navigate = useNavigate();
+    const history = useHistory();
 
     return (
-        <SignInView/>
+        <SignInView goBackClick={() => history.push('/')}/>
     )
 }
 
