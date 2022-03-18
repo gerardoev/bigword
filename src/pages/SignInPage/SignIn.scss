@@ -44,6 +44,12 @@
         width: 50vw;
         height: 100vh;
         background-color: #f1f1ee;
+        display: flex;
+        flex-direction: column;
+        padding: 1em;
+
+        .customRow{
+            display: flex;
+        }
     }
-    
 }
