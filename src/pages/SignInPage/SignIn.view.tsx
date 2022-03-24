@@ -8,10 +8,29 @@ interface SignInViewProps {
     goBackClick: () => void;
     onEnviar: () => void;
     handleInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    nombreError: boolean;
+    apellidoError: boolean;
+    emailError: boolean;
+    passwordError: boolean;
+    rpasswordError: boolean;
+    nombreMsg?: string;
+    apellidoMsg?: string;
+    emailMsg?: string;
+    passwordMsg?: string;
+    rpasswordMsg?: string;
 }
 
 const SignInView = (props: SignInViewProps): React.ReactElement => {
-    const { goBackClick, onEnviar, handleInputChange } = props;
+    const { 
+        goBackClick,
+        onEnviar,
+        handleInputChange,
+        nombreError,
+        apellidoError,
+        emailError,
+        passwordError,
+        rpasswordError 
+    } = props;
 
     return (
         <div className='signInPage'>
@@ -22,15 +41,15 @@ const SignInView = (props: SignInViewProps): React.ReactElement => {
             </div>
             <div className='rightSide'>
                 <div className='customRow'>
-                    <Input label={'Nombre'} name={'nombre'} onChange={handleInputChange}/>
-                    <Input label={'Apellido'} name={'apellido'} onChange={handleInputChange}/>
+                    <Input label={'Nombre'} name={'nombre'} onChange={handleInputChange} error={nombreError}/>
+                    <Input label={'Apellido'} name={'apellido'} onChange={handleInputChange} error={apellidoError}/>
                 </div>
                 <div className='customRow'>
-                    <Input label={'Correo'} type={'email'} name={'email'} onChange={handleInputChange}/>
+                    <Input label={'Correo'} type={'email'} name={'email'} onChange={handleInputChange} error={emailError}/>
                 </div>
                 <div className='customRow'>
-                    <Input label={'Contraseña'} type={'password'} name={'password'} onChange={handleInputChange}/>
-                    <Input label={'Repetir contraseña'} type={'password'} name={'rpassword'} onChange={handleInputChange}/>
+                    <Input label={'Contraseña'} type={'password'} name={'password'} onChange={handleInputChange} error={passwordError}/>
+                    <Input label={'Repetir contraseña'} type={'password'} name={'rpassword'} onChange={handleInputChange} error={rpasswordError}/>
                 </div>
                 <div className='customRow' style={{marginTop: '30vh'}}>
                     <ButtonComponent onClick={onEnviar}>
@@ -47,11 +66,13 @@ interface InputProps {
     label : string,
     type? : string,
     name  : string,
+    error?: boolean,
+    errorMsg?: string,
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Input = (props: InputProps): React.ReactElement => {
-    const { label, type, name, onChange } = props;
+    const { label, type, name, onChange, error, errorMsg } = props;
     const inputRef = useRef<HTMLInputElement>(null);
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -69,6 +90,8 @@ const Input = (props: InputProps): React.ReactElement => {
             inputRef={inputRef} 
             onKeyDown={handleKeyDown}
             onChange={onChange}
+            error={error}
+            helperText={errorMsg}
             InputProps={{
                 sx:{
                     backgroundColor: 'white',
