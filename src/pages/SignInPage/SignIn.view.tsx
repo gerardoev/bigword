@@ -2,14 +2,16 @@ import React, {useRef} from 'react';
 import './SignIn.scss';
 import { Icon, TextField } from '@mui/material';
 import Logo from "../../assets/images/logo_icon.png";
-import { width } from '@mui/system';
+import ButtonComponent from '../../components/ButtonComponent'
 
 interface SignInViewProps {
     goBackClick: () => void;
+    onEnviar: () => void;
+    handleInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const SignInView = (props: SignInViewProps): React.ReactElement => {
-    const { goBackClick } = props;
+    const { goBackClick, onEnviar, handleInputChange } = props;
 
     return (
         <div className='signInPage'>
@@ -20,15 +22,20 @@ const SignInView = (props: SignInViewProps): React.ReactElement => {
             </div>
             <div className='rightSide'>
                 <div className='customRow'>
-                    <Input label={'Nombre'}/>
-                    <Input label={'Apellido'}/>
+                    <Input label={'Nombre'} name={'nombre'} onChange={handleInputChange}/>
+                    <Input label={'Apellido'} name={'apellido'} onChange={handleInputChange}/>
                 </div>
                 <div className='customRow'>
-                    <Input label={'Correo'} type={'email'}/>
+                    <Input label={'Correo'} type={'email'} name={'email'} onChange={handleInputChange}/>
                 </div>
                 <div className='customRow'>
-                    <Input label={'Contraseña'} type={'password'}/>
-                    <Input label={'Repetir contraseña'} type={'password'}/>
+                    <Input label={'Contraseña'} type={'password'} name={'password'} onChange={handleInputChange}/>
+                    <Input label={'Repetir contraseña'} type={'password'} name={'rpassword'} onChange={handleInputChange}/>
+                </div>
+                <div className='customRow' style={{marginTop: '30vh'}}>
+                    <ButtonComponent onClick={onEnviar}>
+                        Enviar
+                    </ButtonComponent>
                 </div>
             </div>
         </div>
@@ -39,10 +46,12 @@ const SignInView = (props: SignInViewProps): React.ReactElement => {
 interface InputProps {
     label : string,
     type? : string,
+    name  : string,
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Input = (props: InputProps): React.ReactElement => {
-    const { label, type } = props;
+    const { label, type, name, onChange } = props;
     const inputRef = useRef<HTMLInputElement>(null);
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -58,7 +67,8 @@ const Input = (props: InputProps): React.ReactElement => {
         <TextField
             label={label} 
             inputRef={inputRef} 
-            onKeyDown={handleKeyDown} 
+            onKeyDown={handleKeyDown}
+            onChange={onChange}
             InputProps={{
                 sx:{
                     backgroundColor: 'white',
@@ -69,6 +79,7 @@ const Input = (props: InputProps): React.ReactElement => {
                 margin: '1em'
             }}
             type={type}
+            name={name}
         />
     );
 }
