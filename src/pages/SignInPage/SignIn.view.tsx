@@ -18,6 +18,7 @@ interface SignInViewProps {
     emailMsg?: string;
     passwordMsg?: string;
     rpasswordMsg?: string;
+    enviarLoading: boolean;
 }
 
 const SignInView = (props: SignInViewProps): React.ReactElement => {
@@ -29,7 +30,8 @@ const SignInView = (props: SignInViewProps): React.ReactElement => {
         apellidoError,
         emailError,
         passwordError,
-        rpasswordError 
+        rpasswordError,
+        enviarLoading
     } = props;
 
     return (
@@ -52,7 +54,7 @@ const SignInView = (props: SignInViewProps): React.ReactElement => {
                     <Input label={'Repetir contraseña'} type={'password'} name={'rpassword'} onChange={handleInputChange} error={rpasswordError}/>
                 </div>
                 <div className='customRow' style={{marginTop: '30vh'}}>
-                    <ButtonComponent onClick={onEnviar}>
+                    <ButtonComponent onClick={onEnviar} loadingProp={enviarLoading}>
                         Enviar
                     </ButtonComponent>
                 </div>

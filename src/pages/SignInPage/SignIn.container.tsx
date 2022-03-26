@@ -28,6 +28,7 @@ const SignIn = (props: SignInContainerProps): React.ReactElement => {
     const [nombreError, setNombreError] = useState<boolean>(false)
     const [passwordError, setPasswordError] = useState<boolean>(false)
     const [rpasswordError, setRpasswordError] = useState<boolean>(false)
+    const [enviarLoading, setEnviarLoading] = useState<boolean>(false)
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) =>{
         const name: string = event.target.name;
@@ -132,6 +133,7 @@ const SignIn = (props: SignInContainerProps): React.ReactElement => {
 
         if( vApellido && vNombre && vEmail && vPassword && vRpassword){
             console.log("register");
+            setEnviarLoading(true);
         }
     }
 
@@ -145,6 +147,7 @@ const SignIn = (props: SignInContainerProps): React.ReactElement => {
             nombreError={nombreError}
             passwordError={passwordError}
             rpasswordError={rpasswordError}
+            enviarLoading={enviarLoading}
         />
     )
 }
