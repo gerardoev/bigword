@@ -58,65 +58,87 @@ const SignIn = (props: SignInContainerProps): React.ReactElement => {
         setFormData(c_formD);
     }
 
-    const validateApellido = (apellido: string) => {
+    const validateApellido = (apellido: string): boolean  => {
         const validApellido: RegExp = /^[a-z á-ú]*$/i;
 
         if( apellido.length > 3 && validApellido.test(apellido)){
             setApellidoError(false)
+            return true;
         }else{
             setApellidoError(true)
+            return false;
         }
 
     }
 
-    const validateNombre = (nombre: string) => {
+    const validateNombre = (nombre: string): boolean  => {
         const validName: RegExp = /^[a-z á-ú]*$/i;
 
         if( nombre.length > 3 && validName.test(nombre)){
             setNombreError(false)
+            return true;
         }else{
             setNombreError(true)
+            return false;
         }
 
     }
 
-    const validateEmail = (email: string) => {
+    const validateEmail = (email: string): boolean  => {
         const validEmail: RegExp = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
         if( validEmail.test(email) ){
             setEmailError(false)
+            return true;
         }else{
             setEmailError(true)
+            return false;
         }
 
     }
 
-    const validatePassword = (password: string) => {
+    const validatePassword = (password: string): boolean  => {
         const containsNumbers: RegExp = /\d/;
         const containsLetters: RegExp = /[a-zá-ú]/;
 
         if( password.length >= 6 && containsNumbers.test(password) && containsLetters.test(password) ){
             setPasswordError(false)
+            return true;
         }else{
             setPasswordError(true)
+            return false;
         }
 
     }
 
-    const validateRpassword = (password: string, rpassword: string) => {
+    const validateRpassword = (password: string, rpassword: string): boolean  => {
 
         if( password === rpassword ){
             setRpasswordError(false)
+            return true;
         }else{
             setRpasswordError(true)
+            return false;
         }
 
+    }
+
+    const handleSend = () => {
+        const vApellido = validateApellido(formData.apellido);
+        const vNombre = validateNombre(formData.nombre);
+        const vEmail = validateEmail(formData.correo);
+        const vPassword = validatePassword(formData.password);
+        const vRpassword = validateRpassword(formData.password, formData.rpassword);
+
+        if( vApellido && vNombre && vEmail && vPassword && vRpassword){
+            console.log("register");
+        }
     }
 
     return (
         <SignInView 
             goBackClick={() => history.push('/')} 
-            onEnviar={() => console.log('hola')}
+            onEnviar={handleSend}
             handleInputChange={handleInputChange}
             apellidoError={apellidoError}
             emailError={emailError}
