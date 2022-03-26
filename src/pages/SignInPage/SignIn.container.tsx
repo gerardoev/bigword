@@ -28,6 +28,11 @@ const SignIn = (props: SignInContainerProps): React.ReactElement => {
     const [nombreError, setNombreError] = useState<boolean>(false)
     const [passwordError, setPasswordError] = useState<boolean>(false)
     const [rpasswordError, setRpasswordError] = useState<boolean>(false)
+    const [apellidoMsg, setApellidoMsg] = useState<string>('')
+    const [emailMsg, setEmailMsg] = useState<string>('')
+    const [nombreMsg, setNombreMsg] = useState<string>('')
+    const [passwordMsg, setPasswordMsg] = useState<string>('')
+    const [rpasswordMsg, setRpasswordMsg] = useState<string>('')
     const [enviarLoading, setEnviarLoading] = useState<boolean>(false)
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) =>{
@@ -62,37 +67,49 @@ const SignIn = (props: SignInContainerProps): React.ReactElement => {
     const validateApellido = (apellido: string): boolean  => {
         const validApellido: RegExp = /^[a-z á-ú]*$/i;
 
-        if( apellido.length > 3 && validApellido.test(apellido)){
-            setApellidoError(false)
-            return true;
-        }else{
-            setApellidoError(true)
+        if(apellido.length <= 3){
+            setApellidoError(true);
+            setApellidoMsg('Debe ser mayor a 3 caracteres');
             return false;
         }
-
+        if(!validApellido.test(apellido)){
+            setApellidoError(true);
+            setApellidoMsg('Solo puede contener letras');
+            return false;
+        }
+        setApellidoError(false);
+        setApellidoMsg('');
+        return true
     }
 
     const validateNombre = (nombre: string): boolean  => {
         const validName: RegExp = /^[a-z á-ú]*$/i;
 
-        if( nombre.length > 3 && validName.test(nombre)){
-            setNombreError(false)
-            return true;
-        }else{
-            setNombreError(true)
+        if(nombre.length <= 3){
+            setNombreError(true);
+            setNombreMsg('Debe ser mayor a 3 caracteres');
             return false;
         }
-
+        if(!validName.test(nombre)){
+            setNombreError(true);
+            setNombreMsg('Solo puede contener letras');
+            return false;
+        }
+        setNombreError(false);
+        setNombreMsg('');
+        return true
     }
 
     const validateEmail = (email: string): boolean  => {
         const validEmail: RegExp = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
         if( validEmail.test(email) ){
-            setEmailError(false)
+            setEmailError(false);
+            setEmailMsg('');
             return true;
         }else{
             setEmailError(true)
+            setEmailMsg('Debe ser un email válido');
             return false;
         }
 
@@ -102,23 +119,36 @@ const SignIn = (props: SignInContainerProps): React.ReactElement => {
         const containsNumbers: RegExp = /\d/;
         const containsLetters: RegExp = /[a-zá-ú]/;
 
-        if( password.length >= 6 && containsNumbers.test(password) && containsLetters.test(password) ){
-            setPasswordError(false)
-            return true;
-        }else{
-            setPasswordError(true)
+        if(password.length < 6){
+            setPasswordError(true);
+            setPasswordMsg('Debe ser mayor o igual a 6 caracteres');
             return false;
         }
+        if(!containsNumbers.test(password)){
+            setPasswordError(true);
+            setPasswordMsg('Debe contener números');
+            return false;
+        }   
+        if(!containsLetters.test(password)){;
+            setPasswordMsg('Debe contener letras');
+            setPasswordError(true);
+            return false;
+        }
+        setPasswordError(false);
+        setPasswordMsg('');
+        return  true;
 
     }
 
     const validateRpassword = (password: string, rpassword: string): boolean  => {
 
         if( password === rpassword ){
-            setRpasswordError(false)
+            setRpasswordError(false);
+            setRpasswordMsg('');
             return true;
         }else{
-            setRpasswordError(true)
+            setRpasswordError(true);
+            setRpasswordMsg('Las contraseñas deben coincidir');
             return false;
         }
 
@@ -148,6 +178,11 @@ const SignIn = (props: SignInContainerProps): React.ReactElement => {
             passwordError={passwordError}
             rpasswordError={rpasswordError}
             enviarLoading={enviarLoading}
+            apellidoMsg={apellidoMsg}
+            nombreMsg={nombreMsg}
+            emailMsg={emailMsg}
+            passwordMsg={passwordMsg}
+            rpasswordMsg={rpasswordMsg}
         />
     )
 }

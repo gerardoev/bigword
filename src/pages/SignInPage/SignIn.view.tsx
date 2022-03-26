@@ -31,7 +31,12 @@ const SignInView = (props: SignInViewProps): React.ReactElement => {
         emailError,
         passwordError,
         rpasswordError,
-        enviarLoading
+        enviarLoading,
+        nombreMsg,
+        apellidoMsg,
+        emailMsg,
+        passwordMsg,
+        rpasswordMsg
     } = props;
 
     return (
@@ -43,15 +48,15 @@ const SignInView = (props: SignInViewProps): React.ReactElement => {
             </div>
             <div className='rightSide'>
                 <div className='customRow'>
-                    <Input label={'Nombre'} name={'nombre'} onChange={handleInputChange} error={nombreError}/>
-                    <Input label={'Apellido'} name={'apellido'} onChange={handleInputChange} error={apellidoError}/>
+                    <Input label={'Nombre'} name={'nombre'} onChange={handleInputChange} error={nombreError} errorMsg={nombreMsg}/>
+                    <Input label={'Apellido'} name={'apellido'} onChange={handleInputChange} error={apellidoError} errorMsg={apellidoMsg}/>
                 </div>
                 <div className='customRow'>
-                    <Input label={'Correo'} type={'email'} name={'email'} onChange={handleInputChange} error={emailError}/>
+                    <Input label={'Correo'} type={'email'} name={'email'} onChange={handleInputChange} error={emailError} errorMsg={emailMsg}/>
                 </div>
                 <div className='customRow'>
-                    <Input label={'Contraseña'} type={'password'} name={'password'} onChange={handleInputChange} error={passwordError}/>
-                    <Input label={'Repetir contraseña'} type={'password'} name={'rpassword'} onChange={handleInputChange} error={rpasswordError}/>
+                    <Input label={'Contraseña'} type={'password'} name={'password'} onChange={handleInputChange} error={passwordError} errorMsg={passwordMsg}/>
+                    <Input label={'Repetir contraseña'} type={'password'} name={'rpassword'} onChange={handleInputChange} error={rpasswordError} errorMsg={rpasswordMsg}/>
                 </div>
                 <div className='customRow' style={{marginTop: '30vh'}}>
                     <ButtonComponent onClick={onEnviar} loadingProp={enviarLoading}>
