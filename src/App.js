@@ -8,6 +8,7 @@ import UnsignedRouting from './routes/UnsignedRouting'
 import { ConfigureStore } from "./redux/configureStore";
 import {Provider} from "react-redux";
 import {auth} from "./firebase";
+import { useHistory } from 'react-router-dom';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
         //var uid = user.uid;
+        
         setUsuario(user);
         setLoadUser(true);
         // ...

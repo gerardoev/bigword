@@ -1,20 +1,27 @@
 import {API_HOST, TOKEN} from "../utils/constants";
-import jwtDecode from "jwt-decode";
+//import jwtDecode from "jwt-decode";
 import {auth} from "../firebase";
 
-export const signUpFireBase = async (email, password) => {
+export const signUp = async (email: string, password: string) => {
     return await auth.createUserWithEmailAndPassword(email,password)
-            .then((user) => {
-                return user;
+            .then((userCredential) => {
+                console.log(userCredential)
+                return userCredential;
             })
             .catch((error) => {
+                console.log(error)
                 var errorCode = error.code;
                 var errorMessage = error.message;
-                return `Error ${errorCode}: ${errorMessage}`;
+                switch(errorCode){
+                    case 'auth/email-already-in-use':
+                        errorMessage = 'El correo ya existe';
+                        break;
+                }
+                return  Promise.reject(`Error:  ${errorMessage}`);
             });
 }
 
-export function signInApi(user){
+export function signInApi(user: any){
     const url = `${API_HOST}/login`;
 
     //arreglos a los datos del usuario previo a enviarlos al servidor
@@ -47,7 +54,7 @@ export function signInApi(user){
     })
 }
 
-export function setTokenApi(token){
+export function setTokenApi(token: any){
     localStorage.setItem(TOKEN,token);
 }
 
@@ -62,28 +69,28 @@ export function logoutApi(){
 }
 
 
-export function isUserLoggedApi(){
-    const token = getTokenApi();
+// export function isUserLoggedApi(){
+//     const token = getTokenApi();
 
-    if(!token){ //Si no existe el token
-        logoutApi(); //por si acaso está dañado
-        return null;
-    }
-    //comprobar si el token ha caducado
-    if(isExpired(token)){
-        logoutApi();
-    }
-    return jwtDecode(token);
-}
+//     if(!token){ //Si no existe el token
+//         logoutApi(); //por si acaso está dañado
+//         return null;
+//     }
+//     //comprobar si el token ha caducado
+//     if(isExpired(token)){
+//         logoutApi();
+//     }
+//     return jwtDecode(token);
+// }
 
-function isExpired(token){
-    //Decodificamos el token (verlo en un navegador y obtener las variables que se desean, en este caso exp)
-    const {exp}  = jwtDecode(token);
-    const expire = exp * 1000;
-    const timeout = expire - Date.now();
+// function isExpired(token: any){
+//     //Decodificamos el token (verlo en un navegador y obtener las variables que se desean, en este caso exp)
+//     const {exp}  = jwtDecode(token);
+//     const expire = exp * 1000;
+//     const timeout = expire - Date.now();
 
-    if(timeout < 0){
-        return true;
-    }
-    return false;
-}
+//     if(timeout < 0){
+//         return true;
+//     }
+//     return false;
+// }

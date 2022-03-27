@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import SignUpView from './SignUp.view'
 import { useHistory } from "react-router-dom";
+import { signUp } from '../../api/auth';
+import { toast } from 'react-toastify';
 
 interface SignUpContainerProps {
     setRefreshLogin: () => void;
@@ -154,7 +156,7 @@ const SignUp = (props: SignUpContainerProps): React.ReactElement => {
 
     }
 
-    const handleSend = () => {
+    const handleSend = async () => {
         const vApellido = validateApellido(formData.apellido);
         const vNombre = validateNombre(formData.nombre);
         const vEmail = validateEmail(formData.correo);
@@ -162,8 +164,14 @@ const SignUp = (props: SignUpContainerProps): React.ReactElement => {
         const vRpassword = validateRpassword(formData.password, formData.rpassword);
 
         if( vApellido && vNombre && vEmail && vPassword && vRpassword){
-            console.log("register");
             setEnviarLoading(true);
+            await signUp(formData.correo, formData.password)
+            .then(() => {
+                toast.success('Se ha creado la cuenta exitosamente')
+            }).catch((error) => {
+                toast.error(error);
+                setEnviarLoading(false);
+            })
         }
     }
 
