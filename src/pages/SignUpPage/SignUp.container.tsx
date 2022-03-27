@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import SignInView from './SignIn.view'
+import SignUpView from './SignUp.view'
 import { useHistory } from "react-router-dom";
 
-interface SignInContainerProps {
+interface SignUpContainerProps {
     setRefreshLogin: () => void;
 }
 
@@ -14,7 +14,7 @@ type FormDataType = {
     rpassword: string,
 }
 
-const SignIn = (props: SignInContainerProps): React.ReactElement => {
+const SignUp = (props: SignUpContainerProps): React.ReactElement => {
     const history = useHistory();
     const [formData, setFormData] = useState<FormDataType>({
         nombre: '',
@@ -168,7 +168,7 @@ const SignIn = (props: SignInContainerProps): React.ReactElement => {
     }
 
     return (
-        <SignInView 
+        <SignUpView 
             goBackClick={() => history.push('/')} 
             onEnviar={handleSend}
             handleInputChange={handleInputChange}
@@ -187,4 +187,4 @@ const SignIn = (props: SignInContainerProps): React.ReactElement => {
     )
 }
 
-export default SignIn
+export default SignUp

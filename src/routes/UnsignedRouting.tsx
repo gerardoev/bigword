@@ -1,7 +1,7 @@
 import React from 'react';
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import LandingPage from '../pages/LandingPage';
-import SignIn from '../pages/SignInPage';
+import SignUp from '../pages/SignUpPage';
 
 const UnsignedRouting = () => {
     return (
@@ -11,7 +11,7 @@ const UnsignedRouting = () => {
                     <LandingPage setRefreshLogin={() => console.log()}/>
                 </Route>
                 <Route path={'/signup'} exact>
-                    <SignIn setRefreshLogin={() => console.log()}/>
+                    <SignUp setRefreshLogin={() => console.log()}/>
                 </Route>
                 <Route path={'*'} exact>
                     <LandingPage setRefreshLogin={() => console.log()}/>

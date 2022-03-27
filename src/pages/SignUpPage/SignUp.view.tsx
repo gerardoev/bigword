@@ -1,10 +1,10 @@
 import React, {useRef} from 'react';
-import './SignIn.scss';
+import './SignUp.scss';
 import { Icon, TextField } from '@mui/material';
 import Logo from "../../assets/images/logo_icon.png";
 import ButtonComponent from '../../components/ButtonComponent'
 
-interface SignInViewProps {
+interface SignUpViewProps {
     goBackClick: () => void;
     onEnviar: () => void;
     handleInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -21,7 +21,7 @@ interface SignInViewProps {
     enviarLoading: boolean;
 }
 
-const SignInView = (props: SignInViewProps): React.ReactElement => {
+const SignUpView = (props: SignUpViewProps): React.ReactElement => {
     const { 
         goBackClick,
         onEnviar,
@@ -40,7 +40,7 @@ const SignInView = (props: SignInViewProps): React.ReactElement => {
     } = props;
 
     return (
-        <div className='signInPage'>
+        <div className='signUpPage'>
             <div className='leftSide'>
                 <Icon onClick={goBackClick}>arrow_back</Icon>
                 <img src={Logo} alt='Bigword'/>
@@ -114,4 +114,4 @@ const Input = (props: InputProps): React.ReactElement => {
     );
 }
 
-export default SignInView
+export default SignUpView
