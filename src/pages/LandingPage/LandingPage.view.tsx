@@ -41,7 +41,12 @@ const LandingPageView = (props: LandingPageViewProps): React.ReactElement => {
             <div className='descriptionContainer' id='description'>
                 <img src={Figure1} alt='Figure1' id='fig1'/>
                 <h1>Descripción</h1>
-                <p>it is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+                <p>
+                    Bigword es una aplicación que te permitirá llevar un registro de las palabras que vayas aprendiendo, permitiéndote además,
+                    añadirle más información como: una imagen que te ayude a recordarla, un ejemplo que te de el contexto, y el significado.
+                    Toda esta información extra te será muy útil para repasar tus palabras todos los días. Además incluye juegos que se genern
+                    automáticamente con tus palabras para que te facilite el aprendizaje de estas.
+                </p>
                 <img src={Figure2} alt='Figure2' id='fig2'/>
             </div>
             <div className='caracteristicasContainer' id='caracteristicas'>
@@ -49,18 +54,18 @@ const LandingPageView = (props: LandingPageViewProps): React.ReactElement => {
                 <div className='columnsContainer'>
                     <div className='descColumn'>
                         <img src={Figure3} alt='Figure3' id='fig3'/>
-                        <h1>Desc1</h1>
-                        <p>Esta es la descripción número: 1</p>
+                        <h1>Flexible</h1>
+                        <p>No está enfocado a un solo idioma, puedes aprender palabras en tu idioma nativo o cualquier idioma que estés aprendiendo</p>
                     </div>
                     <div className='descColumn'>
                         <img src={Figure4} alt='Figure4' id='fig4'/>
-                        <h1>Desc2</h1>
-                        <p>Esta es la descripción número: 2</p>
+                        <h1>Juegos</h1>
+                        <p>Contiene juegos que te ayudarán a acelerar tu aprendizaje</p>
                     </div>
                     <div className='descColumn'>
                         <img src={Figure5} alt='Figure5' id='fig5'/>
-                        <h1>Desc3</h1>
-                        <p>Esta es la descripción número: 3</p>
+                        <h1>Fácil de usar</h1>
+                        <p>La aplicación es muy simple y está pensada para que sólo te enfoques en su objetivo</p>
                     </div>
                 </div>
             </div>
@@ -73,7 +78,7 @@ const LandingPageView = (props: LandingPageViewProps): React.ReactElement => {
                     <h4>Email</h4>
                     <p>gerardoerick@outlook.com</p>
                     <h4>Linkedin</h4>
-                    <p>linkedin.com/123456</p>
+                    <p>linkedin.com/in/gerardoerickv</p>
                     <h4>Teléfono</h4>
                     <p>+52 (231) 322 28 80</p>
                 </div>
