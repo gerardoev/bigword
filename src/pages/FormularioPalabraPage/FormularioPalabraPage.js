@@ -110,7 +110,6 @@ const FormularioPalabraPage = (props) => {
         const palabrasUsuario = props.palabras[idCategoria]
         let palabra = ''
         if(typeof(palabrasUsuario) === 'undefined'){
-            console.log('Recuperar de la bd')
             palabra = {
                 palabra: 'dbword',
                 significado: 'example',

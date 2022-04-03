@@ -12,10 +12,11 @@ import { auth } from '../../firebase';
 
 interface LandingPageViewProps {
     onSignUpClick: () => void;
+    onSignInClick: () => void;
 }
 
 const LandingPageView = (props: LandingPageViewProps): React.ReactElement => {
-    const { onSignUpClick } = props;
+    const { onSignUpClick, onSignInClick } = props;
 
     return (
         <div className='landingPage'>
@@ -25,7 +26,7 @@ const LandingPageView = (props: LandingPageViewProps): React.ReactElement => {
                     <li><a href='#description'>Descripción</a></li>
                     <li><a href='#caracteristicas'>Características</a></li>
                     <li><a href='#contacto'>Contacto</a></li>
-                    <li onClick={() => auth.signInWithEmailAndPassword('gerardoerick@outlook.com', 'geva1397')}><a>SignIn</a></li>
+                    <li onClick={onSignInClick}><a>SignIn</a></li>
                 </ul>
             </div>
             <div className='presentationFlexContainer' id='inicio'>

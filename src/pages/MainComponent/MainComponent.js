@@ -112,7 +112,6 @@ class MainComponent extends Component {
             db.collection("categorias").add(categoria)
             .then((docRef) =>{
                 this.props.addCategory(categoria.nombreCategoria, "#b71c1c", docRef.id);
-                console.log("Categoria añadida correctamente");
             })
             .catch((error) =>{
                 console.log("Error al añadir la categoria:", error);

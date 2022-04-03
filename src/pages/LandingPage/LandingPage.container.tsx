@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom';
 import LandingPageView from './LandingPage.view'
 
 interface LandingPageProps {
-    setRefreshLogin: () => void;
 }
 
 const LandingPage = (props: LandingPageProps): React.ReactElement => {
@@ -13,8 +12,12 @@ const LandingPage = (props: LandingPageProps): React.ReactElement => {
         history.push('/signup')
     }
 
+    const  onSignInClick = () => {
+        history.push('/signin')
+    }
+
     return (
-        <LandingPageView onSignUpClick={onSignUpClick}/>
+        <LandingPageView onSignUpClick={onSignUpClick} onSignInClick={onSignInClick}/>
     )
 }
 

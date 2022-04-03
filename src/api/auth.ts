@@ -5,11 +5,9 @@ import {auth} from "../firebase";
 export const signUp = async (email: string, password: string) => {
     return await auth.createUserWithEmailAndPassword(email,password)
             .then((userCredential) => {
-                console.log(userCredential)
                 return userCredential;
             })
             .catch((error) => {
-                console.log(error)
                 var errorCode = error.code;
                 var errorMessage = error.message;
                 switch(errorCode){
@@ -21,38 +19,50 @@ export const signUp = async (email: string, password: string) => {
             });
 }
 
-export function signInApi(user: any){
-    const url = `${API_HOST}/login`;
-
-    //arreglos a los datos del usuario previo a enviarlos al servidor
-    const userTemp = user;
-    const data = {
-        ...userTemp,
-        email: user.email.toLowerCase()
-    };
-
-    //datos requeridos en la perición
-    const params = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-    };
-
-    return fetch(url, params).then(response =>{
-        if(response.status >= 200 && response.status < 300){
-            return response.json();
-        }
-        return {message: "Usuario o contraseña incorrectos"};
+export const signIn = async (email: string, password: string) => {
+    return await auth.signInWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+        // Signed in
+        return userCredential.user;
+        // ...
     })
-    .then(result =>{
-        return result
-    })
-    .catch(err => {
-        return err;
-    })
+    .catch((error) => {
+        return Promise.reject(error.message)
+    });
 }
+
+// export function signInApi(user: any){
+//     const url = `${API_HOST}/login`;
+
+//     //arreglos a los datos del usuario previo a enviarlos al servidor
+//     const userTemp = user;
+//     const data = {
+//         ...userTemp,
+//         email: user.email.toLowerCase()
+//     };
+
+//     //datos requeridos en la perición
+//     const params = {
+//         method: "POST",
+//         headers: {
+//             "Content-Type": "application/json"
+//         },
+//         body: JSON.stringify(data)
+//     };
+
+//     return fetch(url, params).then(response =>{
+//         if(response.status >= 200 && response.status < 300){
+//             return response.json();
+//         }
+//         return {message: "Usuario o contraseña incorrectos"};
+//     })
+//     .then(result =>{
+//         return result
+//     })
+//     .catch(err => {
+//         return err;
+//     })
+// }
 
 export function setTokenApi(token: any){
     localStorage.setItem(TOKEN,token);

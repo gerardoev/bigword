@@ -129,7 +129,6 @@ const CategoriaPage = (props) => {
         db.collection("palabras").doc(palabraSeleccionada).delete()
         .then(() =>{
             props.deleteWord(idCategoria, palabraSeleccionada);
-            console.log("Palabra eliminada");
         })
         .catch(error => {
             console.log("No se ha eliminado la palabra:"+error);
@@ -146,7 +145,6 @@ const CategoriaPage = (props) => {
         delete palabra_copy.ejemplo;
         db.collection("palabras").add(palabra_copy)
         .then((docRef) =>{
-            console.log("se ha ejecutado agregar palabra");
             props.addWord(palabra_copy.palabra,palabra_copy.significado, palabra_copy.ejemplos,idCategoria, docRef.id);
         })
         .catch((error) =>{

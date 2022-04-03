@@ -5,7 +5,6 @@ import { signUp } from '../../api/auth';
 import { toast } from 'react-toastify';
 
 interface SignUpContainerProps {
-    setRefreshLogin: () => void;
 }
 
 type FormDataType = {

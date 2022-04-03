@@ -146,7 +146,6 @@ class HomePage extends Component {
                 email: "",
                 password: ""
             },
-            setRefreshCheckLogin: props.setRefreshCheckLogin,
         };
         this.toggleModalSignIn = this.toggleModalSignIn.bind(this);
         this.toggleModalSignUp = this.toggleModalSignUp.bind(this);
@@ -182,7 +181,6 @@ class HomePage extends Component {
             .catch((error) => {
                 toast.warning(error);
             });
-        console.log("Modal cerrado");
         this.setState({
             ...this.state,
             registro: {
@@ -214,7 +212,6 @@ class HomePage extends Component {
             // Signed in
             toast.success("Inicio de sesión exitoso");
             var user = userCredential.user;
-            this.state.setRefreshCheckLogin(true);
             // ...
         })
         .catch((error) => {

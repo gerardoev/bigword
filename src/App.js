@@ -8,13 +8,11 @@ import UnsignedRouting from './routes/UnsignedRouting'
 import { ConfigureStore } from "./redux/configureStore";
 import {Provider} from "react-redux";
 import {auth} from "./firebase";
-import { useHistory } from 'react-router-dom';
 
 
 function App() {
   const [usuario, setUsuario] = useState(false);
   const [loadUser, setLoadUser] = useState(false);
-  const [refreshCheckLogin, setRefreshCheckLogin] = useState(false);
   const store = ConfigureStore();
 
   useEffect(() => {
@@ -31,7 +29,6 @@ function App() {
         // User is signed out
         setUsuario();
         setLoadUser(true);
-        console.log("sin sesión");
         // ...
       }
     });
